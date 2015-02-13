@@ -115,6 +115,7 @@ except:
 import random
 try:
     while True:
+        toc = 0
         tic = time.time()
         MX_threads = []
         x = random.randint( 1, 9999 )
@@ -125,9 +126,11 @@ try:
             i += 1
         for MX_thread in MX_threads:
             MX_thread.join()
-        time.sleep( 1 )
         toc = time.time()
-        print "Temps écoulé : %1.1f s" % ( toc-tic )
+        print "Temps écoulé (Affichage de nombres aléatoires) : %1.6f s" % ( toc-tic )
+        while( toc - tic < 1 ):
+            toc = time.time()
+        print "Temps écoulé (Affichage de nombres aléatoires) : %1.6f s" % ( toc-tic )
 except KeyboardInterrupt:
     pass
 
@@ -139,6 +142,7 @@ except KeyboardInterrupt:
 try:
     while True:
         for x in xrange( 1, 9999 ):
+            toc = 0
             tic = time.time()
             MX_threads = []
             i = 0
@@ -148,9 +152,11 @@ try:
                 i += 1
             for MX_thread in MX_threads:
                 MX_thread.join()
-            time.sleep( 1 )
             toc = time.time()
-            print "Temps écoulé : %1.1f s" % ( toc-tic )
+            print "Temps écoulé (Affichage de nombres consécutifs) : %1.6f s" % ( toc-tic )
+            while( toc - tic < 1 ):
+                toc = time.time()
+            print "Temps écoulé (Affichage de nombres consécutifs) : %1.6f s" % ( toc-tic )
 except KeyboardInterrupt:
     pass
 
@@ -161,7 +167,6 @@ except KeyboardInterrupt:
 # Afichage de nombres consécutifs
 try:
     x = 7531
-    tic = time.time()
     MX_threads = []
     i = 0
     for matrix_SERIAL in matrix_SERIALs:
@@ -170,9 +175,6 @@ try:
         i += 1
     for MX_thread in MX_threads:
         MX_thread.join()
-    time.sleep( 1 )
-    toc = time.time()
-    print "Temps écoulé : %1.1f s" % ( toc-tic )
 except KeyboardInterrupt:
     pass
 
