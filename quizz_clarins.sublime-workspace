@@ -1,0 +1,851 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"L1",
+				"L1Toggle"
+			],
+			[
+				"pre",
+				"prevRX1Read"
+			],
+			[
+				"L",
+				"L0Toggle"
+			],
+			[
+				"b",
+				"boutonRead"
+			],
+			[
+				"TX",
+				"TXToggle"
+			],
+			[
+				"digit",
+				"digitalWrite	Arduino digitalWrite"
+			],
+			[
+				"L13",
+				"L13Toggle"
+			],
+			[
+				"L0",
+				"L0Toggle"
+			],
+			[
+				"w",
+				"write"
+			],
+			[
+				"de",
+				"debug"
+			],
+			[
+				"inc",
+				"include"
+			],
+			[
+				"bit",
+				"bitSet"
+			],
+			[
+				"PA",
+				"PATH2"
+			],
+			[
+				"digi",
+				"digitalWrite	Arduino digitalWrite"
+			],
+			[
+				"L2",
+				"L2Clear"
+			],
+			[
+				"ba",
+				"background-image"
+			],
+			[
+				"pin",
+				"pinMode	Arduino pinMode"
+			],
+			[
+				"im",
+				"img	Tag"
+			],
+			[
+				"couleur",
+				"couleurJ"
+			],
+			[
+				"di",
+				"digitalRead	Arduino digitalRead"
+			],
+			[
+				"dig",
+				"digitalWrite	Arduino digitalWrite"
+			],
+			[
+				"bou",
+				"boutonPin"
+			],
+			[
+				"ma",
+				"margin-bottom"
+			],
+			[
+				"margin",
+				"margin-left"
+			],
+			[
+				"fon",
+				"font-family"
+			],
+			[
+				"te",
+				"text-align"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 92.0,
+		"selected_items":
+		[
+			[
+				"wrap",
+				"Word Wrap: Toggle"
+			],
+			[
+				"ino",
+				"Set Syntax: Arduino"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"packa",
+				"Package Control: Remove Package"
+			],
+			[
+				"list",
+				"Package Control: List Packages"
+			],
+			[
+				"package",
+				"Package Control: Remove Package"
+			],
+			[
+				"pyth",
+				"Set Syntax: Python"
+			],
+			[
+				"mar",
+				"Set Syntax: MultiMarkdown"
+			],
+			[
+				"",
+				"About"
+			],
+			[
+				"liqui",
+				"Set Syntax: HTML (Liquid)"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"Markmon",
+				"Markmon launch"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"wra",
+				"Word Wrap: Toggle"
+			],
+			[
+				"mult",
+				"Set Syntax: MultiMarkdown"
+			],
+			[
+				"mini",
+				"View: Toggle Minimap"
+			]
+		],
+		"width": 593.0
+	},
+	"console":
+	{
+		"height": 174.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '2deb499853c4371624f5a07e27c334aa' + 'bf8c4e67d14fb0525ba4f89698a6d7e1'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/nico/Documents/projets/quizz_clarins",
+		"/Users/nico/Documents/projets/quizz_clarins/code",
+		"/Users/nico/Documents/projets/quizz_clarins/code/RF433",
+		"/Users/nico/Documents/projets/quizz_clarins/code/RF433/manchester_test_3",
+		"/Users/nico/Documents/projets/quizz_clarins/code/RF433/manchester_test_3/manchester_test_3_rx",
+		"/Users/nico/Documents/projets/quizz_clarins/code/RF433/manchester_test_3/manchester_test_3_tx",
+		"/Users/nico/Documents/projets/quizz_clarins/code/RF433/manchester_test_5",
+		"/Users/nico/Documents/projets/quizz_clarins/code/RF433/manchester_test_5/manchester_test_5_rx",
+		"/Users/nico/Documents/projets/quizz_clarins/code/RF433/manchester_test_5/manchester_test_5_tx",
+		"/Users/nico/Documents/projets/quizz_clarins/code/RGBLEDMatrix",
+		"/Users/nico/Documents/projets/quizz_clarins/code/RGBLEDMatrix/quiztest_16x32",
+		"/Users/nico/Documents/projets/quizz_clarins/code/RGBLEDMatrix/quiztest_32x32",
+		"/Users/nico/Documents/projets/quizz_clarins/materiel",
+		"/Users/nico/Documents/Arduino/libraries",
+		"/Users/nico/Documents/Arduino/libraries/Manchester"
+	],
+	"file_history":
+	[
+		"/Volumes/Home Directory/Documents/test_RS232/test_RS232.py",
+		"/Users/nico/Documents/osx/aide-memoire_bash.txt",
+		"/Volumes/Home Directory/.bash_profile",
+		"/Users/nico/.bash_history",
+		"/Users/nico/Documents/programmation/RaspberryPi/mise_en_route.md",
+		"/Users/nico/Documents/projets/quizz_clarins/code/RS232/RS232_test_1/RS232_test_1_TX/RS232_test_1_TX.ino",
+		"/Volumes/Home Directory/Documents/test_gpio/test_gpio.py",
+		"/Volumes/Home Directory/Documents/test_i2c/test_i2c.py",
+		"/Users/nico/Documents/projets/quizz_clarins/code/RGBLEDMatrix/quiztest_16x32/quiztest_16x32.ino",
+		"/Users/nico/Documents/projets/quizz_clarins/code/RGBLEDMatrix/quiztest_32x32/quiztest_32x32.ino",
+		"/Volumes/Home Directory/Documents/test_RS232/list_ports.py",
+		"/Users/nico/Documents/projets/quizz_clarins/code/RS232/RS232_test_1/RS232_test_1_RX/RS232_test_1_RX.ino",
+		"/Users/nico/.bash_profile",
+		"/Users/nico/Documents/mes_livres/tools/clean_pdf_export.py",
+		"/Users/nico/Documents/projets/quizz_clarins/code/RF433/manchester_test_3/manchester_test_3_tx/manchester_test_3_tx.ino",
+		"/Users/nico/Documents/projets/quizz_clarins/code/tests/blink_minimal/blink_minimal.ino",
+		"/Users/nico/Desktop/usb_dev.txt",
+		"/tmp/tmp.3274.29",
+		"/Users/nico/Documents/projets/quizz_clarins/code/RF433/NinjaBlocks_433Utils/Arduino_sketches/Send_Demo/Send_Demo.ino",
+		"/Users/nico/Documents/projets/quizz_clarins/code/RF433/NinjaBlocks_433Utils/Arduino_sketches/RF_Sniffer/RF_Sniffer.ino",
+		"/Users/nico/Documents/projets/quizz_clarins/code/RF433/manchester_test_4/manchester_test_4_rx/manchester_test_4_rx.ino",
+		"/Users/nico/Documents/projets/quizz_clarins/code/RF433/manchester_test_4/manchester_test_4_tx/manchester_test_4_tx.ino",
+		"/Users/nico/Documents/Arduino/libraries/Manchester/Manchester.cpp",
+		"/Users/nico/Documents/projets/quizz_clarins/code/RF433/manchester_test_5/manchester_test_5_rx/manchester_test_5_rx.ino",
+		"/Users/nico/Documents/projets/quizz_clarins/code/RF433/manchester_test_5/manchester_test_5_tx/manchester_test_5_tx.ino",
+		"/Users/nico/Downloads/TransmisorAPTO/Sources/ProcessorExpert.c",
+		"/Users/nico/Documents/projets/quizz_clarins/code/RF433/NinjaBlocks_433Utils/Arduino_sketches/Sanity Checks/Sender/Sender.ino",
+		"/Users/nico/Documents/projets/quizz_clarins/code/RF433/NinjaBlocks_433Utils/Arduino_sketches/Servo_Receive_Demo/Servo_Receive_Demo.ino",
+		"/Users/nico/Documents/projets/quizz_clarins/code/RF433/NinjaBlocks_433Utils/RPi_utils/RCSwitch.h",
+		"/Users/nico/Documents/projets/quizz_clarins/code/RF433/NinjaBlocks_433Utils/RPi_utils/RCSwitch.cpp",
+		"/Users/nico/Documents/projets/quizz_clarins/code/RF433/NinjaBlocks_433Utils/RPi_utils/RFSniffer.cpp",
+		"/Users/nico/Documents/projets/quizz_clarins/code/RF433/NinjaBlocks_433Utils/Arduino_sketches/Sanity Checks/Receiver/Receiver.ino",
+		"/Users/nico/Documents/projets/quizz_clarins/code/RF433/NinjaBlocks_433Utils/Arduino_sketches/Sanity Checks/README.md",
+		"/Users/nico/Documents/programmation/Arduino/melodie_pyr/melodie_pyr.ino",
+		"/Users/nico/Documents/Arduino/libraries/RGBLEDMatrix/RGBmatrixPanel.cpp",
+		"/Users/nico/Documents/projets/quizz_clarins/code/tests/avr-objdump/avr-objdump.sh",
+		"/Users/nico/Documents/projets/quizz_clarins/code/tests/avr-objdump/empty.c",
+		"/Users/nico/Documents/projets/quizz_clarins/code/tests/avr-objdump/bin2.c",
+		"/Users/nico/Documents/projets/quizz_clarins/code/tests/avr-objdump/shift2.c",
+		"/Users/nico/Documents/projets/quizz_clarins/code/tests/avr-objdump/shift.c",
+		"/Users/nico/Documents/projets/quizz_clarins/code/tests/avr-objdump/bin.c",
+		"/Users/nico/Documents/projets/quizz_clarins/code/tests/avr-objdump/hexa.c",
+		"/Users/nico/Documents/projets/quizz_clarins/code/tests/avr-objdump/hex.c",
+		"/Users/nico/Documents/projets/quizz_clarins/code/tests/avr-objdump/_elf32-avr_007.c",
+		"/Users/nico/Documents/Arduino/libraries/Adafruit_GFX/Adafruit_GFX.cpp",
+		"/Users/nico/Documents/programmation/epfl_mooc_initiation_microcontroleurs/cours_didel/avr-gitbook/Thumbs.db:encryptable",
+		"/Users/nico/Documents/programmation/epfl_mooc_initiation_microcontroleurs/cours_didel/avr-gitbook/LC5/LC5.md",
+		"/Users/nico/Documents/programmation/epfl_mooc_initiation_microcontroleurs/cours_didel/avr-gitbook/Thumbs.db",
+		"/Users/nico/Documents/projets/quizz_clarins/code/RF433/manchester_test_5/manchester_test_5_tx/makeino.sh",
+		"/Users/nico/Documents/projets/quizz_clarins/code/RF433/manchester_test_3/manchester_test_3_rx/manchester_test_3_rx.ino",
+		"/Users/nico/install/git/git_howto.md",
+		"/tmp/tmp.7582.13",
+		"/Users/nico/Documents/Arduino/libraries/Manchester/Manchester.h",
+		"/Users/nico/Documents/projets/quizz_clarins/code/tests/pragma/pragma.ino",
+		"/Users/nico/Documents/projets/quizz_clarins/code/RF433/manchester_test_4/manchester_test_4_rx/ManchesterRX_Check.ino",
+		"/Users/nico/Documents/projets/quizz_clarins/code/tests/test_define/test_define.ino",
+		"/Users/nico/Documents/projets/quizz_clarins/code/tests/avr-objdump/test_define_elf32-avr_007.c",
+		"/Users/nico/Documents/projets/quizz_clarins/code/tests/avr-objdump/test_define_elf32-avr_006.c",
+		"/Users/nico/Documents/projets/quizz_clarins/code/tests/avr-objdump/test_define_elf32-avr_005.c",
+		"/Users/nico/Documents/projets/quizz_clarins/code/tests/avr-objdump/test_define_elf32-avr_004.c",
+		"/Users/nico/Documents/projets/quizz_clarins/code/tests/avr-objdump/test_define_elf32-avr.c",
+		"/Users/nico/Documents/projets/quizz_clarins/code/tests/avr-objdump/blink_minimal_elf32-avr.c",
+		"/Users/nico/Documents/projets/quizz_clarins/code/tests/avr-objdump/manchester_test_3_rx_elf32-avr.c",
+		"/Users/nico/Documents/projets/quizz_clarins/code/tests/avr-objdump/manchester_test_3_rx.c",
+		"/Users/nico/Documents/projets/quizz_clarins/code/RF433/RCSwitch/examples/SendDemo/makeino.sh",
+		"/Users/nico/Documents/projets/quizz_clarins/code/tests/avr-objdump/manchester_test_3_rx.txt",
+		"/Users/nico/Documents/programmation/Arduino/Louis/blink_noel/blink_noel.ino",
+		"/Users/nico/Documents/programmation/Energia/blink_noel/meca/README.md",
+		"/Users/nico/Documents/programmation/Arduino/Louis/BoutonLouis/BoutonLouis.ino",
+		"/Users/nico/Documents/programmation/Arduino/Louis/BlinkMultiLouis/BlinkMultiLouis.ino",
+		"/Users/nico/Documents/programmation/Arduino/Louis/BlinkLouis/BlinkLouis.ino",
+		"/Users/nico/Documents/projets/quizz_clarins/divers/remue-meninges.md",
+		"/Users/nico/Documents/Energia/libraries/SoftwareSerial/examples/SoftwareSerialExample/SoftwareSerialExample.ino",
+		"/Users/nico/Documents/Energia/libraries/Temboo/Temboo.cpp",
+		"/Users/nico/Documents/Energia/libraries/Temboo/Temboo.h",
+		"/Users/nico/Documents/Energia/libraries/WS2801/WS2801.h",
+		"/Users/nico/Documents/Arduino/libraries/WS2801/README.txt",
+		"/Users/nico/Documents/Arduino/libraries/WS2801/examples/strandtest/strandtest.pde",
+		"/Users/nico/Documents/Arduino/libraries/WS2801/WS2801.cpp",
+		"/Users/nico/Documents/Energia-original/ajeter/ajeter.ino",
+		"/Users/nico/Downloads/adafruit-WS2801-Library-48e6f97/examples/strandtest/strandtest.pde",
+		"/Users/nico/Downloads/adafruit-WS2801-Library-48e6f97/WS2801.cpp",
+		"/Users/nico/Downloads/adafruit-WS2801-Library-48e6f97/README.txt",
+		"/Users/nico/Library/Energia/preferences.txt",
+		"/Users/nico/Documents/projets/quizz_clarins/code/RF433/manchester_test_4/manchester_test_4_tx/ManchesterTX_Check.ino",
+		"/Users/nico/Documents/Arduino/libraries/Manchester/examples/ManchesterTX_Check/ManchesterTX_Check.ino",
+		"/Users/nico/Documents/Arduino/libraries/Manchester/examples/ManchesterRX_Check/ManchesterRX_Check.ino",
+		"/Users/nico/Documents/Arduino/libraries/Manchester/examples/ManchesterRX_Array/ManchesterRX_Array.ino",
+		"/Users/nico/Documents/Arduino/libraries/RadioHead/examples/ask/ask_receiver/ask_receiver.pde",
+		"/Users/nico/Documents/Arduino/libraries/stm32f4xx_rng/stm32f4xx_rng.h",
+		"/Users/nico/Documents/Arduino/libraries/RadioHead/STM32ArduinoCompat/wirish.h",
+		"/Users/nico/Documents/Arduino/libraries/RGBLEDMatrix/gamma.h",
+		"/Users/nico/Documents/Arduino/libraries/RadioHead/STM32ArduinoCompat/HardwareSPI.h",
+		"/Users/nico/Documents/Arduino/libraries/RadioHead/STM32ArduinoCompat/HardwareSPI.cpp",
+		"/Users/nico/Documents/projets/quizz_clarins/code/tests/spi/spi.ino",
+		"/Users/nico/Documents/projets/quizz_clarins/materiel/materiel.md",
+		"/Users/nico/Documents/Arduino/libraries/RadioHead/examples/ask/ask_transmitter/ask_transmitter.pde",
+		"/Users/nico/Documents/Arduino/libraries/RadioHead/examples/ask/ask_reliable_datagram_client/ask_reliable_datagram_client.pde",
+		"/Users/nico/Documents/projets/quizz_clarins/code/I2C/I2C_test_5/I2C_test_5_master/I2C_test_5_master.ino",
+		"/Users/nico/Documents/projets/quizz_clarins/code/I2C/I2C_test_5/I2C_test_5_slave/I2C_test_5_slave.ino",
+		"/Users/nico/Documents/Arduino/libraries/RadioHead/examples/nrf905/nrf905_server/nrf905_server.pde",
+		"/Users/nico/Documents/Arduino/libraries/RadioHead/examples/nrf905/nrf905_reliable_datagram_server/nrf905_reliable_datagram_server.pde",
+		"/Users/nico/Documents/Arduino/libraries/RadioHead/examples/nrf24/nrf24_client/nrf24_client.pde",
+		"/Users/nico/Documents/Arduino/libraries/RadioHead/examples/nrf24/nrf24_reliable_datagram_client/nrf24_reliable_datagram_client.pde",
+		"/Users/nico/Documents/projets/quizz_clarins/code/RGBLEDMatrix/colorwheel_32x32/colorwheel_32x32.pde",
+		"/Users/nico/Documents/projets/quizz_clarins/code/RGBLEDMatrix/plasma_32x32/plasma_32x32.pde",
+		"/Users/nico/Documents/projets/quizz_clarins/code/RGBLEDMatrix/colorwheel_progmem_32x32/colorwheel_progmem_32x32.pde",
+		"/Users/nico/Documents/projets/quizz_clarins/code/quiztest_16x32/quiztest_16x32.ino",
+		"/Users/nico/Documents/projets/quizz_clarins/code/test_i2c_3/i2c_slave/i2c_slave.ino",
+		"/Users/nico/Documents/projets/quizz_clarins/code/test_i2c_3/i2c_master/i2c_master.ino",
+		"/Users/nico/Documents/projets/quizz_clarins/code/I2C/test_i2c_3/i2c_master/i2c_master.ino",
+		"/Users/nico/Documents/projets/quizz_clarins/code/scratchpad/scratchpad.ino",
+		"/Users/nico/Documents/projets/quizz_clarins/code/test_i2c_3/ajeter/ajeter.ino",
+		"/Users/nico/Downloads/I2C_Anything/I2C_Anything.h",
+		"/Users/nico/Desktop/ajeter/Blink/Blink.ino",
+		"/Users/nico/Documents/projets/quizz_clarins/code/rf433_rx/manchester_test_3_rx/manchester_test_3_rx.ino",
+		"/Users/nico/Documents/programmation/programmer_un_attiny_avec_un_arduino_uno/programmer_un_attiny25v.md",
+		"/Users/nico/Documents/programmation/programmer_un_attiny_avec_un_arduino_uno/params.json",
+		"/Users/nico/Library/Arduino/preferences.txt",
+		"/Users/nico/Documents/projets/quizz_clarins/code/rf433_tx/manchester_test_3_tx/manchester_test_3_tx.ino",
+		"/Users/nico/Documents/Arduino_Build/Blink/abi.cpp.d",
+		"/Users/nico/Documents/Arduino/libraries/Keeloq/README",
+		"/Users/nico/Documents/Arduino/libraries/Keeloq/keywords.txt",
+		"/Users/nico/Documents/Arduino/libraries/Keeloq/Keeloq.h",
+		"/Users/nico/Documents/Arduino/libraries/Keeloq/Keeloq.cpp",
+		"/Users/nico/Documents/projets/quizz_clarins/code/rf433_tx/fablab_tx/fablab_tx.ino",
+		"/Users/nico/Documents/projets/quizz_clarins/code/rf433_rx/fablab_rx/fablab_rx.ino",
+		"/Users/nico/Documents/projets/quizz_clarins/code/rf433_rx/manchester_test_3_rx/manchester_test_2.ino"
+	],
+	"find":
+	{
+		"height": 41.0
+	},
+	"find_in_files":
+	{
+		"height": 111.0,
+		"where_history":
+		[
+			"/Users/nico/Documents/projets/quizz_clarins/Bouton_433/Alex",
+			"/Users/nico/Sites/anges.ch/pages/",
+			"/Users/nico/Sites/anges.ch/",
+			"/Users/nico/Sites/anges.ch/_sass",
+			"/Users/nico/Sites/anges.ch/",
+			"/Users/nico/Sites/anges.ch/_sass",
+			"/Users/nico/Sites/anges.ch",
+			"/Users/nico/Sites/janmonod.com",
+			"/Users/nico/Sites/jekyll-lanyon"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"USB",
+			"usb",
+			"Arduino_1_usb",
+			"Arduino_01_usb",
+			"Arduino_0",
+			",\n",
+			"nombre",
+			"stringComplete",
+			"inputString",
+			"rcv",
+			"pisshready",
+			"ssh",
+			"TXPin",
+			"7",
+			"CODE_Button",
+			"SETTING_UsePot",
+			"mySwitch",
+			":transmit",
+			"setupTransmit",
+			"DivTimer8",
+			"\"\\n",
+			" \"",
+			"pew",
+			"/var/folders/3l/c6_nv3414rb_sxjkb8z9z1fr0000gn/T/build2496477641271170334.tmp/manchester_test_5_tx.",
+			"asm",
+			"TCCR",
+			"bRX1",
+			"bRX",
+			"X2",
+			"bRX2",
+			"TX",
+			"rx_mode",
+			"RX_MODE_MSG",
+			"receiveComplete",
+			"bBouton",
+			"TXPin",
+			"code/RF433/manchester_test_3/manchester_test_3_rx/manchester_test_3_rx.ino",
+			"manchester_test_3_rx.ino",
+			"hist",
+			"DECOUPLING_MASK",
+			"toto",
+			"aaaa",
+			"tot",
+			"sendZero",
+			"::transmit",
+			"sendZero",
+			"MANRX_SetupReceive",
+			"HALF_BIT_INTERVAL",
+			"RxPin",
+			"applyWorkAround1Mhz",
+			"manchester_test_3_rx",
+			"foo",
+			"lib",
+			"myDelay",
+			"myDelayInit1",
+			"myDelay",
+			"433",
+			"https://www.youtube.com/watch?v=3Rs3SJBsiYE",
+			"4 ",
+			"170",
+			"encodeMessage",
+			"SENDER_ID",
+			"id",
+			"RXPin1",
+			"LED_PIN",
+			"transmit_data",
+			"LED_PIN",
+			"loop",
+			"SENDER_ID",
+			"LED_PIN",
+			"9999",
+			"\n1",
+			"\n0",
+			"\n2",
+			"32",
+			"html",
+			"wa",
+			"size",
+			"build",
+			".hex",
+			"avrdude",
+			".hex",
+			"verbose",
+			"1200",
+			"t1",
+			"#if debug",
+			"B4",
+			"debug",
+			"t1",
+			"beep",
+			"BuzzerToggle",
+			"Robot",
+			"prev_msg",
+			"wait",
+			"msgReceveid",
+			"codeBouton",
+			"codeBouton1",
+			"Set",
+			"bP1",
+			"bouton",
+			"led",
+			"bL13",
+			"cbi",
+			"unsta",
+			"Standalone",
+			"ArduinoToBreadboard",
+			".cc",
+			"````shell",
+			"bouton",
+			"enc1",
+			"val_enc1",
+			"val_enc0",
+			"led",
+			"statu",
+			"fuses",
+			"blink",
+			"avrdude: safemode: lfuse reads as 62",
+			"avrdude: safemode: Fuses OK",
+			"\\",
+			"avrdude",
+			"cstk500v1",
+			"verbose",
+			"c/avrdude.conf",
+			"isp",
+			"0x1e 0x95 0x0f",
+			"hex",
+			"path",
+			"buil"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 33.0
+	},
+	"input":
+	{
+		"height": 41.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.Blink":
+	{
+		"height": 263.0
+	},
+	"output.BlinkLouis":
+	{
+		"height": 160.0
+	},
+	"output.BlinkMultiLouis":
+	{
+		"height": 160.0
+	},
+	"output.BoutonLouis":
+	{
+		"height": 160.0
+	},
+	"output.BoutonLouis - copie":
+	{
+		"height": 160.0
+	},
+	"output.Downloads":
+	{
+		"height": 160.0
+	},
+	"output.I2C_test_4_master":
+	{
+		"height": 160.0
+	},
+	"output.I2C_test_4_slave":
+	{
+		"height": 160.0
+	},
+	"output.I2C_test_5_master":
+	{
+		"height": 160.0
+	},
+	"output.I2C_test_5_slave":
+	{
+		"height": 160.0
+	},
+	"output.KeeloqLibTest":
+	{
+		"height": 319.0
+	},
+	"output.Manchester":
+	{
+		"height": 154.0
+	},
+	"output.RF_Sniffer":
+	{
+		"height": 160.0
+	},
+	"output.RS232_test_1_RX":
+	{
+		"height": 160.0
+	},
+	"output.RS232_test_1_TX":
+	{
+		"height": 160.0
+	},
+	"output.ajeter":
+	{
+		"height": 160.0
+	},
+	"output.ajeter2":
+	{
+		"height": 160.0
+	},
+	"output.arduino_h_test":
+	{
+		"height": 154.0
+	},
+	"output.ask_receiver":
+	{
+		"height": 275.0
+	},
+	"output.ask_transmitter":
+	{
+		"height": 312.0
+	},
+	"output.blink_minimal":
+	{
+		"height": 160.0
+	},
+	"output.colorwheel_32x32":
+	{
+		"height": 160.0
+	},
+	"output.colorwheel_progmem_32x32":
+	{
+		"height": 160.0
+	},
+	"output.exec":
+	{
+		"height": 160.0
+	},
+	"output.fablab_tx":
+	{
+		"height": 113.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.i2c_master":
+	{
+		"height": 379.0
+	},
+	"output.i2c_slave":
+	{
+		"height": 160.0
+	},
+	"output.manchester-lausanne_test_1":
+	{
+		"height": 154.0
+	},
+	"output.manchester_test_1":
+	{
+		"height": 154.0
+	},
+	"output.manchester_test_2":
+	{
+		"height": 369.0
+	},
+	"output.manchester_test_3":
+	{
+		"height": 232.0
+	},
+	"output.manchester_test_3_rx":
+	{
+		"height": 160.0
+	},
+	"output.manchester_test_3_tx":
+	{
+		"height": 160.0
+	},
+	"output.manchester_test_4_rx":
+	{
+		"height": 160.0
+	},
+	"output.manchester_test_4_tx":
+	{
+		"height": 160.0
+	},
+	"output.manchester_test_5_rx":
+	{
+		"height": 160.0
+	},
+	"output.manchester_test_5_tx":
+	{
+		"height": 146.0
+	},
+	"output.matrix_color_test":
+	{
+		"height": 160.0
+	},
+	"output.nrf24_reliable_datagram_client":
+	{
+		"height": 160.0
+	},
+	"output.nrf905_client":
+	{
+		"height": 154.0
+	},
+	"output.nrf905_reliable_datagram_client":
+	{
+		"height": 154.0
+	},
+	"output.nrf905_server":
+	{
+		"height": 203.0
+	},
+	"output.plasma_16x32":
+	{
+		"height": 160.0
+	},
+	"output.plasma_32x32":
+	{
+		"height": 160.0
+	},
+	"output.pragma":
+	{
+		"height": 335.0
+	},
+	"output.quiztest_16x32":
+	{
+		"height": 160.0
+	},
+	"output.quiztest_32x32":
+	{
+		"height": 160.0
+	},
+	"output.rf433_basics_rx":
+	{
+		"height": 154.0
+	},
+	"output.rf433_basics_tx":
+	{
+		"height": 154.0
+	},
+	"output.rf433_rx":
+	{
+		"height": 160.0
+	},
+	"output.rf433_tx":
+	{
+		"height": 193.0
+	},
+	"output.scratchpad":
+	{
+		"height": 160.0
+	},
+	"output.scrolltext_16x32":
+	{
+		"height": 160.0
+	},
+	"output.spi":
+	{
+		"height": 380.0
+	},
+	"output.stino_log":
+	{
+		"height": 160.0
+	},
+	"output.strandtest":
+	{
+		"height": 160.0
+	},
+	"output.test_define":
+	{
+		"height": 160.0
+	},
+	"output.test_diodes":
+	{
+		"height": 154.0
+	},
+	"output.test_i2c":
+	{
+		"height": 160.0
+	},
+	"output.test_i2c_2":
+	{
+		"height": 160.0
+	},
+	"output.testcolors_16x32":
+	{
+		"height": 160.0
+	},
+	"project": "quizz_clarins.sublime-project",
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": false,
+	"side_bar_width": 252.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

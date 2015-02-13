@@ -1,0 +1,9 @@
+[{'device': '/dev/bus/usb/001/002', 'tag': 'Standard Microsystems Corp. ', 'id': '0424:9514'},
+ {'device': '/dev/bus/usb/001/001', 'tag': 'Linux Foundation 2.0 root hub', 'id': '1d6b:0002'},
+ {'device': '/dev/bus/usb/001/032', 'tag': 'Arduino SA Uno R3 (CDC ACM)', 'id': '2341:0043'},
+ {'device': '/dev/bus/usb/001/033', 'tag': 'Arduino SA Uno R3 (CDC ACM)', 'id': '2341:0043'},
+ {'device': '/dev/bus/usb/001/034', 'tag': 'Arduino SA Uno R3 (CDC ACM)', 'id': '2341:0043'},
+ {'device': '/dev/bus/usb/001/003', 'tag': 'Standard Microsystems Corp. ', 'id': '0424:ec00'},
+ {'device': '/dev/bus/usb/001/029', 'tag': 'Genesys Logic, Inc. 4-port hub', 'id': '05e3:0610'},
+ {'device': '/dev/bus/usb/001/030', 'tag': 'Genesys Logic, Inc. 4-port hub', 'id': '05e3:0610'},
+ {'device': '/dev/bus/usb/001/031', 'tag': 'Arduino SA Uno R3 (CDC ACM)', 'id': '2341:0043'}]

@@ -1,0 +1,10 @@
+{
+    "arduino_folder": "/Applications/Arduino.app", 
+    "baudrate": 4, 
+    "board": 0, 
+    "full_compilation": true, 
+    "platform": 3, 
+    "platform_name": "Arduino ARM (32-bits) Boards", 
+    "serial_port": 5, 
+    "show_compilation_output": true
+}
