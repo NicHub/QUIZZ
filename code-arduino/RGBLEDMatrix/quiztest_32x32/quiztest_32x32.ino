@@ -121,7 +121,7 @@ void loop()
     // compteur( 99, couleurR );
     if( stringComplete )
     {
-        Serial.println( nombreActuel );
+//        Serial.println( nombreActuel );
         afficheNombre( nombreActuel, couleurR );
         inputString = "";
         stringComplete = false;
