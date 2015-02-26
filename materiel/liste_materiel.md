@@ -93,3 +93,13 @@ XY-MK-5V
 - <http://www.nordicsemi.com/eng/Products/2.4GHz-RF/nRF24L01P>
 
 
+
+# Bluetooth
+
+Nombre de devices max : 7
+En pratique : 3 ou 4
+<http://support.apple.com/en-us/HT3887>
+
+
+
+

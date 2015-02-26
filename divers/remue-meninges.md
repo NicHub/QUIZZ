@@ -140,3 +140,21 @@ contrib@hackable.fr
 <https://www.kickstarter.com/projects/1537608281/lazerblade-the-affordable-laser-cutter-engraver>
 
 ---
+
+
+
+# Stan Winston
+
+https://www.stanwinstonschool.com/webcourses/animatronic-control-systems-arduino-programming-basics-live-webcourse
+
+
+
+# Diresta
+
+<https://www.youtube.com/watch?v=IuDm32pIDx8>
+
+
+# Jeff Panacloc
+
+<https://www.youtube.com/watch?v=P9JPq_VlWnI>
+
