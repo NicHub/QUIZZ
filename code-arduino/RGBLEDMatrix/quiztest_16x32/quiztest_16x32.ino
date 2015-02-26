@@ -84,7 +84,7 @@ uint16_t i;
 uint16_t nombreActuel;
 
 
-#define MX 2
+#define MX 1
 
 #if MX == 1
 const uint16_t rPiCouleur = couleurR;
