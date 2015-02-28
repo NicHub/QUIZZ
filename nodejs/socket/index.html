@@ -23,17 +23,35 @@ u[o]&&(delete u[o],c?delete n[l]:typeof n.removeAttribute!==i?n.removeAttribute(
         html{
             font-family: "Trebuchet MS";
         }
+        div#wrapper {
+        	width:500px;
+        	margin: 30px auto 0;
+        	background-color: #F2F2F2;
+        	text-align: center;
+        	padding: 10px;
+        }
+        h1 {
+        }
         input{
             font-size: 20pt;
             text-align: center;
+            /*width: 50px;*/
+        }
+        pre#debug
+        {
+        	display: none;
         }
         </style>
     </head>
 
     <body>
+
+    <div id="wrapper">
         <h1>QUIZZ !</h1>
 
+<!--
         <p><input type="button" value="Embêter le serveur" id="poke" /></p>
+-->
 
         <p>
         <input type="text"   value="0"    id="txtMX_VAL_0" />
@@ -61,6 +79,8 @@ u[o]&&(delete u[o],c?delete n[l]:typeof n.removeAttribute!==i?n.removeAttribute(
         <pre id="debug">
 
         </pre>
+
+        </div>
 
 
         <script>

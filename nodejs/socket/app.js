@@ -107,10 +107,16 @@ var USBdevices = fs.readdirSync( '/dev/' );
 var Arduinos = [];
 for( var i in USBdevices )
 {
-    if( USBdevices[ i ].substr( 0, 12 ) == "tty.usbmodem" )
+    // if( USBdevices[ i ].substr( 0, 12 ) == "tty.usbmodem" )
+    // {
+    //     Arduinos.push( '/dev/' + USBdevices[ i ] );
+    // }
+
+    if( USBdevices[ i ].substr( 0, 6 ) == "ttyACM" )
     {
         Arduinos.push( '/dev/' + USBdevices[ i ] );
     }
+
 }
 
 for( var j in Arduinos )
