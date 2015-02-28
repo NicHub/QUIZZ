@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>Socket.io</title>
+        <title>QUIZZ !</title>
 
 
 
@@ -17,22 +17,45 @@ u[o]&&(delete u[o],c?delete n[l]:typeof n.removeAttribute!==i?n.removeAttribute(
 
 
         </script>
+
+
+        <style type="text/css">
+        html{
+            font-family: "Trebuchet MS";
+        }
+        input{
+            font-size: 20pt;
+            text-align: center;
+        }
+        </style>
     </head>
 
     <body>
-        <h1>Communication avec socket.io !</h1>
+        <h1>QUIZZ !</h1>
 
         <p><input type="button" value="Embêter le serveur" id="poke" /></p>
 
         <p>
-        <input type="text" value="1" id="txtMX_VAL_1" />
-        <input type="button" value="Envoyer à MX 1" id="butMX_VAL_1" />
+        <input type="text"   value="0"    id="txtMX_VAL_0" />
+        <input type="button" value="MX 0" id="butMX_VAL_0" />
+        </p>
+        <p>
+        <input type="text"   value="1"    id="txtMX_VAL_1" />
+        <input type="button" value="MX 1" id="butMX_VAL_1" />
+        </p>
+        <p>
+        <input type="text"   value="2"    id="txtMX_VAL_2" />
+        <input type="button" value="MX 2" id="butMX_VAL_2" />
+        </p>
+        <p>
+        <input type="text"   value="3"    id="txtMX_VAL_3" />
+        <input type="button" value="MX 3" id="butMX_VAL_3" />
+        </p>
+        <p>
+        <input type="text"   value="4"    id="txtMX_VAL_4" />
+        <input type="button" value="MX 4" id="butMX_VAL_4" />
         </p>
 
-        <p>
-        <input type="text" value="2" id="txtMX_VAL_2" />
-        <input type="button" value="Envoyer à MX 2" id="butMX_VAL_2" />
-        </p>
 
 
         <pre id="debug">
@@ -74,15 +97,32 @@ u[o]&&(delete u[o],c?delete n[l]:typeof n.removeAttribute!==i?n.removeAttribute(
             })
 
 
-            // butMX_VAL_1
+            // MX 0
+            $('#butMX_VAL_0').click(function () {
+                socket.emit( 'butMX_VAL_0', $('#txtMX_VAL_0').val() );
+            })
+
+            // MX 1
             $('#butMX_VAL_1').click(function () {
                 socket.emit( 'butMX_VAL_1', $('#txtMX_VAL_1').val() );
             })
 
-            // butMX_VAL_2
+            // MX 2
             $('#butMX_VAL_2').click(function () {
                 socket.emit( 'butMX_VAL_2', $('#txtMX_VAL_2').val() );
             })
+
+            // MX 3
+            $('#butMX_VAL_3').click(function () {
+                socket.emit( 'butMX_VAL_3', $('#txtMX_VAL_3').val() );
+            })
+
+            // MX 4
+            $('#butMX_VAL_4').click(function () {
+                socket.emit( 'butMX_VAL_4', $('#txtMX_VAL_4').val() );
+            })
+
+
 
         </script>
     </body>
