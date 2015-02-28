@@ -8,3 +8,8 @@
 
 node-ardx/
 
+startApp.log
+
+node_modules/
+
+ajeter/
