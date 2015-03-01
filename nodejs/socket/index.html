@@ -20,22 +20,36 @@ u[o]&&(delete u[o],c?delete n[l]:typeof n.removeAttribute!==i?n.removeAttribute(
 
 
         <style type="text/css">
-        html{
+        body {
+        	background-color: black;
+        }
+        html *{
             font-family: "Trebuchet MS";
         }
         div#wrapper {
-        	width:500px;
-        	margin: 30px auto 0;
+        	width:900px;
+        	margin: 300px auto 0;
         	background-color: #F2F2F2;
+        	background-color: #333;
         	text-align: center;
         	padding: 10px;
         }
         h1 {
+        	color: white;
         }
         input{
             font-size: 20pt;
             text-align: center;
             /*width: 50px;*/
+        }
+        input[type=number] {
+        	font-size: 80pt;
+        	color: white;
+        	background-color: black;
+        	width: 200px;
+        }
+        table {
+        	width: 100%;
         }
         pre#debug
         {
@@ -54,26 +68,32 @@ u[o]&&(delete u[o],c?delete n[l]:typeof n.removeAttribute!==i?n.removeAttribute(
 -->
 
         <p>
-        <input type="text"   value="0"    id="txtMX_VAL_0" />
+        <input type="number"   value="0"    id="txtMX_VAL_0" style="color:red"/>
         <input type="button" value="MX 0" id="butMX_VAL_0" />
         </p>
-        <p>
-        <input type="text"   value="1"    id="txtMX_VAL_1" />
-        <input type="button" value="MX 1" id="butMX_VAL_1" />
-        </p>
-        <p>
-        <input type="text"   value="2"    id="txtMX_VAL_2" />
-        <input type="button" value="MX 2" id="butMX_VAL_2" />
-        </p>
-        <p>
-        <input type="text"   value="3"    id="txtMX_VAL_3" />
-        <input type="button" value="MX 3" id="butMX_VAL_3" />
-        </p>
-        <p>
-        <input type="text"   value="4"    id="txtMX_VAL_4" />
-        <input type="button" value="MX 4" id="butMX_VAL_4" />
-        </p>
 
+        <table>
+        <tr>
+        <td>
+        <input type="number"   value="1"    id="txtMX_VAL_1" style="color:red" />
+        <input type="button" value="MX 1" id="butMX_VAL_1" />
+        </td>
+        <td>
+        <input type="number"   value="2"    id="txtMX_VAL_2" style="color:#12f729" />
+        <input type="button" value="MX 2" id="butMX_VAL_2" />
+        </td>
+        </tr>
+        <tr>
+        <td>
+        <input type="number"   value="3"    id="txtMX_VAL_3" style="color:blue" />
+        <input type="button" value="MX 3" id="butMX_VAL_3" />
+        </td>
+        <td>
+        <input type="number"   value="4"    id="txtMX_VAL_4" style="color:yellow" />
+        <input type="button" value="MX 4" id="butMX_VAL_4" />
+        </td>
+        </tr>
+        </table>
 
 
         <pre id="debug">
