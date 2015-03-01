@@ -82,3 +82,7 @@ TIMEFORMAT='Temps de compilation : %3R s'; time( make; sudo make install )
 <https://www.npmjs.com/>
 
 
+# Startup
+
+<http://weworkweplay.com/play/raspberry-pi-nodejs/>
+
