@@ -1,5 +1,5 @@
 
-**QUIZZ CLARINS — Remue-méninges**
+**QUIZZ — Remue-méninges**
 ==================================
 
 
@@ -158,3 +158,23 @@ https://www.stanwinstonschool.com/webcourses/animatronic-control-systems-arduino
 
 <https://www.youtube.com/watch?v=P9JPq_VlWnI>
 
+
+
+# Sites de fabrication
+
+- <https://www.youmagine.com>
+- <https://cults3d.com/fr>
+- <http://www.thingiverse.com>
+
+
+
+# LES MAGASINS EN LIGNE
+
+- <http://www.mouser.ch>
+- <http://www.distrelec.ch>
+- <http://www.conrad.ch>
+- <http://www.play-zone.ch>
+- <http://www.aliexpress.com>
+- <http://www.banggood.com>
+- <http://www.seeedstudio.com>
+- <https://www.adafruit.com>

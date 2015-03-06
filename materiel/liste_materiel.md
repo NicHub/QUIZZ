@@ -103,3 +103,25 @@ En pratique : 3 ou 4
 
 
 
+# Wifi HotSpot
+
+<https://learn.adafruit.com/setting-up-a-raspberry-pi-as-a-wifi-access-point?view=all>
+
+<http://raspberrypihq.com/how-to-turn-a-raspberry-pi-into-a-wifi-router/>
+
+<http://www.conrad.ch/ce/fr/product/993655/Cl-USB-WIFI-EDIMAX-N150-NANO-EW-7811Un-Rasberry-Pi-WLAN>
+
+
+
+# Power Distribution Bus - 7 x 6mm diameter solid brass
+
+- <https://www.adafruit.com/product/737>
+Strip Terminal Blocks / Wire Terminal Connectors
+- <http://www.mini-circuit-breakers.com/sale-1958215-12-poles-insulated-strip-terminal-blocks-wire-terminal-connectors.html>
+- <http://sptsecurity.com/15-tb01.html>
+- <http://www.aliexpress.com/store/product/ST005-6-9-8poles-screw-brass-terminal-block/1017241_1465429886.html>
+
+
+**WINNER**
+- <http://m.aliexpress.com/item/1465429886.html>
+
