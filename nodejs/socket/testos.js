@@ -1,9 +1,14 @@
+osname = process.platform;
 
-if( process.platform == "darwin" )
+if( osname == "darwin" )
 {
 	console.log( "On est sur le Mac" );
 }
-else
+else if( osname == "linux" )
 {
 	console.log( "On est sur le Rpi" );
+}
+else 
+{
+        console.log( "On est foutu, l’OS n’est pas connu !" );
 }
