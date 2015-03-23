@@ -2,6 +2,7 @@
 
 var http = require('http');
 var fs = require('fs');
+var osname = process.platform;
 
 // Chargement du fichier index.html affiché au client
 var server = http.createServer(function(req, res) {
@@ -15,7 +16,8 @@ var server = http.createServer(function(req, res) {
 // Chargement de socket.io
 var io = require('socket.io').listen(server);
 
-io.sockets.on('connection', function (socket, pseudo) {
+io.sockets.on('connection', function (socket, pseudo)
+{
     // Quand on client se connecte, on lui envoie un message
     socket.emit('message', 'Vous êtes bien connecté ! Votre pseudo est ' + pseudo );
     // On signale aux autres clients qu'il y a un nouveau venu
@@ -98,198 +100,200 @@ io.sockets.on('connection', function (socket, pseudo) {
 
 
 
-/*
+    /*
 
-Liste des Arduinos
+    Liste des Arduinos
 
-*/
-var USBdevices = fs.readdirSync( '/dev/' );
-var Arduinos = [];
-for( var i in USBdevices )
-{
-    // if( USBdevices[ i ].substr( 0, 12 ) == "tty.usbmodem" )
-    // {
-    //     Arduinos.push( '/dev/' + USBdevices[ i ] );
-    // }
-
-    if( USBdevices[ i ].substr( 0, 6 ) == "ttyACM" )
+    */
+    var USBdevices = fs.readdirSync( '/dev/' );
+    var Arduinos = [];
+    if( osname == "darwin" )
     {
-        Arduinos.push( '/dev/' + USBdevices[ i ] );
+        console.log( "On est sur le Mac" );
+        for( var i in USBdevices )
+        {
+            if( USBdevices[ i ].substr( 0, 12 ) == "tty.usbmodem" )
+            {
+                Arduinos.push( '/dev/' + USBdevices[ i ] );
+            }
+        }
     }
-
-}
-
-for( var j in Arduinos )
-{
-    console.log( Arduinos[ j ] );
-}
-
-
-
-
-/*
-
-MX 0
-
-*/
-var SerialPort = require("serialport").SerialPort
-var MX0 = new SerialPort( Arduinos[ 0 ], {
-  baudrate: 115200
-}, false); // this is the openImmediately flag [default is true]
-
-MX0.open(function (error) {
-    if ( error )
+    else if( osname == "linux" )
     {
-        console.log('failed to open: '+error);
+        console.log( "On est sur le Rpi" );
+        for( var i in USBdevices )
+        {
+            if( USBdevices[ i ].substr( 0, 6 ) == "ttyACM" )
+            {
+                Arduinos.push( '/dev/' + USBdevices[ i ] );
+            }
+        }
     }
     else
     {
-        console.log('open');
-        MX0.on('data', function(data) {
-            console.log('data received: ' + data);
-        });
-        MX0.write("10\n", function(err, results) {
-            // console.log('err ' + err);
-            console.log('results ' + results);
-        });
+        console.log( "On est foutu, l’OS n’est pas connu !" );
     }
+
+
+
+
+    for( var j in Arduinos )
+    {
+        console.log( Arduinos[ j ] );
+    }
+
+
+
+
+    /*
+
+    MX 0
+
+    */
+    var SerialPort = require("serialport").SerialPort
+    var MX0 = new SerialPort( Arduinos[ 0 ], {
+      baudrate: 115200
+    }, false); // this is the openImmediately flag [default is true]
+
+    MX0.open(function (error) {
+        if ( error )
+        {
+            console.log('failed to open: '+error);
+        }
+        else
+        {
+            console.log('open');
+            MX0.on('data', function(data) {
+                console.log('data received: ' + data);
+            });
+            MX0.write("10\n", function(err, results) {
+                // console.log('err ' + err);
+                console.log('results ' + results);
+            });
+        }
+    });
+
+
+    /*
+
+    MX 1
+
+    */
+    var SerialPort = require("serialport").SerialPort
+    var MX1 = new SerialPort( Arduinos[ 1 ], {
+      baudrate: 115200
+    }, false); // this is the openImmediately flag [default is true]
+
+    MX1.open(function (error) {
+        if ( error )
+        {
+            console.log('failed to open: '+error);
+        }
+        else
+        {
+            console.log('open');
+            MX1.on('data', function(data) {
+                console.log('data received: ' + data);
+            });
+            MX1.write("11\n", function(err, results) {
+                // console.log('err ' + err);
+                console.log('results ' + results);
+            });
+        }
+    });
+
+
+    /*
+
+    MX 2
+
+    */
+    var SerialPort = require("serialport").SerialPort
+    var MX2 = new SerialPort( Arduinos[ 2 ], {
+      baudrate: 115200
+    }, false); // this is the openImmediately flag [default is true]
+
+    MX2.open(function (error) {
+        if ( error )
+        {
+            console.log('failed to open: '+error);
+        }
+        else
+        {
+            console.log('open');
+            MX2.on('data', function(data) {
+                console.log('data received: ' + data);
+            });
+            MX2.write("12\n", function(err, results) {
+                // console.log('err ' + err);
+                console.log('results ' + results);
+            });
+        }
+    });
+
+
+
+    /*
+
+    MX 3
+
+    */
+    var SerialPort = require("serialport").SerialPort
+    var MX3 = new SerialPort( Arduinos[ 3 ], {
+      baudrate: 115200
+    }, false); // this is the openImmediately flag [default is true]
+
+    MX3.open(function (error) {
+        if ( error )
+        {
+            console.log('failed to open: '+error);
+        }
+        else
+        {
+            console.log('open');
+            MX3.on('data', function(data) {
+                console.log('data received: ' + data);
+            });
+            MX3.write("13\n", function(err, results) {
+                // console.log('err ' + err);
+                console.log('results ' + results);
+            });
+        }
+    });
+
+
+    /*
+
+    MX 4
+
+    */
+    var SerialPort = require("serialport").SerialPort
+    var MX4 = new SerialPort( Arduinos[ 4 ], {
+      baudrate: 115200
+    }, false); // this is the openImmediately flag [default is true]
+
+    MX4.open(function (error) {
+        if ( error )
+        {
+            console.log('failed to open: '+error);
+        }
+        else
+        {
+            console.log('open');
+            MX4.on('data', function(data) {
+                console.log('data received: ' + data);
+            });
+            MX4.write("14\n", function(err, results) {
+                // console.log('err ' + err);
+                console.log('results ' + results);
+            });
+        }
+    });
+
 });
 
 
-/*
-
-MX 1
-
-*/
-var SerialPort = require("serialport").SerialPort
-var MX1 = new SerialPort( Arduinos[ 1 ], {
-  baudrate: 115200
-}, false); // this is the openImmediately flag [default is true]
-
-MX1.open(function (error) {
-    if ( error )
-    {
-        console.log('failed to open: '+error);
-    }
-    else
-    {
-        console.log('open');
-        MX1.on('data', function(data) {
-            console.log('data received: ' + data);
-        });
-        MX1.write("11\n", function(err, results) {
-            // console.log('err ' + err);
-            console.log('results ' + results);
-        });
-    }
-});
-
-
-/*
-
-MX 2
-
-*/
-var SerialPort = require("serialport").SerialPort
-var MX2 = new SerialPort( Arduinos[ 2 ], {
-  baudrate: 115200
-}, false); // this is the openImmediately flag [default is true]
-
-MX2.open(function (error) {
-    if ( error )
-    {
-        console.log('failed to open: '+error);
-    }
-    else
-    {
-        console.log('open');
-        MX2.on('data', function(data) {
-            console.log('data received: ' + data);
-        });
-        MX2.write("12\n", function(err, results) {
-            // console.log('err ' + err);
-            console.log('results ' + results);
-        });
-    }
-});
-
-
-
-/*
-
-MX 3
-
-*/
-var SerialPort = require("serialport").SerialPort
-var MX3 = new SerialPort( Arduinos[ 3 ], {
-  baudrate: 115200
-}, false); // this is the openImmediately flag [default is true]
-
-MX3.open(function (error) {
-    if ( error )
-    {
-        console.log('failed to open: '+error);
-    }
-    else
-    {
-        console.log('open');
-        MX3.on('data', function(data) {
-            console.log('data received: ' + data);
-        });
-        MX3.write("13\n", function(err, results) {
-            // console.log('err ' + err);
-            console.log('results ' + results);
-        });
-    }
-});
-
-
-/*
-
-MX 4
-
-*/
-var SerialPort = require("serialport").SerialPort
-var MX4 = new SerialPort( Arduinos[ 4 ], {
-  baudrate: 115200
-}, false); // this is the openImmediately flag [default is true]
-
-MX4.open(function (error) {
-    if ( error )
-    {
-        console.log('failed to open: '+error);
-    }
-    else
-    {
-        console.log('open');
-        MX4.on('data', function(data) {
-            console.log('data received: ' + data);
-        });
-        MX4.write("14\n", function(err, results) {
-            // console.log('err ' + err);
-            console.log('results ' + results);
-        });
-    }
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-});
-
-
-server.listen(8080);
-
-
+server.listen( 8080 );
 console.log( "C’est partit mon kiki !" );
 
 
