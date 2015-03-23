@@ -36,6 +36,7 @@
 #define couleurJ matrix.Color888( cVal, cVal,    0, true )
 #define couleurN matrix.Color888(    0,    0,    0, true )
 
+
 RGBmatrixPanel matrix( A, B, C, D, CLK, LAT, OE, false );
 String inputString = "";         // a string to hold incoming data
 boolean stringComplete = false;  // whether the string is complete
@@ -43,17 +44,7 @@ uint16_t couleur;
 uint16_t i;
 uint16_t nombreActuel;
 
-
-
-
-
-
-
-
-
-
-
-
+const uint16_t rPiCouleur = couleurR;
 
 
 
@@ -118,14 +109,26 @@ void setup()
 
 void loop()
 {
-    // compteur( 99, couleurR );
+
     if( stringComplete )
     {
-//        Serial.println( nombreActuel );
-        afficheNombre( nombreActuel, couleurR );
+        int cmd = inputString.toInt();
+        if( cmd >= 0 && cmd < 100 )
+        {
+            nombreActuel = cmd;
+            afficheNombre( nombreActuel, rPiCouleur );
+        }
+        else
+        {
+            if( cmd == -1 )
+                { Serial.print( "0" ); Serial.print( "\n" ); }
+        }
+
         inputString = "";
         stringComplete = false;
     }
+
+
 }
 
 
@@ -139,12 +142,10 @@ void serialEvent()
         if( inChar == '\n' )
         {
             stringComplete = true;
-            nombreActuel = inputString.toInt();
-            if( nombreActuel > 99 )
-                { nombreActuel = nombreActuel % 100; }
         }
     }
 }
+
 
 
 
