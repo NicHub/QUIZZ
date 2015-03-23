@@ -3,7 +3,7 @@
 
 case "$1" in
 1)      echo "1) Pull de rPi vers Mac"
-        git pull ssh://pi@davberrypi:22/home/pi/quizz
+        git pull ssh://pi@davberrypi.local:22/home/pi/quizz
         ;;
 
 2)      echo "2) Pull de Mac vers rPi"
