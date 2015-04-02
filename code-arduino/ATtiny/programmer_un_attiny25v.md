@@ -8,7 +8,7 @@
 - Un Arduino UNO
 - Un ATtiny25V
 - Un breadboard
-- 4 LED
+- 4 LEDs
 - 4 résistances de 220 Ω
 
 
@@ -79,7 +79,9 @@ Cette opération est nécessaire pour les microcontrôleurs qui n’ont jamais �
     - `Outils/Port` : *Sélectionner le port du UNO*
     - `Outils/Programmateur/Arduino as ISP`
 - Charger le bootloader :
-    - `Outils/Graver la séquence d’initialisation`.
+    - `Outils/Graver la séquence d’initialisation`
+
+D’après [Didel](http://www.didel.com/diduino/ProgrammerUnAtTiny.pdf), ce n’est pas vraiment un *bootloader* qui est chargé, mais une configuration des fusibles qui est réalisée.
 
 
 
@@ -137,11 +139,11 @@ Certaines cartes UNO requièrent l’ajout d’un condensateur de  10 µF entre 
 
 
 
-# Programmation des *fuses*
+# Programmation des fusibles
 
-> Les infos de ce chapitres m’ont été gracieusement transmises par [Richard Timsit](<http://www.fablab-chene20.ch>).
+> Les infos de ce chapitres m’ont été gracieusement transmises par [Richard](http://www.fablab-chene20.ch).
 
-Les *fuses* sont des paramètres intégrés aux microcontrôleurs d’Atmel et que l’on peut modifier à l’aide du programme [`avrdude`](http://www.nongnu.org/avrdude/user-manual/avrdude.html). C’est ce même programme qui est utilisé par l’IDE Arduino pour envoyer les fichiers compilés sur le microcontrôleur. On peut d’ailleurs voir ce qu’il fait de la manière suivante :
+Les fusibles (*fuses* en anglais) sont des paramètres intégrés aux microcontrôleurs d’Atmel et que l’on peut modifier à l’aide du programme [`avrdude`](http://www.nongnu.org/avrdude/user-manual/avrdude.html). C’est ce même programme qui est utilisé par l’IDE Arduino pour envoyer les fichiers compilés sur le microcontrôleur. On peut d’ailleurs voir ce qu’il fait de la manière suivante :
 
 - Ouvrir les préférences de l’IDE Arduino
 - Cliquer sur le lien en bas de la fenêtre pour ouvrir le dossier contenant les préférences. Alternativement on peut directement éditer le fichier avec la commande `open ~/Library/Arduino15/preferences.txt`
@@ -169,7 +171,7 @@ Pour utiliser `avrdude`, le plus simple est d’ajouter les deux lignes suivante
 ````
 
 
-## Lectures des *fuses*
+## Lectures des fusibles
 
 La commande utilisée par l’IDE Arduino nous donne toutes les informations de configuration pour envoyer nos propres commandes. La première chose à faire est de lire la configuration actuelle. Adaptez la commande suivante à votre configuration :
 
@@ -195,14 +197,14 @@ La commande utilisée par l’IDE Arduino nous donne toutes les informations de 
     avrdude: safemode: efuse reads as FF
     avrdude: safemode: Fuses OK (H:FF, E:D7, L:62)
 
-> On constate que cette version d’`avrdude` a un bug : Le dernière ligne indique les fusibles dans l’ordre `H, E, L` alors qu’en fait il s’agit de l’ordre `E, H, L`. Il faut donc faire attention et ne tenir compte que des trois premières lignes.
+> On constate que cette version d’`avrdude` a un bug : La dernière ligne indique les fusibles dans l’ordre `H, E, L` alors qu’en fait il s’agit de l’ordre `E, H, L`. Il faut donc faire attention et ne tenir compte que des trois premières lignes.
 La version d’`avrdude` utilisée pour ce test est : `Version 6.0.1, compiled on Apr  3 2014 at 22:00:33`
 
 
 
-## Écriture des *fuses*
+## Écriture des fusibles
 
-Pour configurer les *fuses*, il est conseiller d’utiliser un configurateur, comme <http://www.engbedded.com/fusecalc/> ou de lire le chapitre *20. Memory Programming* de la spécification <http://www.atmel.com/images/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf>. La vidéo <https://www.youtube.com/watch?v=jP1NTgs-a-s> donne une bonne introduction en anglais.
+Pour configurer les fusibles, il est conseiller d’utiliser un configurateur, comme <http://www.engbedded.com/fusecalc/> ou de lire le chapitre *20. Memory Programming* de la spécification <http://www.atmel.com/images/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf>. La vidéo <https://www.youtube.com/watch?v=jP1NTgs-a-s> donne une bonne introduction en anglais.
 
 Dans notre cas, nous allons simplement utiliser les valeurs données par l’utilitaire *fusecalc* ci-dessus pour enlever la division par 8 de la fréquence d’horloge. La seule valeur que nous changeons est
 
@@ -226,7 +228,7 @@ Ce qui modifie la valeur du `Low Byte` qui passe de `62` à `e2`.
 
 Après l’exécution de la commande ci-dessus, on constate que le croquis `tinyblinky.ino` est exécuté 8 fois plus rapidement.
 
-Si on veut retrouver les *fuses* d’origine :
+Si on veut retrouver les fusibles d’origine :
 
 ````bash
 
@@ -241,5 +243,3 @@ Si on veut retrouver les *fuses* d’origine :
         -U hfuse:w:0xd7:m        \
         -U efuse:w:0xff:m
 ````
-
-
