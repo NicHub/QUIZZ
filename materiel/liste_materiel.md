@@ -125,3 +125,10 @@ Strip Terminal Blocks / Wire Terminal Connectors
 **WINNER**
 - <http://m.aliexpress.com/item/1465429886.html>
 
+
+
+# POWER SOCKET
+
+http://fr.aliexpress.com/item/Panel-Metal-DC-Power-Supply-Jack-Socket-Adapter-5-5mm-x-2-1mm-25pcs/1765771735.html?recommendVersion=1
+
+
