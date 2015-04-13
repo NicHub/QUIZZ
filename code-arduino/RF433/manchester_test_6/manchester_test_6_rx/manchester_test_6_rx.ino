@@ -12,6 +12,8 @@ S bit/s     dt ms
 */
 
 #include <Manchester.h>
+#include <avr/io.h>
+#include <util/delay.h>
 
 
 
@@ -56,10 +58,10 @@ S bit/s     dt ms
 #define boutonRead bitRead( PIND, bBouton )
 
 
-#define RXDATA1    5
-#define RXDATA2    6
-#define RXGND PORTD4
-#define RXVCC PORTD7
+#define RXDATA1    6
+#define RXDATA2    5
+#define RXGND PORTD7
+#define RXVCC PORTD4
 
 // RXDATA1
 #define      RXDATARead    bitRead (  PIND, RXDATA1 )
@@ -75,6 +77,8 @@ S bit/s     dt ms
 
 
 uint16_t msg;
+uint16_t prev_msg;
+long prev_millis;
 
 
 
@@ -101,14 +105,54 @@ void setup()
 long m0;
 long m1;
 
+const byte arraySize = 1;
+long arrayT[ arraySize ];
+byte arrayV[ arraySize ];
+byte arrayI = 0;
+
 void loop()
 {
     if( man.receiveComplete() )
     {
         L13Toggle;
         msg = man.getMessage();
+        // if( msg != prev_msg )
+        // if( true )
+        if( false )
+        {
+            prev_msg = msg;
+            m0 = millis();
+            arrayT[ arrayI ] = m0 - m1;
+            m1 = m0;
+            arrayV[ arrayI ] = msg;
+            arrayI++;
+            if( arrayI == arraySize )
+            {
+                arrayI = 0;
+                for( int i=0; i<arraySize; i++ )
+                {
+                    Serial.print( "\n" );
+                         if( arrayT[ i ] < 10     ) { Serial.print( "    " ); }
+                    else if( arrayT[ i ] < 100    ) { Serial.print( "   " ); }
+                    else if( arrayT[ i ] < 1000   ) { Serial.print( "  " ); }
+                    else if( arrayT[ i ] < 10000  ) { Serial.print( " " ); }
+                    Serial.print( arrayT[ i ] );
+
+                    if( arrayV[ i ] == 1 ){ Serial.print( " " );    }
+                    if( arrayV[ i ] == 2 ){ Serial.print( "  " );   }
+                    if( arrayV[ i ] == 3 ){ Serial.print( "   " );  }
+                    if( arrayV[ i ] == 4 ){ Serial.print( "    " ); }
+                    Serial.print( arrayV[ i ] );
+                }
+                Serial.print( "\n" );
+            }
+        }
+        else
+        {
+            Serial.print( "\n" ); Serial.print( millis() ); Serial.print( " " ); Serial.print( msg );
+        }
+        _delay_ms( 1000 );
         man.beginReceive();
-        Serial.print( "\nmsg = " ); Serial.print( msg );
     }
     else
     {
@@ -120,12 +164,13 @@ void loop()
         {
             L13Clear;
         }
-        m1 = millis() / 1000;
-        if( m1 > m0 )
-        {
-            Serial.print( "\n" ); Serial.print( m1 );
-            m0 = m1;
-        }
+        // m1 = millis() / 1000;
+        // if( m1 > m0 )
+        // {
+        //     Serial.print( "\n" ); Serial.print( m1 );
+        //     Serial.print( "\nArrayI = " ); Serial.print( arrayI );
+        //     m0 = m1;
+        // }
     }
 }
 

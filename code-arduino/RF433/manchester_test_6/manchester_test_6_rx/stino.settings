@@ -8,6 +8,6 @@
     "programmer": {
         "2": 1
     }, 
-    "serial_port": 5, 
+    "serial_port": 4, 
     "show_compilation_output": true
 }

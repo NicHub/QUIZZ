@@ -3,8 +3,8 @@
     "baudrate": 10, 
     "board": 1, 
     "full_compilation": true, 
-    "platform": 2, 
-    "platform_name": "Arduino AVR Boards", 
+    "platform": 1, 
+    "platform_name": "Arduino Tiny", 
     "serial_port": 5, 
     "show_compilation_output": true
 }

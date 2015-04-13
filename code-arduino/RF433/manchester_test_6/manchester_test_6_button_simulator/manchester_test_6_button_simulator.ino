@@ -1,29 +1,84 @@
 /*
-  Blink
-  Turns on an LED on for one second, then off for one second, repeatedly.
-
-  Most Arduinos have an on-board LED you can control. On the Uno and
-  Leonardo, it is attached to digital pin 13. If you're unsure what
-  pin the on-board LED is connected to on your Arduino model, check
-  the documentation at http://arduino.cc
-
-  This example code is in the public domain.
-
-  modified 8 May 2014
-  by Scott Fitzgerald
+ *
+ * Simulateur de boutons pour RF433
+ *
  */
 
+#include <avr/io.h>
+#include <util/delay.h>
 
-// the setup function runs once when you press reset or power the board
-void setup() {
-  // initialize digital pin 13 as an output.
-  pinMode(13, OUTPUT);
+// PORTB5 -> LED du board Diduino – Arduino
+#define bL13 PORTB5
+#define      L13Read   bitRead (  PINB, bL13 )
+#define      L13Set    bitSet  ( PORTB, bL13 )
+#define      L13Clear  bitClear( PORTB, bL13 )
+#define      L13Toggle PORTB ^= 1<<bL13
+
+#define B1Set bitSet ( PORTD, 7 )
+#define B2Set bitSet ( PORTD, 6 )
+#define B3Set bitSet ( PORTD, 5 )
+#define B4Set bitSet ( PORTD, 4 )
+
+#define B1Clear bitClear ( PORTD, 7 )
+#define B2Clear bitClear ( PORTD, 6 )
+#define B3Clear bitClear ( PORTD, 5 )
+#define B4Clear bitClear ( PORTD, 4 )
+
+const int delay1 = 100;
+const int delay2 = 2000;
+
+void B1SetOnly()
+{
+    B1Set;   B2Clear; B3Clear; B4Clear;     L13Set;    _delay_ms( delay1 ); L13Clear; _delay_ms( delay1 );
+}
+void B2SetOnly()
+{
+    B1Clear; B2Set;   B3Clear; B4Clear;     L13Set;    _delay_ms( delay1 ); L13Clear; _delay_ms( delay1 );
+}
+void B3SetOnly()
+{
+    B1Clear; B2Clear; B3Set;   B4Clear;     L13Set;    _delay_ms( delay1 ); L13Clear; _delay_ms( delay1 );
+}
+void B4SetOnly()
+{
+    B1Clear; B2Clear; B3Clear; B4Set;       L13Set;    _delay_ms( delay1 ); L13Clear; _delay_ms( delay1 );
+}
+void BClearAll()
+{
+    B1Clear; B2Clear; B3Clear; B4Clear;     L13Clear;  _delay_ms( delay2 );
 }
 
-// the loop function runs over and over again forever
-void loop() {
-  digitalWrite(13, HIGH);   // turn the LED on (HIGH is the voltage level)
-  delay(100);              // wait for a second
-  digitalWrite(13, LOW);    // turn the LED off by making the voltage LOW
-  delay(1000);              // wait for a second
+int main( void )
+{
+    DDRB = 0b11111111;
+    DDRD = 0b11111111;
+    BClearAll();
+    while( true )
+    {
+        // B1SetOnly();
+        // B2SetOnly();
+        // B3SetOnly();
+        // B4SetOnly();
+        // BClearAll();
+
+        B2SetOnly();
+        B3SetOnly();
+        B4SetOnly();
+        B1SetOnly();
+        BClearAll();
+
+        // B3SetOnly();
+        // B4SetOnly();
+        // B1SetOnly();
+        // B2SetOnly();
+        // BClearAll();
+
+        // B4SetOnly();
+        // B1SetOnly();
+        // B2SetOnly();
+        // B3SetOnly();
+        // BClearAll();
+    }
+    return 0;
 }
+
