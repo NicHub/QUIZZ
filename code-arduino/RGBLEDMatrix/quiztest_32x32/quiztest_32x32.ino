@@ -102,6 +102,7 @@ void setup()
 //    Serial.print( "Afficheur 32x32 - couleur " ); Serial.print( 0 ); Serial.print( "\n" );
     matrix.begin();
     afficheNombre( 0, couleurR );
+//    toutesLesLEDs( couleurB );
     inputString.reserve( 200 );     // reserve 200 bytes for the inputString
 }
 
@@ -156,6 +157,13 @@ void compteur( byte countMax, uint16_t couleur )
         i = 0;
     afficheNombre( i++, couleur );
     delay( 500 );
+}
+
+
+void toutesLesLEDs( uint16_t couleur )
+{
+    matrix.drawBitmap( 16, 0, chiffres_16x32[ 11 ], 16, 32, couleur  );
+    matrix.drawBitmap(  0, 0, chiffres_16x32[ 11 ], 16, 32, couleur  );
 }
 
 

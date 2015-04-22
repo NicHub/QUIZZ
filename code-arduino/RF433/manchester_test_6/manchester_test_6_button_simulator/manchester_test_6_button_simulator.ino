@@ -55,17 +55,20 @@ int main( void )
     BClearAll();
     while( true )
     {
+        B1Set;   B2Clear; B3Clear; B4Clear;     L13Set;    _delay_ms( 100 );
+        B1Clear; B2Clear; B3Clear; B4Clear;     L13Clear;  _delay_ms( 100 );
+
         // B1SetOnly();
         // B2SetOnly();
         // B3SetOnly();
         // B4SetOnly();
         // BClearAll();
 
-        B2SetOnly();
-        B3SetOnly();
-        B4SetOnly();
-        B1SetOnly();
-        BClearAll();
+        // B2SetOnly();
+        // B3SetOnly();
+        // B4SetOnly();
+        // B1SetOnly();
+        // BClearAll();
 
         // B3SetOnly();
         // B4SetOnly();

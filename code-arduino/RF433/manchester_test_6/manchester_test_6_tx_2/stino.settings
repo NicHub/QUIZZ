@@ -1,13 +1,10 @@
 {
     "arduino_folder": "/Applications/Arduino_1.6.1.app", 
-    "baudrate": 10, 
+    "baudrate": 4, 
     "board": 1, 
     "full_compilation": true, 
-    "platform": 1, 
+    "platform": 2, 
     "platform_name": "Arduino AVR Boards", 
-    "programmer": {
-        "2": 1
-    }, 
-    "serial_port": 7, 
+    "serial_port": 6, 
     "show_compilation_output": true
 }

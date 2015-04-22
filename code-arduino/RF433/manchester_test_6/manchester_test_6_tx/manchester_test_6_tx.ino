@@ -50,12 +50,12 @@ void loop()
     {
         if( TriggerArmed )
         {
-            for( int i=0; i<2; i++ )
+            for( int i=0; i<1; i++ )
             {
                 man.transmit( transmit_data );
-                L13Set;
-                _delay_ms( 1 );
-                L13Clear;
+                // L13Set;
+                // _delay_ms( 10 );
+                // L13Clear;
             }
             TriggerArmed = false;
         }
