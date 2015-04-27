@@ -3,7 +3,7 @@
 
 const uint8_t RX_PIN = 2;
 const uint8_t TX_PIN = 3;
-const unsigned long dT = 1000;
+const unsigned long dT = 140;
 uint16_t messages[ 4 ];
 const uint16_t TRIGGER_MSG = 1;
 void setup()
@@ -21,7 +21,7 @@ void setup()
 void loop()
 {
     man.transmit( ( uint16_t )TRIGGER_MSG );
-	_delay_ms( 100 );
+    _delay_ms( dT );
     for( int i=0; i<4; i++ )
     {
         if( man.receiveComplete() )
@@ -30,15 +30,15 @@ void loop()
             man.beginReceive();
 
                 if( i == 0 )
-            	{ digitalWrite( 9, LOW  ); digitalWrite( 10, LOW  ); digitalWrite( 11, LOW  ); digitalWrite( 12, HIGH ); digitalWrite( 13, LOW  ); }
+                { digitalWrite( 9, LOW  ); digitalWrite( 10, LOW  ); digitalWrite( 11, LOW  ); digitalWrite( 12, HIGH ); digitalWrite( 13, LOW  ); }
             else if( i == 1 )
-            	{ digitalWrite( 9, LOW  ); digitalWrite( 10, LOW  ); digitalWrite( 11, HIGH ); digitalWrite( 12, LOW  ); digitalWrite( 13, LOW  ); }
+                { digitalWrite( 9, LOW  ); digitalWrite( 10, LOW  ); digitalWrite( 11, HIGH ); digitalWrite( 12, LOW  ); digitalWrite( 13, LOW  ); }
             else if( i == 2 )
-            	{ digitalWrite( 9, LOW  ); digitalWrite( 10, HIGH ); digitalWrite( 11, LOW  ); digitalWrite( 12, LOW  ); digitalWrite( 13, LOW  ); }
+                { digitalWrite( 9, LOW  ); digitalWrite( 10, HIGH ); digitalWrite( 11, LOW  ); digitalWrite( 12, LOW  ); digitalWrite( 13, LOW  ); }
             else
-            	{ digitalWrite( 9, HIGH ); digitalWrite( 10, LOW  ); digitalWrite( 11, LOW  ); digitalWrite( 12, LOW  ); digitalWrite( 13, LOW  ); }
+                { digitalWrite( 9, HIGH ); digitalWrite( 10, LOW  ); digitalWrite( 11, LOW  ); digitalWrite( 12, LOW  ); digitalWrite( 13, LOW  ); }
         }
-	    _delay_ms( 200 );
+        _delay_ms( dT );
     }
 }
 

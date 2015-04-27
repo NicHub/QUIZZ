@@ -11,11 +11,11 @@ const uint16_t TRIGGER_MSG = 1;
 #if TX_ID == 1
 const unsigned long dT = 0;
 #elif TX_ID == 2
-const unsigned long dT = 200;
+const unsigned long dT = 140;
 #elif TX_ID == 3
-const unsigned long dT = 400;
+const unsigned long dT = 280;
 #elif TX_ID == 4
-const unsigned long dT = 600;
+const unsigned long dT = 420;
 #endif
 
 
