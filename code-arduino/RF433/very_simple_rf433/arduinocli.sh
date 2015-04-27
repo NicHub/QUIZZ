@@ -99,6 +99,21 @@ function UPLOAD_RX
     echo -e "\n\n*******************************\n\n"
 }
 
+function UPLOAD_RX_MANCHESTER
+{
+    ARDUINO_PORT=$1
+    INOFILE_IN=$SCRIPT_PATH/very_simple_rf433_manchester_RX/very_simple_rf433_manchester_RX.ino
+    time( arduino                                   \
+        --upload                                    \
+        --board arduino:avr:uno                     \
+        --port $ARDUINO_PORT                        \
+        --verbose                                   \
+        $INOFILE_IN )
+    echo -e "\n\n"
+    echo $INOFILE_IN
+    echo -e "\n\n*******************************\n\n"
+}
+
 function UPLOAD_BUTTON_SIMULATOR
 {
     ARDUINO_PORT=$1
@@ -136,12 +151,32 @@ time(
 # AVEC MANCHESTER
 # ##########
 
-# ARDUINO_PORT="/dev/tty.usbmodem142111"
-# ARDUINO_NB=1
-# UPLOAD_TX_MANCHESTER $ARDUINO_PORT $ARDUINO_NB &
+ARDUINO_PORT="/dev/tty.usbmodem14221"
+UPLOAD_RX_MANCHESTER $ARDUINO_PORT &
+
+ARDUINO_PORT="/dev/tty.usbmodem142111"
+ARDUINO_NB=1
+UPLOAD_TX_MANCHESTER $ARDUINO_PORT $ARDUINO_NB &
+
+ARDUINO_PORT="/dev/tty.usbmodem142121"
+ARDUINO_NB=2
+UPLOAD_TX_MANCHESTER $ARDUINO_PORT $ARDUINO_NB &
+
+ARDUINO_PORT="/dev/tty.usbmodem142131"
+ARDUINO_NB=3
+UPLOAD_TX_MANCHESTER $ARDUINO_PORT $ARDUINO_NB &
+
+ARDUINO_PORT="/dev/tty.usbmodem142141"
+ARDUINO_NB=4
+UPLOAD_TX_MANCHESTER $ARDUINO_PORT $ARDUINO_NB &
 
 # ARDUINO_PORT="/dev/tty.usbmodem14241"
 # UPLOAD_BUTTON_SIMULATOR_MANCHESTER $ARDUINO_PORT &
+
+# ARDUINO_PORT="/dev/tty.usbmodem14231"
+# UPLOAD_LOGIC_ANALYSER $ARDUINO_PORT &
+
+
 
 
 
@@ -149,30 +184,30 @@ time(
 # SANS MANCHESTER
 # ##########
 
-ARDUINO_PORT="/dev/tty.usbmodem142111"
-ARDUINO_NB=1
-UPLOAD_TX $ARDUINO_PORT $ARDUINO_NB &
+# ARDUINO_PORT="/dev/tty.usbmodem142111"
+# ARDUINO_NB=1
+# UPLOAD_TX $ARDUINO_PORT $ARDUINO_NB &
 
-ARDUINO_PORT="/dev/tty.usbmodem142121"
-ARDUINO_NB=2
-UPLOAD_TX $ARDUINO_PORT $ARDUINO_NB &
+# ARDUINO_PORT="/dev/tty.usbmodem142121"
+# ARDUINO_NB=2
+# UPLOAD_TX $ARDUINO_PORT $ARDUINO_NB &
 
-ARDUINO_PORT="/dev/tty.usbmodem142131"
-ARDUINO_NB=3
-UPLOAD_TX $ARDUINO_PORT $ARDUINO_NB &
+# ARDUINO_PORT="/dev/tty.usbmodem142131"
+# ARDUINO_NB=3
+# UPLOAD_TX $ARDUINO_PORT $ARDUINO_NB &
 
-ARDUINO_PORT="/dev/tty.usbmodem142141"
-ARDUINO_NB=4
-UPLOAD_TX $ARDUINO_PORT $ARDUINO_NB &
+# ARDUINO_PORT="/dev/tty.usbmodem142141"
+# ARDUINO_NB=4
+# UPLOAD_TX $ARDUINO_PORT $ARDUINO_NB &
 
-ARDUINO_PORT="/dev/tty.usbmodem14221"
-UPLOAD_RX $ARDUINO_PORT &
+# ARDUINO_PORT="/dev/tty.usbmodem14221"
+# UPLOAD_RX $ARDUINO_PORT &
 
-ARDUINO_PORT="/dev/tty.usbmodem14231"
-UPLOAD_LOGIC_ANALYSER $ARDUINO_PORT &
+# ARDUINO_PORT="/dev/tty.usbmodem14231"
+# UPLOAD_LOGIC_ANALYSER $ARDUINO_PORT &
 
-ARDUINO_PORT="/dev/tty.usbmodem14241"
-UPLOAD_BUTTON_SIMULATOR $ARDUINO_PORT &
+# ARDUINO_PORT="/dev/tty.usbmodem14241"
+# UPLOAD_BUTTON_SIMULATOR $ARDUINO_PORT &
 
 wait
 

@@ -38,7 +38,8 @@ void setup()
 {
     DDRB = 0b11111111;
     DDRC = 0b11111111;
-    DDRD = 0b11111111;
+    // DDRD = 0b11111111;
+    DDRD = 0b11111011;
 
     TX_INIT;
     L13_INIT;
@@ -46,17 +47,17 @@ void setup()
 }
 
 #if TX_ID == 1
-const double dt1 = 196 / 2;
-const double dt2 = 804 / 2;
+const double dt1 = 196 / 1;
+const double dt2 = 804 / 1;
 #elif TX_ID == 2
-const double dt1 = 311 / 2;
-const double dt2 = 689 / 2;
+const double dt1 = 311 / 1;
+const double dt2 = 689 / 1;
 #elif TX_ID == 3
-const double dt1 = 494 / 2;
-const double dt2 = 506 / 2;
+const double dt1 = 494 / 1;
+const double dt2 = 506 / 1;
 #elif TX_ID == 4
-const double dt1 = 784 / 2;
-const double dt2 = 216 / 2;
+const double dt1 = 784 / 1;
+const double dt2 = 216 / 1;
 #endif
 
 void loop()
