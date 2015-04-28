@@ -67,10 +67,10 @@ int main()
 
 
 
+#define BTN_ID 4
+
 ISR( TIMER1_COMPA_vect )
 {
-    static int ISRcount;
-
     static uint8_t lastRXData;
     static uint8_t newRXData;
     static bool RXisSync = false;
@@ -78,46 +78,59 @@ ISR( TIMER1_COMPA_vect )
     static int RXToggleCount;
     static int RXNoToggleCount;
 
+    static int ISRcount;
+#if( BTN_ID==1 )
+    const int ISRcountMin = 52;
+    const int ISRcountMax = 102;
+#elif( BTN_ID==2 )
+    const int ISRcountMin = 103;
+    const int ISRcountMax = 153;
+#elif( BTN_ID==3 )
+    const int ISRcountMin = 154;
+    const int ISRcountMax = 204;
+#elif( BTN_ID==4 )
+    const int ISRcountMin = 205;
+    const int ISRcountMax = 243;
+#endif
+    const int ISRcountInactive = 244;
+
     ISRcount++;
+    if( ISRcount > 255 )
+        ISRcount = 0;
 
     if( RXisSync )
     {
-        if( ISRcount >=  52 && ISRcount < 102 )
-        // if( ISRcount >= 102 && ISRcount < 153 )
-        // if( ISRcount >= 153 && ISRcount < 204 )
-        // if( ISRcount >= 204 && ISRcount < 255 )
-        {
-            TXDATA1SET;
-            // return;
-        }
-        else
-        {
+        if( ISRcount < ISRcountMin )
             TXDATA1CLEAR;
-        }
-
-        if( ISRcount > 255 )
-            ISRcount = 0;
-    }
-
-    newRXData = RXDATA1READ;
-    if( newRXData != lastRXData )
-    {
-        lastRXData = newRXData;
-        RXNoToggleCount = 0;
-        RXToggleCount++;
-        if( RXToggleCount == 14 )
-        {
-            RXisSync = true;
-            ISRcount = 51;
-        }
+        else if( ISRcount < ISRcountMax )
+            TXDATA1SET;
+        else if( ISRcount < ISRcountInactive )
+            TXDATA1CLEAR;
+        else
+            RXisSync = false;
     }
     else
     {
-        RXNoToggleCount++;
-        if( RXNoToggleCount > 10 )
+        newRXData = RXDATA1READ;
+        if( newRXData != lastRXData )
         {
+            lastRXData = newRXData;
             RXNoToggleCount = 0;
-            RXToggleCount = 0;
+            RXToggleCount++;
+            if( RXToggleCount == 14 )
+            {
+                RXisSync = true;
+                ISRcount = 51;
+            }
+        }
+        else
+        {
+            RXNoToggleCount++;
+            if( RXNoToggleCount > 10 )
+            {
+                RXNoToggleCount = 0;
+                RXToggleCount = 0;
+            }
         }
     }
 }

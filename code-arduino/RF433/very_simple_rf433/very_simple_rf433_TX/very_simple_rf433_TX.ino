@@ -26,15 +26,29 @@
 #define LED5CLEAR  bitWrite( PORTB, LED5PIN, 0 )
 #define LED5TOGGLE bitWrite( PORTB, LED5PIN, !bitRead( PINB, LED5PIN ) )
 
+// RXDATA1
+#define RXDATA1PIN    PORTD2
+#define RXDATA1INIT   bitClear( DDRD,  RXDATA1PIN )
+#define RXDATA1READ   bitRead ( PIND,  RXDATA1PIN )
+
+// TXDATA
+#define TXDATA1PIN    PORTD3
+#define TXDATA1INIT   bitSet  ( DDRD,  TXDATA1PIN )
+#define TXDATA1SET    bitSet  ( PORTD, TXDATA1PIN )
+#define TXDATA1CLEAR  bitClear( PORTD, TXDATA1PIN )
+#define TXDATA1TOGGLE bitWrite( PORTD, TXDATA1PIN, !bitRead( PIND, TXDATA1PIN ) )
 
 int main()
 {
-     DDRB = 0b00111110;
+     DDRB = 0b00000000;
     PORTB = 0b11111111;
      DDRC = 0b00000000;
     PORTC = 0b11111111;
-     DDRD = 0b00000000;
-    PORTD = 0b11111111;
+    // DDRD = 0b00001000;
+    // PORTD = 0b11101011;
+
+    RXDATA1INIT;
+    TXDATA1INIT;
 
     // initialize Timer1
     cli();                   // disable global interrupts
@@ -55,15 +69,15 @@ ISR( TIMER1_COMPA_vect )
     ISRcount++;
 
     if( ISRcount <= 51 )
-        { if( ISRcount % 4 == 0 ) { LED1TOGGLE; LED2CLEAR;  /*LED3CLEAR*/;  LED4CLEAR;  LED5CLEAR;  } LED3SET; }
+        { if( ISRcount % 4 == 0 ) { TXDATA1TOGGLE; } }
     else if( ISRcount <= 102 )
-        { LED1CLEAR;  LED2SET;    LED3CLEAR;  LED4CLEAR;  LED5CLEAR;  }
+        { TXDATA1CLEAR; }
     else if( ISRcount <= 153 )
-        { LED1CLEAR;  LED2CLEAR;  LED3SET;    LED4CLEAR;  LED5CLEAR;  }
+        { TXDATA1CLEAR; }
     else if( ISRcount <= 204 )
-        { LED1CLEAR;  LED2CLEAR;  LED3CLEAR;  LED4SET;    LED5CLEAR;  }
+        { TXDATA1CLEAR; }
     else if( ISRcount <= 255 )
-        { LED1CLEAR;  LED2CLEAR;  LED3CLEAR;  LED4CLEAR;  LED5SET;    }
+        { TXDATA1CLEAR; }
     else
         { ISRcount = 0; }
 }
