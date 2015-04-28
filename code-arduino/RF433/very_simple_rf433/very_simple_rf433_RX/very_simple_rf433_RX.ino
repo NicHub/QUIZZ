@@ -1,196 +1,123 @@
 /*
-
-RX
-modèle jy-js03
-http://fr.aliexpress.com/item/1pcs-433Mhz-RF-transmitter-and-receiver-kit-for-Arduino-project-FREE-SHIPPING-3235/1308017760.html?recommendVersion=1
-À 600 bit/s, le dt émission-réception est compris entre 90 et 150 ms, et vaut typiquement 100 ms. Mesure faite à 10 cm de distance.
-
-S bit/s     dt ms
-    600       100
-   1200        47
-
+    very_simple_rf433_RX.ino
 */
 
-#include <Manchester.h>
 #include <avr/io.h>
-#include <util/delay.h>
+#include <avr/interrupt.h>
 
-// LED 13 -> LED du board
-#define L13_PIN    PORTB5
-#define L13_PORT   PORTB
-#define L13_INIT   bitSet  ( DDRB,     L13_PIN )
-#define L13_READ   bitRead ( L13_PORT, L13_PIN )
-#define L13_SET    bitSet  ( L13_PORT, L13_PIN )
-#define L13_CLEAR  bitClear( L13_PORT, L13_PIN )
-#define L13_TOGGLE L13_PORT ^= 1<<L13_PIN
-// LED 1
-#define L1_PIN    PORTB4
-#define L1_PORT   PORTB
-#define L1_INIT   bitSet  ( DDRB,    L1_PIN )
-#define L1_READ   bitRead ( L1_PORT, L1_PIN )
-#define L1_SET    bitSet  ( L1_PORT, L1_PIN )
-#define L1_CLEAR  bitClear( L1_PORT, L1_PIN )
-#define L1_TOGGLE L1_PORT ^= 1<<L1_PIN
-// LED 2
-#define L2_PIN    PORTB3
-#define L2_PORT   PORTB
-#define L2_INIT   bitSet  ( DDRB,    L2_PIN )
-#define L2_READ   bitRead ( L2_PORT, L2_PIN )
-#define L2_SET    bitSet  ( L2_PORT, L2_PIN )
-#define L2_CLEAR  bitClear( L2_PORT, L2_PIN )
-#define L2_TOGGLE L2_PORT ^= 1<<L2_PIN
-// LED 3
-#define L3_PIN    PORTB2
-#define L3_PORT   PORTB
-#define L3_INIT   bitSet  ( DDRB,    L3_PIN )
-#define L3_READ   bitRead ( L3_PORT, L3_PIN )
-#define L3_SET    bitSet  ( L3_PORT, L3_PIN )
-#define L3_CLEAR  bitClear( L3_PORT, L3_PIN )
-#define L3_TOGGLE L3_PORT ^= 1<<L3_PIN
-// LED 4
-#define L4_PIN    PORTB1
-#define L4_PORT   PORTB
-#define L4_INIT   bitSet  ( DDRB,    L4_PIN )
-#define L4_READ   bitRead ( L4_PORT, L4_PIN )
-#define L4_SET    bitSet  ( L4_PORT, L4_PIN )
-#define L4_CLEAR  bitClear( L4_PORT, L4_PIN )
-#define L4_TOGGLE L4_PORT ^= 1<<L4_PIN
-
-
-
-// PORTD4 -> Bouton du TX (pour mesurer délai de transmission)
-#define bBouton    PORTD4
-#define boutonRead bitRead( PIND, bBouton )
-
-
-#define RXDATA1    6
-#define RXDATA2    5
-#define RXGND PORTD7
-#define RXVCC PORTD4
+#define LED1PIN PORTB1
+#define LED1SET    bitWrite( PORTB, LED1PIN, 1 )
+#define LED1CLEAR  bitWrite( PORTB, LED1PIN, 0 )
+#define LED1TOGGLE bitWrite( PORTB, LED1PIN, !bitRead( PINB, LED1PIN ) )
+#define LED2PIN PORTB2
+#define LED2SET    bitWrite( PORTB, LED2PIN, 1 )
+#define LED2CLEAR  bitWrite( PORTB, LED2PIN, 0 )
+#define LED2TOGGLE bitWrite( PORTB, LED2PIN, !bitRead( PINB, LED2PIN ) )
+#define LED3PIN PORTB3
+#define LED3SET    bitWrite( PORTB, LED3PIN, 1 )
+#define LED3CLEAR  bitWrite( PORTB, LED3PIN, 0 )
+#define LED3TOGGLE bitWrite( PORTB, LED3PIN, !bitRead( PINB, LED3PIN ) )
+#define LED4PIN PORTB4
+#define LED4SET    bitWrite( PORTB, LED4PIN, 1 )
+#define LED4CLEAR  bitWrite( PORTB, LED4PIN, 0 )
+#define LED4TOGGLE bitWrite( PORTB, LED4PIN, !bitRead( PINB, LED4PIN ) )
+#define LED5PIN PORTB5
+#define LED5SET    bitWrite( PORTB, LED5PIN, 1 )
+#define LED5CLEAR  bitWrite( PORTB, LED5PIN, 0 )
+#define LED5TOGGLE bitWrite( PORTB, LED5PIN, !bitRead( PINB, LED5PIN ) )
 
 // RXDATA1
-#define      RXDATARead    bitRead (  PIND, RXDATA1 )
+#define RXDATA1PIN    PORTD2
+#define RXDATA1INIT   bitClear( DDRD,  RXDATA1PIN )
+#define RXDATA1READ   bitRead ( PIND,  RXDATA1PIN )
+
+// TXDATA
+#define TXDATA1PIN    PORTD3
+#define TXDATA1INIT   bitSet  ( DDRD,  TXDATA1PIN )
+#define TXDATA1SET    bitSet  ( PORTD, TXDATA1PIN )
+#define TXDATA1CLEAR  bitClear( PORTD, TXDATA1PIN )
+#define TXDATA1TOGGLE bitWrite( PORTD, TXDATA1PIN, !bitRead( PIND, TXDATA1PIN ) )
 
 
-#define codeBouton1 20101
-#define codeBouton2 20202
-#define codeBouton3 20303
-#define codeBouton4 20404
-
-
-
-
-
-uint16_t msg;
-uint16_t prev_msg;
-long prev_millis;
-
-
-
-void setup()
+int main()
 {
-    DDRB = 0b11111111;
-    DDRC = 0b11111111;
-    DDRD = 0b11111111;
 
-    L1_INIT;
-    L2_INIT;
-    L3_INIT;
-    L4_INIT;
-    L13_INIT;
-    for(int i=0; i<10; i++)
-    {
-        L1_TOGGLE;
-        L2_TOGGLE;
-        L3_TOGGLE;
-        L4_TOGGLE;
-        L13_TOGGLE;
-        _delay_ms( 400 );
-    }
+     DDRB = 0b00000000;
+    PORTB = 0b11111111;
+     DDRC = 0b00000000;
+    PORTC = 0b11111111;
+    // DDRD = 0b00001000;
+    // PORTD = 0b11101011;
 
-    bitClear( DDRD, RXDATA1 );
-    bitClear( DDRD, RXDATA2 );
+    RXDATA1INIT;
+    TXDATA1INIT;
 
-    bitClear( PORTD, RXGND );
-    bitSet( PORTD, RXVCC );
+    // initialize Timer1
+    cli();                   // disable global interrupts
+    TCCR1A = 0b00000000;     // set entire TCCR1A register to 0
+    TCCR1B = 0b00000000
+        | (1 << WGM12)       // turn on CTC mode:
+        | (1 << CS11);
+    OCR1A = 99;              // set compare match register to desired timer count:
+    TIMSK1 |= (1 << OCIE1A); // enable timer compare interrupt:
+    sei();                   // enable global interrupts
 
-    man.setupReceive( RXDATA1, MAN_600 );
-    man.beginReceive();
-
-    Serial.begin( 9600 );
-    Serial.print( "\n\n# RX READY #" );
+    while( true ){}
 }
 
 
-long m0;
-long m1;
 
-const byte arraySize = 1;
-long arrayT[ arraySize ];
-byte arrayV[ arraySize ];
-byte arrayI = 0;
-
-void loop()
+ISR( TIMER1_COMPA_vect )
 {
-    if( man.receiveComplete() )
+    static int ISRcount;
+
+    static uint8_t lastRXData;
+    static uint8_t newRXData;
+    static bool RXisSync = false;
+
+    static int RXToggleCount;
+    static int RXNoToggleCount;
+
+    ISRcount++;
+
+    if( RXisSync )
     {
-
-        msg = man.getMessage();
-        // if( msg != prev_msg )
-        // if( true )
-        if( false )
+        if( ISRcount >=  52 && ISRcount < 102 )
+        // if( ISRcount >= 102 && ISRcount < 153 )
+        // if( ISRcount >= 153 && ISRcount < 204 )
+        // if( ISRcount >= 204 && ISRcount < 255 )
         {
-            prev_msg = msg;
-            m0 = millis();
-            arrayT[ arrayI ] = m0 - m1;
-            m1 = m0;
-            arrayV[ arrayI ] = msg;
-            arrayI++;
-            if( arrayI == arraySize )
-            {
-                arrayI = 0;
-                for( int i=0; i<arraySize; i++ )
-                {
-                    Serial.print( "\n" );
-                         if( arrayT[ i ] < 10     ) { Serial.print( "    " ); }
-                    else if( arrayT[ i ] < 100    ) { Serial.print( "   " ); }
-                    else if( arrayT[ i ] < 1000   ) { Serial.print( "  " ); }
-                    else if( arrayT[ i ] < 10000  ) { Serial.print( " " ); }
-                    Serial.print( arrayT[ i ] );
-
-                    if( arrayV[ i ] == 1 ){ Serial.print( " " );    }
-                    if( arrayV[ i ] == 2 ){ Serial.print( "  " );   }
-                    if( arrayV[ i ] == 3 ){ Serial.print( "   " );  }
-                    if( arrayV[ i ] == 4 ){ Serial.print( "    " ); }
-                    Serial.print( arrayV[ i ] );
-                }
-                Serial.print( "\n" );
-            }
+            TXDATA1SET;
+            // return;
         }
         else
         {
-            Serial.print( "\n" ); Serial.print( millis() ); Serial.print( " " ); Serial.print( msg );
+            TXDATA1CLEAR;
         }
-        _delay_ms( 1000 );
-        man.beginReceive();
+
+        if( ISRcount > 255 )
+            ISRcount = 0;
+    }
+
+    newRXData = RXDATA1READ;
+    if( newRXData != lastRXData )
+    {
+        lastRXData = newRXData;
+        RXNoToggleCount = 0;
+        RXToggleCount++;
+        if( RXToggleCount == 14 )
+        {
+            RXisSync = true;
+            ISRcount = 51;
+        }
     }
     else
     {
-        if( RXDATARead )
+        RXNoToggleCount++;
+        if( RXNoToggleCount > 10 )
         {
-            L13_SET;
+            RXNoToggleCount = 0;
+            RXToggleCount = 0;
         }
-        else
-        {
-            L13_CLEAR;
-        }
-        // m1 = millis() / 1000;
-        // if( m1 > m0 )
-        // {
-        //     Serial.print( "\n" ); Serial.print( m1 );
-        //     Serial.print( "\nArrayI = " ); Serial.print( arrayI );
-        //     m0 = m1;
-        // }
     }
 }
-

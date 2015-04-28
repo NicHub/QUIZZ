@@ -1,76 +1,69 @@
 /*
-
-    Very simple RF433 TX
-
+    very_simple_rf433_TX.ino
 */
 
 #include <avr/io.h>
-#include <util/delay.h>
+#include <avr/interrupt.h>
 
-// LED 13 -> LED du board
-#define L13_PIN    PORTB5
-#define L13_INIT   bitSet  ( DDRB,  L13_PIN )
-#define L13_READ   bitRead ( PINB,  L13_PIN )
-#define L13_SET    bitSet  ( PORTB, L13_PIN )
-#define L13_CLEAR  bitClear( PORTB, L13_PIN )
-#define L13_TOGGLE PORTB ^= 1<<L13_PIN
+#define LED1PIN PORTB1
+#define LED1SET    bitWrite( PORTB, LED1PIN, 1 )
+#define LED1CLEAR  bitWrite( PORTB, LED1PIN, 0 )
+#define LED1TOGGLE bitWrite( PORTB, LED1PIN, !bitRead( PINB, LED1PIN ) )
+#define LED2PIN PORTB2
+#define LED2SET    bitWrite( PORTB, LED2PIN, 1 )
+#define LED2CLEAR  bitWrite( PORTB, LED2PIN, 0 )
+#define LED2TOGGLE bitWrite( PORTB, LED2PIN, !bitRead( PINB, LED2PIN ) )
+#define LED3PIN PORTB3
+#define LED3SET    bitWrite( PORTB, LED3PIN, 1 )
+#define LED3CLEAR  bitWrite( PORTB, LED3PIN, 0 )
+#define LED3TOGGLE bitWrite( PORTB, LED3PIN, !bitRead( PINB, LED3PIN ) )
+#define LED4PIN PORTB4
+#define LED4SET    bitWrite( PORTB, LED4PIN, 1 )
+#define LED4CLEAR  bitWrite( PORTB, LED4PIN, 0 )
+#define LED4TOGGLE bitWrite( PORTB, LED4PIN, !bitRead( PINB, LED4PIN ) )
+#define LED5PIN PORTB5
+#define LED5SET    bitWrite( PORTB, LED5PIN, 1 )
+#define LED5CLEAR  bitWrite( PORTB, LED5PIN, 0 )
+#define LED5TOGGLE bitWrite( PORTB, LED5PIN, !bitRead( PINB, LED5PIN ) )
 
-// TX
-#define TX_PIN    PORTD3
-#define TX_INIT   bitSet  ( DDRD,  TX_PIN )
-#define TX_READ   bitRead ( PIND,  TX_PIN )
-#define TX_SET    bitSet  ( PORTD, TX_PIN )
-#define TX_CLEAR  bitClear( PORTD, TX_PIN )
-#define TX_TOGGLE PORTD ^= 1<<TX_PIN
 
-// TRIGGER BUTTON
-#define TRIG_PIN    PORTD4
-#define TRIG_INIT   bitClear( DDRD,  TRIG_PIN )
-#define TRIG_READ   bitRead ( PIND,  TRIG_PIN )
-#define TRIG_SET    bitSet  ( PORTD, TRIG_PIN )
-#define TRIG_CLEAR  bitClear( PORTD, TRIG_PIN )
-#define TRIG_TOGGLE PORTD ^= 1<<TRIG_PIN
-
-// À modifier pour chaque Arduino
-#define TX_ID 1
-
-void setup()
+int main()
 {
-    DDRB = 0b11111111;
-    DDRC = 0b11111111;
-    // DDRD = 0b11111111;
-    DDRD = 0b11111011;
+     DDRB = 0b00111110;
+    PORTB = 0b11111111;
+     DDRC = 0b00000000;
+    PORTC = 0b11111111;
+     DDRD = 0b00000000;
+    PORTD = 0b11111111;
 
-    TX_INIT;
-    L13_INIT;
-    TRIG_INIT;
+    // initialize Timer1
+    cli();                   // disable global interrupts
+    TCCR1A = 0b00000000;     // set entire TCCR1A register to 0
+    TCCR1B = 0b00000000
+        | (1 << WGM12)       // turn on CTC mode:
+        | (1 << CS11);
+    OCR1A = 99;              // set compare match register to desired timer count:
+    TIMSK1 |= (1 << OCIE1A); // enable timer compare interrupt:
+    sei();                   // enable global interrupts
+
+    while( true ){}
 }
 
-#if TX_ID == 1
-const double dt1 = 196 / 1;
-const double dt2 = 804 / 1;
-#elif TX_ID == 2
-const double dt1 = 311 / 1;
-const double dt2 = 689 / 1;
-#elif TX_ID == 3
-const double dt1 = 494 / 1;
-const double dt2 = 506 / 1;
-#elif TX_ID == 4
-const double dt1 = 784 / 1;
-const double dt2 = 216 / 1;
-#endif
-
-void loop()
+ISR( TIMER1_COMPA_vect )
 {
-    if( TRIG_READ )
-    {
-        L13_SET;
-        for( int i=0; i<10; i++ )
-        {
-            TX_SET;    _delay_us( dt1 );
-            TX_CLEAR;  _delay_us( dt2 );
-        }
-        while( TRIG_READ ){}
-        L13_CLEAR;
-    }
+    static byte ISRcount;
+    ISRcount++;
+
+    if( ISRcount <= 51 )
+        { if( ISRcount % 4 == 0 ) { LED1TOGGLE; LED2CLEAR;  /*LED3CLEAR*/;  LED4CLEAR;  LED5CLEAR;  } LED3SET; }
+    else if( ISRcount <= 102 )
+        { LED1CLEAR;  LED2SET;    LED3CLEAR;  LED4CLEAR;  LED5CLEAR;  }
+    else if( ISRcount <= 153 )
+        { LED1CLEAR;  LED2CLEAR;  LED3SET;    LED4CLEAR;  LED5CLEAR;  }
+    else if( ISRcount <= 204 )
+        { LED1CLEAR;  LED2CLEAR;  LED3CLEAR;  LED4SET;    LED5CLEAR;  }
+    else if( ISRcount <= 255 )
+        { LED1CLEAR;  LED2CLEAR;  LED3CLEAR;  LED4CLEAR;  LED5SET;    }
+    else
+        { ISRcount = 0; }
 }
