@@ -67,7 +67,7 @@ int main()
 
 
 
-#define BTN_ID 4
+#define BTN_ID 1
 
 ISR( TIMER1_COMPA_vect )
 {
@@ -79,18 +79,21 @@ ISR( TIMER1_COMPA_vect )
     static int RXNoToggleCount;
 
     static int ISRcount;
+
+#define dT1 5
+#define dT2 25
 #if( BTN_ID==1 )
-    const int ISRcountMin = 52;
-    const int ISRcountMax = 102;
+    const int ISRcountMin =  52 + dT1;
+    const int ISRcountMax = 102 - dT2;
 #elif( BTN_ID==2 )
-    const int ISRcountMin = 103;
-    const int ISRcountMax = 153;
+    const int ISRcountMin = 103 + dT1;
+    const int ISRcountMax = 153 - dT2;
 #elif( BTN_ID==3 )
-    const int ISRcountMin = 154;
-    const int ISRcountMax = 204;
+    const int ISRcountMin = 154 + dT1;
+    const int ISRcountMax = 204 - dT2;
 #elif( BTN_ID==4 )
-    const int ISRcountMin = 205;
-    const int ISRcountMax = 243;
+    const int ISRcountMin = 205 + dT1;
+    const int ISRcountMax = 255 - dT2;
 #endif
     const int ISRcountInactive = 244;
 
