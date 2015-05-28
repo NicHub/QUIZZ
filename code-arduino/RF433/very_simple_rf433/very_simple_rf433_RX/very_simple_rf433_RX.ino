@@ -55,8 +55,8 @@ int main()
     TCCR1A = 0b00000000;     // set entire TCCR1A register to 0
     TCCR1B = 0b00000000
         | (1 << WGM12)       // turn on CTC mode:
-        | (1 << CS11);
-    OCR1A = 99;              // set compare match register to desired timer count:
+        | (1 << CS10);
+    OCR1A = 771;              // set compare match register to desired timer count:
     TIMSK1 |= (1 << OCIE1A); // enable timer compare interrupt:
     sei();                   // enable global interrupts
 
@@ -65,19 +65,21 @@ int main()
 
 ISR( TIMER1_COMPA_vect )
 {
-    static byte ISRcount;
-    ISRcount++;
+    TXDATA1TOGGLE;
 
-    if( ISRcount <= 51 )
-        { if( ISRcount % 4 == 0 ) { TXDATA1TOGGLE; } }
-    else if( ISRcount <= 102 )
-        { TXDATA1CLEAR; }
-    else if( ISRcount <= 153 )
-        { TXDATA1CLEAR; }
-    else if( ISRcount <= 204 )
-        { TXDATA1CLEAR; }
-    else if( ISRcount <= 255 )
-        { TXDATA1CLEAR; }
-    else
-        { ISRcount = 0; }
+    // static byte ISRcount;
+    // ISRcount++;
+
+    // if( ISRcount <= 51 )
+    //     { if( ISRcount % 4 == 0 ) { TXDATA1TOGGLE; } }
+    // else if( ISRcount <= 102 )
+    //     { TXDATA1CLEAR; }
+    // else if( ISRcount <= 153 )
+    //     { TXDATA1CLEAR; }
+    // else if( ISRcount <= 204 )
+    //     { TXDATA1CLEAR; }
+    // else if( ISRcount <= 255 )
+    //     { TXDATA1CLEAR; }
+    // else
+    //     { ISRcount = 0; }
 }
