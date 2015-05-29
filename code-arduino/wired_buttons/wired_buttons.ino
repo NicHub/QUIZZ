@@ -56,57 +56,108 @@ void setup()
 
 }
 
+int serverCMD = 0;
+int whatToDo = 0;
+unsigned long T1 = millis();
+
 void loop()
 {
-    // LEDSet;
-    // _delay_ms( 100 );
-    // LEDClear;
-    // _delay_ms( 50 );
 
+    if( Serial.available() > 0 )
+    {
+        serverCMD = Serial.read();
+        Serial.print( "\nserverCMD, DEC = " );
+        Serial.print( serverCMD, DEC );
+        switch( serverCMD )
+        {
+            case 48:
+                whatToDo = 0;
+                break;
+            case 49:
+                whatToDo = 1;
+                break;
+        }
+    }
 
-    P1_4Readcopy = P1_4Read;
-    // Serial.print( "\n" );
-    // Serial.print( P1_4Readcopy, BIN );
-    // _delay_ms( 200 );
-
-    switch( P1_4Readcopy )
+    switch( whatToDo )
     {
         case 0:
+            if( millis() - T1 >= 250 )
+            {
+                Serial.print( "\nNe rien faire" );
+                T1 = millis();
+            }
             break;
-        case 0b0001:
-            beep( 1 );
-            blockUntilDepressed();
-            break;
-        case 0b0010:
-            beep( 2 );
-            blockUntilDepressed();
-            break;
-        case 0b0100:
-            beep( 3 );
-            blockUntilDepressed();
-            break;
-        case 0b1000:
-            beep( 4 );
-            blockUntilDepressed();
+        case 1:
+            if( millis() - T1 >= 250 )
+            {
+                Serial.print( "\nLire" );
+                T1 = millis();
+            }
             break;
     }
+
+
+    // if( mustRead )
+    // {
+    //     mustRead = false;
+    //     LEDSet;
+    //     if( P1_4Read )
+    //         readAndsendButtons();
+    // }
+
+
+    // P1_4Readcopy = P1_4Read;
+
+
+    // switch( P1_4Readcopy )
+    // {
+    //     case 0:
+    //         break;
+    //     case 0b0001:
+    //         // beep( 1 );
+    //         readAndsendButtons();
+    //         break;
+    //     case 0b0010:
+    //         // beep( 2 );
+    //         readAndsendButtons();
+    //         break;
+    //     case 0b0100:
+    //         // beep( 3 );
+    //         readAndsendButtons();
+    //         break;
+    //     case 0b1000:
+    //         // beep( 4 );
+    //         readAndsendButtons();
+    //         break;
+    // }
 
 
 }
 
 
-void blockUntilDepressed()
+void readAndsendButtons()
 {
+    unsigned long T1 = millis();
+    bool mustBeep = true;
+
     do {
+        if( millis() - T1 >= 100 )
+        {
+            Serial.print( "\nP1_4Readcopy, BIN = " );
+            Serial.print( P1_4Readcopy, BIN );
+            LEDToggle;
+            T1 = millis();
+        }
+        if( mustBeep )
+        {
+            beep();
+            mustBeep = false;
+        }
         P1_4Readcopy = P1_4Read;
-        LEDSet;
-        _delay_ms( 100 );
-        Serial.print( "\nP1_4Readcopy, BIN = " );
-        Serial.print( P1_4Readcopy, BIN );
-        LEDClear;
-        _delay_ms( 100 );
     }
-    while( P1_4Read );
+    while( P1_4Readcopy );
+
     LEDClear;
 }
 

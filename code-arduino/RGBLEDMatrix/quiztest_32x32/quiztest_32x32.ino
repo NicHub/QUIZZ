@@ -29,7 +29,7 @@
 //#define C   A1
 //#define D   A0
 
-#define cVal 66 // Min 66, Max 255 // Se rappeler de brancher l’alim de la matrice !!!
+#define cVal 160 // Min 66, Max 255 // Se rappeler de brancher l’alim de la matrice !!!
 #define couleurR matrix.Color888( cVal,    0,    0, true )
 #define couleurV matrix.Color888(    0, cVal,    0, true )
 #define couleurB matrix.Color888(    0,    0, cVal, true )
@@ -101,7 +101,7 @@ void setup()
     Serial.begin( 115200 );
 //    Serial.print( "Afficheur 32x32 - couleur " ); Serial.print( 0 ); Serial.print( "\n" );
     matrix.begin();
-    afficheNombre( 0, couleurR );
+    afficheNombre( 88, couleurR );
 //    toutesLesLEDs( couleurB );
     inputString.reserve( 200 );     // reserve 200 bytes for the inputString
 }

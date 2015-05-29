@@ -96,8 +96,8 @@ uint16_t rPiCouleur;
 void setup()
 {
     matrix.begin();
-    changeCouleur( 66 );
-    afficheNombre( 0, rPiCouleur, false );
+    changeCouleur( 160 );
+    afficheNombre( 8888, rPiCouleur, false );
     Serial.begin( 115200 );
     Serial.print( "Afficheur 16x32 - couleur " );
     Serial.print( MX );
@@ -167,9 +167,9 @@ void changeCouleur( uint8_t cVal )
     if     ( MX == 1 )
         rPiCouleur = couleurR;
     else if( MX == 2 )
-        rPiCouleur = couleurV;
-    else if( MX == 3 )
         rPiCouleur = couleurB;
+    else if( MX == 3 )
+        rPiCouleur = couleurV;
     else if( MX == 4 )
         rPiCouleur = couleurJ;
 
