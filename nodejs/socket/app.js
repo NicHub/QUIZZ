@@ -236,6 +236,7 @@ io.sockets.on('connection', function (socket, pseudo)
 });
 
 tic();
-server.listen( 8080 );
-console.log( "C’est partit mon kiki !" );
+nodePort = 8080;
+server.listen( nodePort );
+console.log( "Serveur node démarré et visible aux adresses :\nhttp://davberrypi.local:8080\nhttp://davberrypi:8080\n#############\n" );
 toc();
