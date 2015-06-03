@@ -56,22 +56,34 @@ void setup()
 
 }
 
-int serverCMD = 0;
+// int serverCMD = 0;
 int whatToDo = 0;
 unsigned long T1 = millis();
+bool serverTalked = false;
+String serverCMD = "";
 
 void loop()
 {
 
-    if( Serial.available() > 0 )
+    P1_4Readcopy = P1_4Read;
+    if( P1_4Readcopy )
     {
-        serverCMD = Serial.read();
-        switch( serverCMD )
-        {
-            /* 0 */ case 48: whatToDo = 0; break;
-            /* 1 */ case 49: whatToDo = 1; break;
-            /* 2 */ case 50: whatToDo = 2; break;
-        }
+        Serial.print( "\n# Le coucou dit : " );
+        Serial.print( P1_4Readcopy, BIN );
+    }
+
+    if( serverTalked )
+    {
+             if( serverCMD == "0" ) { whatToDo = 0; }
+        else if( serverCMD == "1" ) { whatToDo = 1; }
+        else if( serverCMD == "2" ) { whatToDo = 2; }
+        Serial.print( "serverCMD = " );
+        Serial.print( serverCMD );
+        Serial.print( "  whatToDo = " );
+        Serial.print( whatToDo );
+        serverTalked = false;
+        serverCMD = "";
+        beep(); beep(); beep();
     }
 
     switch( whatToDo )
@@ -104,3 +116,19 @@ void loop()
             break;
     }
 }
+
+
+void serialEvent()
+{
+    while( Serial.available() )
+    {
+        char serverChar = ( char )Serial.read();
+        if( serverChar == '\n' )
+        {
+            serverTalked = true;
+        }
+        else
+            serverCMD += serverChar;
+    }
+}
+
