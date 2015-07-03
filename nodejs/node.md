@@ -86,3 +86,10 @@ TIMEFORMAT='Temps de compilation : %3R s'; time( make; sudo make install )
 
 <http://weworkweplay.com/play/raspberry-pi-nodejs/>
 
+
+
+
+# Run Forever
+
+<https://github.com/mcreed/raspberry-preserve>
+
