@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>RS232 Fun</title>
+    <style>
+
+        body
+        {
+            font-family: monospace;
+            font-size: 14pt;
+        }
+        #wrapper {
+            display: box;
+            width: 650px;
+            margin: 200px auto;
+        }
+        ul li:hover
+        {
+            background-color: #CCC;
+        }
+        .ccBoutons input
+        {
+            font-family: inherit;
+            font-size: inherit;
+            border: 0;
+            display: block;
+            height: 50px;
+            width: 500px;
+        }
+        input:hover
+        {
+            color: white;
+            background-color: black;
+        }
+        .ccStyle {
+            margin: 1em auto;
+            width: 100%;
+            border: 1px solid;
+            text-align:center;
+            padding: 1em;
+        }
+        .ccStyle label {
+            padding: 0.25em 1em 0.25em 0.5em;
+        }
+        .ccStyle *:hover {
+            background-color: grey;
+            color: white;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="wrapper">
+        <div id="content">
+
+            <h1>RS232 FUN</h1>
+
+            <ul id="RS232devices">
+            </ul>
+
+            <form class="ccBoutons">
+                <p><input type="button" id="send_0" value="Envoyer 0 à l’Arduino"  /></p>
+                <p><input type="button" id="send_1" value="Envoyer 1 à l’Arduino"  /></p>
+                <p><input type="button" id="send_2" value="Envoyer 2 à l’Arduino"  /></p>
+            </form>
+
+            <form class="ccStyle">
+                <input type="checkbox" id="cStyle1" name="cStyle" value="1" /><label for="cStyle1"><span class="style_nb">1</span></label>
+                <input type="checkbox" id="cStyle2" name="cStyle" value="2" /><label for="cStyle2"><span class="style_nb">2</span></label>
+                <input type="checkbox" id="cStyle3" name="cStyle" value="3" /><label for="cStyle3"><span class="style_nb">3</span></label>
+                <input type="checkbox" id="cStyle4" name="cStyle" value="4" /><label for="cStyle4"><span class="style_nb">4</span></label>
+            </form>
+
+            <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+            <script src="/socket.io/socket.io.js"></script>
+            <script>
+
+                var socket = io.connect( 'http://localhost:8080' );
+
+                // /////////////
+                socket.on( 'message', function( message ) {
+                    console.log( 'Le serveur a un message pour vous : ' + message );
+                })
+
+
+                // chk = $( '.ccStyle input' );
+                // $( chk ).attr( 'checked', false );
+                chk1 = $( '#cStyle1' );
+                chk2 = $( '#cStyle2' );
+                chk3 = $( '#cStyle3' );
+                chk4 = $( '#cStyle4' );
+
+
+                // /////////////
+                socket.on( 'ArduinoSocket', function( message ) {
+                    // $( chk ).attr( 'checked', false );
+                    switch( message )
+                    {
+                        case "# Le coucou dit : 0":
+                            console.log( "message 0" );
+                            break;
+                        case "# Le coucou dit : 1":
+                            $( chk1 ).prop( 'checked', true  );
+                            $( chk2 ).prop( 'checked', false );
+                            $( chk3 ).prop( 'checked', false );
+                            $( chk4 ).prop( 'checked', false );
+                            console.log( "message 1 "   + message );
+                            break;
+                        case "# Le coucou dit : 10":
+                            $( chk1 ).prop( 'checked', false );
+                            $( chk2 ).prop( 'checked', true  );
+                            $( chk3 ).prop( 'checked', false );
+                            $( chk4 ).prop( 'checked', false );
+                            console.log( "message 10 "   + message );
+                            break;
+                        case "# Le coucou dit : 100":
+                            $( chk1 ).prop( 'checked', false );
+                            $( chk2 ).prop( 'checked', false );
+                            $( chk3 ).prop( 'checked', true  );
+                            $( chk4 ).prop( 'checked', false );
+                            console.log( "message 100 "  + message );
+                            break;
+                        case "# Le coucou dit : 1000":
+                            $( chk1 ).prop( 'checked', false );
+                            $( chk2 ).prop( 'checked', false );
+                            $( chk3 ).prop( 'checked', false );
+                            $( chk4 ).prop( 'checked', true  );
+                            console.log( "message 1000 " + message );
+                            break;
+                    }
+                })
+
+                // /////////////
+                socket.on( 'RS232devices', function( RS232devices ){
+                    console.log( 'RS232devices : ' + RS232devices );
+                    RS232devices.forEach( function( element ){
+                        $( 'ul#RS232devices' ).append( '<li>' + element + '</li>' );
+                    }, this );
+                })
+
+                $( "ul#RS232devices" ).on( "click", "li", function() {
+                    console.log( $( this ).text() );
+                });
+
+
+
+                // Envoie 0 à l’Arduino
+                $( '#send_0' ).click( function () {
+                    socket.emit( 'msg_to_arduino', '0' );
+                })
+
+                // Envoie 1 à l’Arduino
+                $( '#send_1' ).click( function () {
+                    socket.emit( 'msg_to_arduino', '1' );
+                })
+
+                // Envoie 2 à l’Arduino
+                $( '#send_2' ).click( function () {
+                    socket.emit( 'msg_to_arduino', '2' );
+                })
+
+
+            </script>
+        </div>
+    </div>
+</body>
+</html>
