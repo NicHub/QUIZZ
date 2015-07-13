@@ -78,10 +78,12 @@ io.sockets.on( 'connection', function( socket, pseudo ) {
 
 
 // Initialisation de la connexion série
+var ArduinoPort = '/dev/ttyUSB0';               // Rpi
+//var ArduinoPort = '/dev/cu.wchusbserial1420'; // Mac
 var serialport = require( "serialport" );
 var SerialPort = serialport.SerialPort; // localize object constructor
 getRS232devices( function( RS232devices ){ console.log(RS232devices); });
-var sp = new SerialPort( "/dev/cu.wchusbserial1420", {
+var sp = new SerialPort( ArduinoPort, {
     parser:   serialport.parsers.readline( "\n" ),
     baudrate: 115200
 }, true );
