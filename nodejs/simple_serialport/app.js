@@ -1,8 +1,10 @@
 
 // simple_serialport
 
-var http = require( 'http' );
-var fs   = require( 'fs' );
+var http   = require( 'http' );
+var fs     = require( 'fs' );
+var osname = process.platform;
+var os     = require( 'os' );
 
 
 
@@ -27,6 +29,7 @@ var server = http.createServer( function( req, res ) {
     fs.readFile( './index.html', 'utf-8', function( error, content ) {
         res.writeHead( 200, { "Content-Type": "text/html" } );
         res.end( content );
+        console.log( "Fichier index.html créé" );
     });
 });
 
@@ -35,7 +38,7 @@ var server = http.createServer( function( req, res ) {
 // Démarrage du serveur
 var HTTPPort = 8080;
 server.listen( HTTPPort );
-console.log( "Serveur démarré à http://localhost:" + HTTPPort );
+console.log( "Serveur démarré à http://" + os.hostname() + ":" + HTTPPort );
 
 
 
@@ -79,8 +82,15 @@ io.sockets.on( 'connection', function( socket, pseudo ) {
 
 
 // Initialisation de la connexion série
-var ArduinoPort = '/dev/ttyUSB0';               // Rpi
-//var ArduinoPort = '/dev/cu.wchusbserial1420'; // Mac
+switch( osname )
+{
+    case 'darwin':
+        var ArduinoPort = '/dev/cu.wchusbserial1420';
+        break;
+    case 'linux':
+        var ArduinoPort = '/dev/ttyUSB0';
+        break;
+}
 var serialport = require( "serialport" );
 var SerialPort = serialport.SerialPort; // localize object constructor
 getRS232devices( function( RS232devices ){ console.log(RS232devices); });
