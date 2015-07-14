@@ -1,10 +1,11 @@
 
 // simple_serialport
 
-var http   = require( 'http' );
-var fs     = require( 'fs' );
-var osname = process.platform;
-var os     = require( 'os' );
+var http    = require( 'http' );
+var fs      = require( 'fs' );
+var os      = require( 'os' );
+var nstatic = require( 'node-static' );
+var osname  = process.platform;
 
 
 
@@ -24,20 +25,22 @@ function getRS232devices( callback ) {
 
 
 
-// Chargement du fichier index.html affiché au client
-var server = http.createServer( function( req, res ) {
-    fs.readFile( './index.html', 'utf-8', function( error, content ) {
-        res.writeHead( 200, { "Content-Type": "text/html" } );
-        res.end( content );
-        console.log( "Fichier index.html créé" );
-    });
-});
-
-
-
-// Démarrage du serveur
 var HTTPPort = 8080;
-server.listen( HTTPPort );
+var fileServer = new nstatic.Server( './public', { cache: false } );
+var server = http.createServer( function( request, response ) {
+    request.addListener( 'end', function() {
+        fileServer.serve( request, response, function( err, result ) {
+            if( err ) {
+                console.log( "Error serving " + request.url + " - " + err.message );
+                // Respond to the client
+                response.writeHead( err.status, err.headers );
+                response.end();
+            } else {
+                console.log( "Now serving " + request.url );
+            }
+        });
+    }).resume();
+}).listen( HTTPPort );
 console.log( "Serveur démarré à http://" + os.hostname() + ":" + HTTPPort );
 
 
