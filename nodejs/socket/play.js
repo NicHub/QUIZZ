@@ -12,16 +12,21 @@
 
 // https://learn.adafruit.com/playing-sounds-and-using-buttons-with-raspberry-pi?view=all
 
-
 // sudo apt-get update; sudo apt-get install python-dev; sudo apt-get install python-rpi.gpio
-
 
 // http://wiki.linuxaudio.org/wiki/raspberrypi
 
-var child_process = require('child_process');
-
 // https://blog.liftsecurity.io/2014/08/19/Avoid-Command-Injection-Node.js?utm_source=ourjs.com
-var path = "."
-child_process.execFile('/home/pi/quizz/nodejs/socket/play.sh', [], function (err, result) {
-    console.log(result)
+
+
+
+var child_process = require( 'child_process' );
+
+child_process.execFile( '/home/pi/quizz/nodejs/socket/play.sh', [ 'winner_sound' ], function( err, result ) {
+    console.log( result )
 });
+
+child_process.execFile( '/home/pi/quizz/nodejs/socket/play.sh', [ 'looser_sound' ], function( err, result ) {
+    console.log( result )
+});
+
