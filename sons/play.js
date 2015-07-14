@@ -22,11 +22,11 @@
 
 var child_process = require( 'child_process' );
 
-child_process.execFile( '/home/pi/quizz/nodejs/socket/play.sh', [ 'winner_sound' ], function( err, result ) {
+child_process.execFile( '/home/pi/quizz/sons/play.sh', [ 'winner_sound' ], function( err, result ) {
     console.log( result )
 });
 
-child_process.execFile( '/home/pi/quizz/nodejs/socket/play.sh', [ 'looser_sound' ], function( err, result ) {
+child_process.execFile( '/home/pi/quizz/sons/play.sh', [ 'looser_sound' ], function( err, result ) {
     console.log( result )
 });
 
