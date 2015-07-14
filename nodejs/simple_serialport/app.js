@@ -74,7 +74,7 @@ io.sockets.on( 'connection', function( socket, pseudo ) {
 
     // Données retournées par l’Arduino
     sp.on( 'data', function( data ) {
-        // console.log( 'data received: ' + data );
+        console.log( 'data received socket: ' + data );
         socket.emit( 'ArduinoSocket', data );
     });
 
@@ -96,21 +96,49 @@ switch( osname )
 }
 var serialport = require( "serialport" );
 var SerialPort = serialport.SerialPort; // localize object constructor
-getRS232devices( function( RS232devices ){ console.log(RS232devices); });
+getRS232devices( function( RS232devices ){ console.log( RS232devices ); });
 var sp = new SerialPort( ArduinoPort, {
-    parser:   serialport.parsers.readline( "\n" ),
-    baudrate: 115200
+    parser   : serialport.parsers.readline( "\n" ),
+    baudrate : 115200
 }, true );
 sp.open( function( error ) {
     if( error ) {
         console.log( 'failed to open: ' + error );
     }
     else {
+        flushAndDrain( console.log( 'flushing' ) );
         console.log( 'open connection to Arduino ' );
-        sp.write( "0\n", function( err, results ) {
-            console.log( 'results ' + results );
-        });
+        writeDrainRead( "-1\n", function( dataRead ){ console.log( 'dataRead = ' + dataRead ) } );
     }
 });
+
+
+
+function writeAndDrain( data, callback ) {
+    sp.write( data, function() {
+       sp.drain( callback );
+    });
+};
+
+
+
+function writeDrainRead( data, callback ) {
+    sp.write( data, function() {
+       sp.drain( function() {
+            sp.once( 'data', function( dataRead ) {
+                callback( dataRead );
+            });
+        });
+    });
+};
+
+
+
+function flushAndDrain( callback ) {
+    sp.flush( function() {
+        sp.drain( callback );
+    });
+};
+
 
 

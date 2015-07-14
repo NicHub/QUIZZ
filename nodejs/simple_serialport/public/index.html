@@ -61,9 +61,10 @@
             </ul>
 
             <form class="ccBoutons">
-                <p><input type="button" id="send_0" value="Envoyer 0 à l’Arduino"  /></p>
-                <p><input type="button" id="send_1" value="Envoyer 1 à l’Arduino"  /></p>
-                <p><input type="button" id="send_2" value="Envoyer 2 à l’Arduino"  /></p>
+                <p><input type="button" id="send_0"  value="Envoyer 0 à l’Arduino"   /></p>
+                <p><input type="button" id="send_1"  value="Envoyer 1 à l’Arduino"   /></p>
+                <p><input type="button" id="send_2"  value="Envoyer 2 à l’Arduino"   /></p>
+                <p><input type="button" id="send_m1" value="Envoyer -1 à l’Arduino"  /></p>
             </form>
 
             <form class="ccStyle">
@@ -160,6 +161,11 @@
                 // Envoie 2 à l’Arduino
                 $( '#send_2' ).click( function () {
                     socket.emit( 'msg_to_arduino', '2' );
+                })
+
+                // Envoie -1 à l’Arduino
+                $( '#send_m1' ).click( function () {
+                    socket.emit( 'msg_to_arduino', '-1' );
                 })
 
 

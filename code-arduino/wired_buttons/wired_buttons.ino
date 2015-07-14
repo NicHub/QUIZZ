@@ -49,10 +49,9 @@ void setup()
     DDRD  = 0b00000000;
     PORTD = 0b11111111;
 
-    beep();
     Serial.begin( 115200 );
-    Serial.print( "\n###\nPmask = " );
-    Serial.print( Pmask, BIN );
+    Serial.print( "Controle Boutons\n" );
+    beep();
 
 }
 
@@ -68,22 +67,27 @@ void loop()
     P1_4Readcopy = P1_4Read;
     if( P1_4Readcopy )
     {
-        Serial.print( "\n# Le coucou dit : " );
+        Serial.print( "# Le coucou dit : " );
         Serial.print( P1_4Readcopy, BIN );
+        Serial.print( "\n" );
     }
 
     if( serverTalked )
     {
-             if( serverCMD == "0" ) { whatToDo = 0; }
-        else if( serverCMD == "1" ) { whatToDo = 1; }
-        else if( serverCMD == "2" ) { whatToDo = 2; }
+        //      if( serverCMD == "0" ) { whatToDo = 0; }
+        // else if( serverCMD == "1" ) { whatToDo = 1; }
+        // else if( serverCMD == "2" ) { whatToDo = 2; }
+        whatToDo = serverCMD.toInt();
+
+
         Serial.print( "serverCMD = " );
         Serial.print( serverCMD );
         Serial.print( "  whatToDo = " );
         Serial.print( whatToDo );
+        Serial.print( "\n" );
         serverTalked = false;
         serverCMD = "";
-        beep(); beep(); beep();
+        beep( 3 );
     }
 
     switch( whatToDo )
@@ -101,8 +105,8 @@ void loop()
             {
                 Serial.print( P1_4Readcopy, BIN );
                 Serial.print( "\n" );
-                beep();
                 whatToDo = 0;
+                beep();
             }
             if( millis() - T1 >= 50 )
             {
@@ -111,8 +115,18 @@ void loop()
             }
             break;
         case 2:
-            beep();
             whatToDo = 0;
+            beep();
+            break;
+        case -1:
+            Serial.print( "Controle Boutons\n" );
+            whatToDo = 0;
+            beep( 2 );
+            break;
+        case -2:
+            Serial.print( "Debug\n" );
+            whatToDo = 0;
+            beep( 2 );
             break;
     }
 }
