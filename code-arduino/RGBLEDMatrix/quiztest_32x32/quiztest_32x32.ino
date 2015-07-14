@@ -99,7 +99,7 @@ void setup()
     // DDRD = 0b00000000; PORTD = 0b11111111;
 
     Serial.begin( 115200 );
-//    Serial.print( "Afficheur 32x32 - couleur " ); Serial.print( 0 ); Serial.print( "\n" );
+    Serial.print( "Afficheur 32x32 - couleur 1\n" );
     matrix.begin();
     afficheNombre( 88, couleurR );
 //    toutesLesLEDs( couleurB );
