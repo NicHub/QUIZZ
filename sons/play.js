@@ -26,7 +26,7 @@ child_process.execFile( '/home/pi/quizz/sons/play.sh', [ 'winner_sound' ], funct
     console.log( result )
 });
 
-child_process.execFile( '/home/pi/quizz/sons/play.sh', [ 'looser_sound' ], function( err, result ) {
+child_process.execFile( '/home/pi/quizz/sons/play.sh', [ 'loser_sound' ], function( err, result ) {
     console.log( result )
 });
 

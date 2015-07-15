@@ -29,10 +29,10 @@ winner_sound)  echo -e "\nWinner sound !!!\n"
                mpg321 /home/pi/quizz/sons/That_s_All_Folks_WDJRfvbCdh8.mp3 -g 100
                ;;
 
-looser_sound)  echo -e "\nLooser sound\n"
+loser_sound)   echo -e "\nLoser sound\n"
                mpg321 /home/pi/quizz/sons/wah_wah_sound.mp3 -g 100
                ;;
-*)             echo -e "\n !!! Usage: ./play.sh winner_sound|looser_sound !!!\n"
+*)             echo -e "\n !!! Usage: ./play.sh winner_sound|loser_sound !!!\n"
                mpg321 /home/pi/quizz/sons/That_s_All_Folks_WDJRfvbCdh8.mp3 -g 100
                exit 1
                ;;
