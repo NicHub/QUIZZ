@@ -122,7 +122,7 @@ void loop()
         {
             // cmd = -1 ⇒ ID de la matrice
             if( cmd == -1 )
-            { Serial.print( MX ); Serial.print( "\n" ); }
+            { Serial.print( "MX" );Serial.print( MX ); Serial.print( "\n" ); }
             // -255 <= cmd <= -66 ⇒ intensité lumineuse
             if( -255 <= cmd && cmd <= -66 )
             {

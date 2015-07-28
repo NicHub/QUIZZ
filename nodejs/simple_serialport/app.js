@@ -88,7 +88,8 @@ io.sockets.on( 'connection', function( socket, pseudo ) {
 switch( osname )
 {
     case 'darwin':
-        var ArduinoPort = '/dev/cu.wchusbserial1420';
+        // var ArduinoPort = '/dev/cu.wchusbserial1420';
+        var ArduinoPort = '/dev/cu.wchusbserial26230';
         break;
     case 'linux':
         var ArduinoPort = '/dev/ttyUSB0';
