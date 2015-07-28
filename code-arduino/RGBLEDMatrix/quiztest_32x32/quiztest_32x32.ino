@@ -94,14 +94,11 @@ void afficheNombre( int nombre, uint16_t couleur )
 
 void setup()
 {
-    // DDRB = 0b00000000; PORTB = 0b11111111;
-    // DDRC = 0b00000000; PORTC = 0b11111111;
-    // DDRD = 0b00000000; PORTD = 0b11111111;
-
     Serial.begin( 115200 );
-    Serial.print( "Afficheur 32x32 - couleur 1\n" );
+    Serial.print( "MX0\n" );
+
     matrix.begin();
-    afficheNombre( 88, couleurR );
+    afficheNombre( 0, couleurR );
 //    toutesLesLEDs( couleurB );
     inputString.reserve( 200 );     // reserve 200 bytes for the inputString
 }
@@ -110,7 +107,6 @@ void setup()
 
 void loop()
 {
-
     if( stringComplete )
     {
         int cmd = inputString.toInt();
@@ -119,17 +115,14 @@ void loop()
             nombreActuel = cmd;
             afficheNombre( nombreActuel, rPiCouleur );
         }
-        else
+        else if( cmd == -1 )
         {
-            if( cmd == -1 )
-                { Serial.print( "0" ); Serial.print( "\n" ); }
+            Serial.print( "MX0\n" );
         }
 
         inputString = "";
         stringComplete = false;
     }
-
-
 }
 
 
