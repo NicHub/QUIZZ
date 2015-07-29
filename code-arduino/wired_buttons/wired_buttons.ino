@@ -50,9 +50,8 @@ void setup()
     PORTD = 0b11111111;
 
     Serial.begin( 115200 );
-    Serial.print( "Controle Boutons\n" );
+    Serial.print( "CB1\n" );
     beep();
-
 }
 
 // int serverCMD = 0;

@@ -2,6 +2,15 @@
 # -*- coding: utf-8 -*-
 
 
+# Ports usuels sur Raspberry
+# ttyACM0
+# ttyACM1
+# ttyACM2
+# ttyACM3
+# ttyACM4
+# ttyUSB0
+
+
 
 
 
@@ -13,7 +22,7 @@ import sys
 import time
 import threading
 import thread
-
+import platform
 
 
 
@@ -38,12 +47,16 @@ def list_USB_Devices():
     global MX_USBPortsOrdered
 
     import serial.tools.list_ports
-    seriallist = list( serial.tools.list_ports.grep( '/dev/cu.(?!Bluetooth)' ) )
+    if platform.system() == "Linux":
+        seriallist = list( serial.tools.list_ports.grep( '/dev/tty[AU]' ) )
+    else:
+        seriallist = list( serial.tools.list_ports.grep( '/dev/cu.(?!Bluetooth)' ) )
 
     for sl in seriallist:
         MX_USBPorts.append( sl[ 0 ] )
 
     print MX_USBPorts
+    print "len( MX_USBPorts ) = %d" % len( MX_USBPorts )
     matrix_SERIALs = [ 0 for x in range( len( MX_USBPorts ) ) ]
     MX_USBPortsOrdered = [ 0 for x in range( len( MX_USBPorts ) ) ]
 
@@ -67,14 +80,21 @@ def MX_OpenSerial( Arduino_usb, Arduino_nb ):
     toc = time.time()
 
     nb = -1
-    if   ans == "MX0":               nb = 0
-    elif ans == "MX1":               nb = 1
-    elif ans == "MX2":               nb = 2
-    elif ans == "MX3":               nb = 3
-    elif ans == "MX4":               nb = 4
-    elif ans == "Controle Boutons":  nb = 5
-
-    matrix_SERIALs[ nb ] = port
+    if   ans == "MX0": nb = 0
+    elif ans == "MX1": nb = 1
+    elif ans == "MX2": nb = 2
+    elif ans == "MX3": nb = 3
+    elif ans == "MX4": nb = 4
+    elif ans == "CB1": nb = 5
+    elif ans ==    "":
+        # Le CH341 a un bug et ne fonctionne qu’en 9600 bauds
+        # sous Python sur le RPi. Donc on triche un peu.
+        nb = 5
+        ans = "CB1 - triche"
+    try:
+        matrix_SERIALs[ nb ] = port
+    except:
+        print "ERRREUR nb = %d" % nb
     MX_USBPortsOrdered[ nb ] = Arduino_usb
     print "Temps écoulé : %1.1f s" % ( toc-tic ) + " #### " + "%s" % ( ans ) + " #### " + "nb = %d" % nb + " #### " + Arduino_usb + "\n"
     time.sleep( 0.1 )
