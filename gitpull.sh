@@ -18,11 +18,21 @@ case "$1" in
         git pull /Volumes/NICUSB/quizz/
         ;;
 
+5)      echo "5) Pull de nicobook vers nicomac"
+        git pull ssh://nico@nicobook.local:22/Users/nico/Documents/projets/quizz/
+        ;;
+
+6)      echo "6) Pull de nicomac vers nicobook"
+        git pull ssh://nico@nicomac.local:22/Users/nico/Documents/projets/quizz/
+        ;;
+
 *)      echo "Usage:"
         echo "1) Pull de rPi vers Mac"
         echo "2) Pull de Mac vers rPi"
         echo "3) Pull de Mac vers USB"
         echo "4) Pull de USB vers Mac"
+        echo "5) Pull de nicobook vers nicomac"
+        echo "6) Pull de nicomac vers nicobook"
         exit 1
         ;;
 esac

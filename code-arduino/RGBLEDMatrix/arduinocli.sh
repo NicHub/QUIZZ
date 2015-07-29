@@ -3,6 +3,7 @@
 # Arduino CLI man page
 # https://github.com/arduino/Arduino/blob/master/build/shared/manpage.adoc
 # Il faut indiquer le chemin complet vers le croquis pour que ça fonctionne !
+# Ce script doit être appelé depuis son propre répertoire !
 
 
 SCRIPT_PATH=`pwd`
@@ -68,25 +69,25 @@ function MX_32x32
 
 time(
 
+ARDUINO_NB=0
+ARDUINO_PORT="/dev/cu.usbmodem26221"
+MX_32x32 $ARDUINO_NB $ARDUINO_PORT &
+
 ARDUINO_NB=1
-ARDUINO_PORT="/dev/tty.usbmodem142111"
+ARDUINO_PORT="/dev/cu.usbmodem262111"
 MX_16x32 $ARDUINO_NB $ARDUINO_PORT &
 
 ARDUINO_NB=2
-ARDUINO_PORT="/dev/tty.usbmodem142121"
+ARDUINO_PORT="/dev/cu.usbmodem262121"
 MX_16x32 $ARDUINO_NB $ARDUINO_PORT &
 
 ARDUINO_NB=3
-ARDUINO_PORT="/dev/tty.usbmodem142131"
+ARDUINO_PORT="/dev/cu.usbmodem262131"
 MX_16x32 $ARDUINO_NB $ARDUINO_PORT &
 
 ARDUINO_NB=4
-ARDUINO_PORT="/dev/tty.usbmodem142141"
+ARDUINO_PORT="/dev/cu.usbmodem262141"
 MX_16x32 $ARDUINO_NB $ARDUINO_PORT &
-
-ARDUINO_NB=5
-ARDUINO_PORT="/dev/tty.usbmodem14221"
-MX_32x32 $ARDUINO_NB $ARDUINO_PORT &
 
 wait
 

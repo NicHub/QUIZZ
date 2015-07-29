@@ -73,44 +73,79 @@ io.sockets.on( 'connection', function( socket, pseudo ) {
 
 
     // Données retournées par l’Arduino
-    sp.on( 'data', function( data ) {
-        console.log( 'data received socket: ' + data );
+    // sp.on( 'data', function( data ) {
+    //     console.log( 'data received socket: ' + data );
+    //     socket.emit( 'ArduinoSocket', data );
+    // });
+
+    Arduinos[ 0 ].on( 'data', function( data ) {
+        console.log( 'Arduinos data received socket: ' + data );
         socket.emit( 'ArduinoSocket', data );
     });
-
-
 
 });
 
 
 
 // Initialisation de la connexion série
-switch( osname )
-{
-    case 'darwin':
-        // var ArduinoPort = '/dev/cu.wchusbserial1420';
-        var ArduinoPort = '/dev/cu.wchusbserial26230';
-        break;
-    case 'linux':
-        var ArduinoPort = '/dev/ttyUSB0';
-        break;
-}
-var serialport = require( "serialport" );
-var SerialPort = serialport.SerialPort; // localize object constructor
-getRS232devices( function( RS232devices ){ console.log( RS232devices ); });
-var sp = new SerialPort( ArduinoPort, {
-    parser   : serialport.parsers.readline( "\n" ),
-    baudrate : 115200
-}, true );
-sp.open( function( error ) {
-    if( error ) {
-        console.log( 'failed to open: ' + error );
+getRS232devices( function( RS232devices ) {
+    ArduinoPorts = RS232devices;
+    console.log( RS232devices );
+    console.log( "ArduinoPorts" );
+    console.log( ArduinoPorts );
+    var Arduinos = [];
+    switch( osname )
+    {
+        case 'darwin':
+            // var ArduinoPort = '/dev/cu.wchusbserial1420';
+            var ArduinoPort = '/dev/cu.usbmodem1411';
+            break;
+        case 'linux':
+            var ArduinoPort = '/dev/ttyUSB0';
+            break;
     }
-    else {
-        flushAndDrain( console.log( 'flushing' ) );
-        console.log( 'open connection to Arduino ' );
-        writeDrainRead( "-1\n", function( dataRead ){ console.log( 'dataRead = ' + dataRead ) } );
-    }
+    var serialport = require( "serialport" );
+    var SerialPort = serialport.SerialPort;
+
+
+    var sp = new SerialPort( ArduinoPort, {
+        parser   : serialport.parsers.readline( "\n" ),
+        baudrate : 115200
+    }, true );
+    sp.open( function( error ) {
+        if( error ) {
+            console.log( 'failed to open: ' + error );
+        }
+        else {
+            flushAndDrain( console.log( 'flushing' ) );
+            console.log( 'open connection to Arduino ' );
+            writeDrainRead( "-1\n", function( dataRead ) {
+                console.log( 'Arduino identifier = ' + dataRead )
+                switch( dataRead )
+                {
+                    case 'Controle Boutons':
+                        ArduinoNb = 0;
+                        break;
+                    case 'Afficheur 16x32 - couleur 1':
+                        ArduinoNb = 1;
+                        break;
+                    case 'Afficheur 16x32 - couleur 2':
+                        ArduinoNb = 2;
+                        break;
+                    case 'Afficheur 16x32 - couleur 3':
+                        ArduinoNb = 3;
+                        break;
+                    case 'Afficheur 16x32 - couleur 4':
+                        ArduinoNb = 4;
+                        break;
+                    case 'Afficheur 32x32 - couleur 1':
+                        ArduinoNb = 5;
+                        break;
+                }
+                Arduinos[ ArduinoNb ] = sp;
+            });
+        }
+    });
 });
 
 

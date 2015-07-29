@@ -97,11 +97,9 @@ void setup()
 {
     matrix.begin();
     changeCouleur( 160 );
-    afficheNombre( 8888, rPiCouleur, false );
+    afficheNombre( MX, rPiCouleur, false );
     Serial.begin( 115200 );
-    Serial.print( "Afficheur 16x32 - couleur " );
-    Serial.print( MX );
-    Serial.print( "\n" );
+    Serial.print( "MX" ); Serial.print( MX ); Serial.print( "\n" );
     inputString.reserve( 200 );     // reserve 200 bytes for the inputString
 }
 
@@ -124,7 +122,7 @@ void loop()
         {
             // cmd = -1 ⇒ ID de la matrice
             if( cmd == -1 )
-            { Serial.print( MX ); Serial.print( "\n" ); }
+            { Serial.print( "MX" );Serial.print( MX ); Serial.print( "\n" ); }
             // -255 <= cmd <= -66 ⇒ intensité lumineuse
             if( -255 <= cmd && cmd <= -66 )
             {
