@@ -1,0 +1,8 @@
+{
+"MX0" : "/dev/ttyACM0",
+"MX1" : "/dev/ttyACM1",
+"MX2" : "/dev/ttyACM2",
+"MX3" : "/dev/ttyACM3",
+"MX4" : "/dev/ttyACM4",
+"CB1" :  "/dev/ttyUSB0"
+}

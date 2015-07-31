@@ -31,7 +31,7 @@ baudrate = 115200
 MX_USBPorts = []
 MX_USBPortsOrdered = []
 matrix_SERIALs = []
-filename = "arduinos_ports.js"
+filename = "arduino_ports.json"
 
 
 
@@ -222,8 +222,14 @@ def closeRS232():
 
 def writeUSBPortsToFile():
     with open( filename, "w" ) as f:
-        for port in MX_USBPortsOrdered:
-            f.write( "%s\n" % port )
+        f.write( "%s\n" % "{" )
+        f.write( '"MX0" : "%s",\n' % MX_USBPortsOrdered[ 0 ] )
+        f.write( '"MX1" : "%s",\n' % MX_USBPortsOrdered[ 1 ] )
+        f.write( '"MX2" : "%s",\n' % MX_USBPortsOrdered[ 2 ] )
+        f.write( '"MX3" : "%s",\n' % MX_USBPortsOrdered[ 3 ] )
+        f.write( '"MX4" : "%s",\n' % MX_USBPortsOrdered[ 4 ] )
+        f.write( '"CB1" :  "%s"\n' % MX_USBPortsOrdered[ 5 ] )
+        f.write( "%s\n" % "}" )
 
 
 

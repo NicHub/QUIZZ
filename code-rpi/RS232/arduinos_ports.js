@@ -1,4 +1,4 @@
-/dev/ttyACM5
+/dev/ttyACM0
 /dev/ttyACM1
 /dev/ttyACM2
 /dev/ttyACM3
