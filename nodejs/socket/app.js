@@ -3,6 +3,7 @@
 var http = require('http');
 var fs = require('fs');
 var osname = process.platform;
+var os = require( 'os' );
 
 var ticTime;
 var tocTime;
@@ -129,7 +130,7 @@ io.sockets.on('connection', function (socket, pseudo)
 
     tic();
     var USBdevices = fs.readdirSync( '/dev/' );
-    var Arduinos = [];
+    var ArduinoPorts = [];
     if( osname == "darwin" )
     {
         console.log( "On est sur le Mac" );
@@ -137,7 +138,7 @@ io.sockets.on('connection', function (socket, pseudo)
         {
             if( USBdevices[ i ].substr( 0, 12 ) == "tty.usbmodem" )
             {
-                Arduinos.push( '/dev/' + USBdevices[ i ] );
+                ArduinoPorts.push( '/dev/' + USBdevices[ i ] );
             }
         }
     }
@@ -148,7 +149,7 @@ io.sockets.on('connection', function (socket, pseudo)
         {
             if( USBdevices[ i ].substr( 0, 6 ) == "ttyACM" )
             {
-                Arduinos.push( '/dev/' + USBdevices[ i ] );
+                ArduinoPorts.push( '/dev/' + USBdevices[ i ] );
             }
         }
     }
@@ -161,9 +162,9 @@ io.sockets.on('connection', function (socket, pseudo)
 
 
 
-    for( var j in Arduinos )
+    for( var j in ArduinoPorts )
     {
-        console.log( Arduinos[ j ] );
+        console.log( "ArduinoPorts[ " + j + " ] = " + ArduinoPorts[ j ] );
     }
     toc();
 
@@ -178,37 +179,85 @@ io.sockets.on('connection', function (socket, pseudo)
 
     */
     var SerialPort = require( "serialport" ).SerialPort;
-    for( var j in Arduinos )
-    {
-        console.log( "j = " + j );
-        MXs[ j ] = new SerialPort( Arduinos[ j ], {
-          baudrate: 115200
-        }, true); // this is the openImmediately flag [default is true]
 
-        MXs[ j ].open( function( error ) {
-            if( error )
-            {
-                console.log( 'failed to open: ' + error );
-            }
-            else
-            {
-                console.log( 'open MX ' + j );
-                MXs[ j ].on( 'data', function( data ) {
-                    console.log( 'data received: ' + data );
-                });
-                MXs[ j ].write( "10\n", function( err, results ) {
-                    // console.log('err ' + err);
-                    console.log( 'results ' + results );
-                });
-            }
+    MXs[ 0 ] = new SerialPort( ArduinoPorts[ 0 ], { baudrate: 115200 }, true );
+    MXs[ 0 ].open( function( error ) { console.log( '# Ouverture de la connexion de MX0' ); });
+    MXs[ 0 ].write( "-1\n", function() {
+       MXs[ 0 ].drain( function() {
+            MXs[ 0 ].once( 'data', function( dataRead ) {
+                annonceOuverture( 0, dataRead );
+            });
         });
+    });
+
+    MXs[ 1 ] = new SerialPort( ArduinoPorts[ 1 ], { baudrate: 115200 }, true );
+    MXs[ 1 ].open( function( error ) { console.log( '# Ouverture de la connexion de MX1' ); });
+    MXs[ 1 ].write( "-1\n", function() {
+       MXs[ 1 ].drain( function() {
+            MXs[ 1 ].once( 'data', function( dataRead ) {
+                annonceOuverture( 1, dataRead );
+            });
+        });
+    });
+
+    MXs[ 2 ] = new SerialPort( ArduinoPorts[ 2 ], { baudrate: 115200 }, true );
+    MXs[ 2 ].open( function( error ) { console.log( '# Ouverture de la connexion de MX2' ); });
+    MXs[ 2 ].write( "-1\n", function() {
+       MXs[ 2 ].drain( function() {
+            MXs[ 2 ].once( 'data', function( dataRead ) {
+                annonceOuverture( 2, dataRead );
+            });
+        });
+    });
+
+    MXs[ 3 ] = new SerialPort( ArduinoPorts[ 3 ], { baudrate: 115200 }, true );
+    MXs[ 3 ].open( function( error ) { console.log( '# Ouverture de la connexion de MX3' ); });
+    MXs[ 3 ].write( "-1\n", function() {
+       MXs[ 3 ].drain( function() {
+            MXs[ 3 ].once( 'data', function( dataRead ) {
+                annonceOuverture( 3, dataRead );
+            });
+        });
+    });
+
+    MXs[ 4 ] = new SerialPort( ArduinoPorts[ 4 ], { baudrate: 115200 }, true );
+    MXs[ 4 ].open( function( error ) { console.log( '# Ouverture de la connexion de MX4' ); });
+    MXs[ 4 ].write( "-1\n", function() {
+       MXs[ 4 ].drain( function() {
+            MXs[ 4 ].once( 'data', function( dataRead ) {
+                annonceOuverture( 4, dataRead );
+            });
+        });
+    });
+
+    namedMX = [];
+    function annonceOuverture( MXnb, dataRead ) {
+        MXname = String( dataRead ).substr( 0, 3 );
+        console.log( MXname + " est ouvert et est dans MX[ " + MXnb + " ]" );
+        switch( MXname ) {
+            case 'MX0': namedMX[ 'MX0' ] = MXs[ MXnb ]; MX0 = namedMX[ 'MX0' ]; console.log( "MX0 set" ); break;
+            case 'MX1': namedMX[ 'MX1' ] = MXs[ MXnb ]; MX1 = namedMX[ 'MX1' ]; console.log( "MX1 set" ); break;
+            case 'MX2': namedMX[ 'MX2' ] = MXs[ MXnb ]; MX2 = namedMX[ 'MX2' ]; console.log( "MX2 set" ); break;
+            case 'MX3': namedMX[ 'MX3' ] = MXs[ MXnb ]; MX3 = namedMX[ 'MX3' ]; console.log( "MX3 set" ); break;
+            case 'MX4': namedMX[ 'MX4' ] = MXs[ MXnb ]; MX4 = namedMX[ 'MX4' ]; console.log( "MX4 set" ); break;
+        }
     }
 
-    MX0 = MXs[ 0 ];
-    MX1 = MXs[ 1 ];
-    MX2 = MXs[ 2 ];
-    MX3 = MXs[ 3 ];
-    MX4 = MXs[ 4 ];
+
+
+    // MX0 = MXs[ 0 ];
+    // MX1 = MXs[ 1 ];
+    // MX2 = MXs[ 2 ];
+    // MX3 = MXs[ 3 ];
+    // MX4 = MXs[ 4 ];
+
+
+
+
+
+
+
+
 
 /*
     for( var j in MXs )
@@ -237,6 +286,8 @@ io.sockets.on('connection', function (socket, pseudo)
 
 tic();
 nodePort = 8080;
+baseURL = 'http://' + os.hostname() + ':' + nodePort;
 server.listen( nodePort );
-console.log( "Serveur node démarré et visible aux adresses :\nhttp://davberrypi.local:8080\nhttp://davberrypi:8080\n#############\n" );
+console.log( "Serveur node démarré et visible à l’adresse : \n" + baseURL + "\n" );
 toc();
+
