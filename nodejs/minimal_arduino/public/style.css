@@ -1,0 +1,17 @@
+
+body
+{
+	font-family: monospace;
+}
+
+div#wrapper
+{
+	width: 600px;
+	display: table;
+	margin: 10px auto;
+}
+
+.debug
+{
+	color: firebrick;
+}

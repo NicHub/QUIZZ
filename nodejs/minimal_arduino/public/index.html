@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Minimal Setup for Express.js &amp; Socket.io</title>
+	<link rel="stylesheet" type="text/css" href="style.css" />
+	<script src="jquery-1.11.3.min.js"></script>
+</head>
+<body>
+	<div id="wrapper">
+		<h1>Minimal Setup for Express.js &amp; Socket.io</h1>
+		<table>
+		<tr>
+			<td>
+				<input  class="input_number" type="number"  value="60"    id="number_0" />
+				<button class="input_button" type="button"  id="button_0">Start</button>
+			</td>
+		</tr>
+		</table>
+		<button class="input_button" type="button"  id="button_1">Send -1 to CB1</button>
+
+		<pre class="debug" id="debug"></pre>
+	</div>
+
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+
+		var socket = io();
+
+		socket.on( 'connectionStart', function( res ) {
+			$( "pre#debug" ).append( "<p>" + res + "</p>" );
+		});
+
+		socket.on( 'serverAcknowledge', function( res ) {
+			$( "pre#debug" ).append( "<p>" + res + "</p>" );
+		});
+
+		$( '#button_0' ).click( function() {
+			var msg = $( '#number_0' ).val();
+			console.log( msg );
+			socket.emit( 'inputButtonClicked', msg );
+		});
+
+		$( '#button_1' ).click( function() {
+			var msg = "-1\n";
+			console.log( msg );
+			socket.emit( 'sendMinusOneToCB1', msg );
+		});
+
+	</script>
+</body>
+</html>
