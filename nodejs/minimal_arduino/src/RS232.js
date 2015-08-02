@@ -22,7 +22,7 @@ if( osname == "darwin" ) {
     console.log( "On est sur le Rpi" );
     for( var i in RS232PortList ) {
         if( RS232PortList[ i ].substr( 0, 6 ) == "ttyACM" ||
-            RS232PortList[ i ].substr( 0, 6 ) == "ttyACU" )
+            RS232PortList[ i ].substr( 0, 6 ) == "ttyUSB" )
         { RS232Ports.push( '/dev/' + RS232PortList[ i ] ); }
     }
 } else {
@@ -122,6 +122,22 @@ try {
 }
 catch( err ) {
     console.log( "Problème à l’ouverture de RS232Ports[ 4 ] = " + RS232Ports[ 4 ] )
+}
+
+/* Arduino 5 */
+try {
+    RS232s[ 5 ] = new SerialPort( RS232Ports[ 5 ], { baudrate: 115200 }, true );
+    RS232s[ 5 ].open( function( error ) { console.log( '# Ouverture de la connexion de MX5' ); });
+    RS232s[ 5 ].write( "-1\n", function() {
+       RS232s[ 5 ].drain( function() {
+            RS232s[ 5 ].once( 'data', function( dataRead ) {
+                annonceOuverture( 5, dataRead );
+            });
+        });
+    });
+}
+catch( err ) {
+    console.log( "Problème à l’ouverture de RS232Ports[ 5 ] = " + RS232Ports[ 5 ] )
 }
 
 RS232Devices = [];

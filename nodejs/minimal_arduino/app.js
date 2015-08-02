@@ -38,6 +38,21 @@ io.sockets.on( 'connection', function( socket ) {
         RS232.devices[ 'CB1' ].write( "-1\n", function( err, results ) {
             console.log( ' --- results ' + results );
         });
+        RS232.devices[ 'MX0' ].write( "60\n", function( err, results ) {
+            console.log( ' --- results ' + results );
+        });
+        RS232.devices[ 'MX1' ].write( "11\n", function( err, results ) {
+            console.log( ' --- results ' + results );
+        });
+        RS232.devices[ 'MX2' ].write( "22\n", function( err, results ) {
+            console.log( ' --- results ' + results );
+        });
+        RS232.devices[ 'MX3' ].write( "33\n", function( err, results ) {
+            console.log( ' --- results ' + results );
+        });
+        RS232.devices[ 'MX4' ].write( "44\n", function( err, results ) {
+            console.log( ' --- results ' + results );
+        });
     });
 
     // Données retournées par l’Arduino
