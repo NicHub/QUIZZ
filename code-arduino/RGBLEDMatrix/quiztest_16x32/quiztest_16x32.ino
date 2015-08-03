@@ -22,14 +22,18 @@
 #include <RGBmatrixPanel.h>
 #include "chiffres.h"
 
+
+
 #define CLK  8
 #define LAT A3
 #define OE   9
 #define A   A0
 #define B   A1
 #define C   A2
+
 RGBmatrixPanel matrix( A, B, C, CLK, LAT, OE, false );
 
+uint16_t couleurM;
 uint16_t couleurR;
 uint16_t couleurV;
 uint16_t couleurB;
@@ -37,8 +41,9 @@ uint16_t couleurJ;
 uint16_t couleurN;
 uint16_t rPiCouleur;
 uint16_t couleur;
-// uint16_t i;
+
 uint16_t nombreActuel;
+int cmd = -256;
 String inputString = "";
 boolean stringComplete = false;
 
@@ -52,6 +57,16 @@ const char MX_ID_CHAR[] = "MX" toStr( MX ) "\n";
 void clearScreen()
 {
     matrix.fillScreen( matrix.Color333( 0, 0, 0 ) );
+}
+
+
+
+void fullScreen( uint16_t couleur )
+{
+    matrix.drawBitmap( 24, 0, chiffres_8x16[ 11 ], 8, 16, couleur );
+    matrix.drawBitmap( 16, 0, chiffres_8x16[ 11 ], 8, 16, couleur );
+    matrix.drawBitmap(  8, 0, chiffres_8x16[ 11 ], 8, 16, couleur );
+    matrix.drawBitmap(  0, 0, chiffres_8x16[ 11 ], 8, 16, couleur );
 }
 
 
@@ -103,13 +118,16 @@ void changeCouleur( uint8_t cVal )
     // cVal min = 66
     // cVal max = 255
     // Se rappeler de brancher l’alim de la matrice !!!
+    couleurM = matrix.Color888( cVal,    0, cVal, true );
     couleurR = matrix.Color888( cVal,    0,    0, true );
     couleurV = matrix.Color888(    0, cVal,    0, true );
     couleurB = matrix.Color888(    0,    0, cVal, true );
     couleurJ = matrix.Color888( cVal, cVal,    0, true );
     couleurN = matrix.Color888(    0,    0,    0, true );
-    if     ( MX == 1 )
+    if     ( MX == 0 )
         rPiCouleur = couleurR;
+    else if( MX == 1 )
+        rPiCouleur = couleurM;
     else if( MX == 2 )
         rPiCouleur = couleurB;
     else if( MX == 3 )
@@ -125,9 +143,12 @@ void serialEvent()
     while( Serial.available() )
     {
         char inChar = ( char )Serial.read();
-        inputString += inChar;
-        if( inChar == '\n' )
+        if( inChar != '\n')
+            inputString += inChar;
+        else if( inputString.length() > 1 )
         {
+            cmd = inputString.toInt();
+            inputString = "";
             stringComplete = true;
         }
     }
@@ -139,7 +160,7 @@ void setup()
 {
     matrix.begin();
     changeCouleur( 160 );
-    afficheNombre( MX, rPiCouleur );
+    afficheNombre( MX, rPiCouleur, true );
     Serial.begin( 115200 );
     Serial.print( MX_ID_CHAR );
     inputString.reserve( 200 );
@@ -151,8 +172,6 @@ void loop()
 {
     if( stringComplete )
     {
-        int cmd = inputString.toInt();
-
         // Affichage d’un nombre.
         if( cmd >= 0 && cmd < 10000 )
         {
@@ -166,10 +185,16 @@ void loop()
             Serial.print( MX_ID_CHAR );
         }
 
-        // Clear Screen.
+        // Toutes les LEDs éteintes.
         else if( cmd == -2 )
         {
             clearScreen();
+        }
+
+        // Toutes les LEDs allumées.
+        else if( cmd == -3 )
+        {
+            fullScreen( rPiCouleur );
         }
 
         // Modification de l’intensité lumineuse.
@@ -177,10 +202,8 @@ void loop()
         {
             changeCouleur( -cmd );
             afficheNombre( nombreActuel, rPiCouleur, true );
-            Serial.print( rPiCouleur ); Serial.print( "\n" );
         }
 
-        inputString = "";
         stringComplete = false;
     }
 }
