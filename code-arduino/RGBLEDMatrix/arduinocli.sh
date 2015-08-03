@@ -22,6 +22,10 @@ function MX_16x32
 {
     ARDUINO_NB=$1
     ARDUINO_PORT=$2
+    if ! [[ -e "$ARDUINO_PORT" ]]; then
+        echo "Aucun Arduino connecté à $ARDUINO_PORT"
+        exit 1
+    fi
     INOFILE_IN=$SCRIPT_PATH/quiztest_16x32/quiztest_16x32.ino
     hFILE_IN=$SCRIPT_PATH/quiztest_16x32/chiffres.h
     BASENAME="`basename $INOFILE_IN .ino`_$ARDUINO_NB"
@@ -47,6 +51,10 @@ function MX_32x32
 {
     ARDUINO_NB=$1
     ARDUINO_PORT=$2
+    if ! [[ -e "$ARDUINO_PORT" ]]; then
+        echo "Aucun Arduino connecté à $ARDUINO_PORT"
+        exit 1
+    fi
     INOFILE_IN=$SCRIPT_PATH/quiztest_32x32/quiztest_32x32.ino
     hFILE_IN=$SCRIPT_PATH/quiztest_32x32/chiffres.h
     BASENAME="`basename $INOFILE_IN .ino`_$ARDUINO_NB"
