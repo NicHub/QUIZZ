@@ -1,5 +1,14 @@
 /*
 
+
+     ██████  ██    ██ ██ ███████ ███████     ██
+    ██    ██ ██    ██ ██    ███     ███      ██
+    ██    ██ ██    ██ ██   ███     ███       ██
+    ██    ██ ██    ██ ██  ███     ███
+     ██████   ██████  ██ ███████ ███████     ██
+        ██
+
+
     MATRICE 16×32
 
     Instructions de câblage :
@@ -25,7 +34,7 @@
 #define MX 1
 #define STR1( x ) #x
 #define toStr( x ) STR1( x )
-const char MX_ID_CHAR[] = "MX" toStr( MX ) "\n";
+const char deviceIDStr[] = "MX" toStr( MX ) "\n";
 
 
 
@@ -47,8 +56,8 @@ uint16_t couleurJ;
 uint16_t couleurN;
 uint16_t rPiCouleur;
 uint16_t nombreActuel;
-String inputString = "";
-boolean stringComplete = false;
+String serverCommand = "";
+boolean serverTalked = false;
 boolean globalForceRefresh = false;
 
 
@@ -141,12 +150,11 @@ void serialEvent()
 {
     while( Serial.available() )
     {
-        char inChar = ( char )Serial.read();
-        inputString += inChar;
-        if( inChar == '\n' )
-        {
-            stringComplete = true;
-        }
+        char serverChar = ( char )Serial.read();
+        if( serverChar == '\n' )
+            serverTalked = true;
+        else
+            serverCommand += serverChar;
     }
 }
 
@@ -154,9 +162,9 @@ void serialEvent()
 
 void setup()
 {
-    inputString.reserve( 200 );
+    serverCommand.reserve( 200 );
     Serial.begin( 115200 );
-    Serial.print( MX_ID_CHAR );
+    Serial.print( deviceIDStr );
     matrix.begin();
     changeCouleur( 160 );
     afficheNombre( MX, rPiCouleur, true );
@@ -166,44 +174,44 @@ void setup()
 
 void loop()
 {
-    if( stringComplete )
+    if( serverTalked )
     {
-        int cmd = inputString.toInt();
+        int whatToDo = serverCommand.toInt();
 
         // Affichage d’un nombre.
-        if( cmd >= 0 && cmd < 10000 )
+        if( whatToDo >= 0 && whatToDo < 10000 )
         {
-            nombreActuel = cmd;
+            nombreActuel = whatToDo;
             afficheNombre( nombreActuel, rPiCouleur, false );
         }
 
         // Envoie l’ID de la matrice par le port série.
-        else if( cmd == -1 )
+        else if( whatToDo == -1 )
         {
-            Serial.print( MX_ID_CHAR );
+            Serial.print( deviceIDStr );
         }
 
         // Toutes les LEDs éteintes.
-        else if( cmd == -2 )
+        else if( whatToDo == -2 )
         {
             clearScreen();
         }
 
         // Toutes les LEDs allumées.
-        else if( cmd == -3 )
+        else if( whatToDo == -3 )
         {
             fillScreen();
         }
 
         // Modification de l’intensité lumineuse.
-        else if( -255 <= cmd && cmd <= -66 )
+        else if( -255 <= whatToDo && whatToDo <= -66 )
         {
-            changeCouleur( -cmd );
+            changeCouleur( -whatToDo );
             afficheNombre( nombreActuel, rPiCouleur, true );
         }
 
-        inputString = "";
-        stringComplete = false;
+        serverCommand = "";
+        serverTalked = false;
     }
 }
 

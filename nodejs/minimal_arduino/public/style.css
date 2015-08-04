@@ -24,7 +24,7 @@ form {
 	width: 600px;
 	border: 2px solid white;
 }
-input[type=number] {
+.input_number {
 	text-align: center;
 	font-size: 80pt;
 	color: white;
@@ -34,7 +34,7 @@ input[type=number] {
 	padding: 0;
 	vertical-align: middle;
 }
-button {
+.input_button {
 	font-size: 30pt;
 	width: 150px;
 	height: 125px;
@@ -62,29 +62,62 @@ pre#debug
 }
 
 
-
-#txtMX_VAL_1
-{
-	color: magenta;
-}
-#txtMX_VAL_2
-{
-	color: blue;
-}
-#txtMX_VAL_3
-{
-	color: lime;
-}
-#txtMX_VAL_4
-{
-	color: yellow;
-}
-#txtMX_VAL_0
+.txtMX_VAL_0
 {
 	color: red;
 }
 
+.txtMX_VAL_1
+{
+	color: magenta;
+}
+.txtMX_VAL_1_video_inv
+{
+	color: black;
+	background-color: magenta;
+}
+
+.txtMX_VAL_2
+{
+	color: blue;
+}
+.txtMX_VAL_2_video_inv
+{
+	color: black;
+	background-color: blue;
+}
+
+.txtMX_VAL_3
+{
+	color: lime;
+}
+.txtMX_VAL_3_video_inv
+{
+	color: black;
+	background-color: lime;
+}
+
+.txtMX_VAL_4
+{
+	color: yellow;
+}
+.txtMX_VAL_4_video_inv
+{
+	color: black;
+	background-color: yellow;
+}
+
+
 button.input_button_large
 {
 	width: 600px;
+	height: 100px;
+	font-size: 30pt;
+}
+
+.ccStyle
+{
+	width: 600px;
+	margin: 20px auto;
+	color: white;
 }

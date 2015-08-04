@@ -14,32 +14,32 @@
 		<table>
 			<tr>
 				<td>
-				<input class="input_number" type="number" value="0" id="txtMX_VAL_1" />
-				<button type="input_button" id="butMX_VAL_1"> MX 1</button>
+				<input class="input_number txtMX_VAL_1" type="number" value="0" id="txtMX_VAL_1" />
+				<button class="input_button" type="button" id="butMX_VAL_1"> MX 1</button>
 				</td>
 			</tr>
 			<tr>
 				<td>
-				<input class="input_number" type="number" value="0" id="txtMX_VAL_2" />
-				<button type="input_button" id="butMX_VAL_2"> MX 2</button>
+				<input class="input_number txtMX_VAL_2" type="number" value="0" id="txtMX_VAL_2" />
+				<button class="input_button" type="button" id="butMX_VAL_2"> MX 2</button>
 				</td>
 			</tr>
 			<tr>
 				<td>
-				<input class="input_number" type="number" value="0" id="txtMX_VAL_3" />
-				<button type="input_button" id="butMX_VAL_3"> MX 3</button>
+				<input class="input_number txtMX_VAL_3" type="number" value="0" id="txtMX_VAL_3" />
+				<button class="input_button" type="button" id="butMX_VAL_3"> MX 3</button>
 				</td>
 			</tr>
 			<tr>
 				<td>
-				<input class="input_number" type="number" value="0" id="txtMX_VAL_4" />
-				<button type="input_button" id="butMX_VAL_4"> MX 4</button>
+				<input class="input_number txtMX_VAL_4" type="number" value="0" id="txtMX_VAL_4" />
+				<button class="input_button" type="button" id="butMX_VAL_4"> MX 4</button>
 				</td>
 			</tr>
 			<tr>
 				<td id="tdMX0">
-				<input class="input_number" type="number" value="60" id="txtMX_VAL_0" />
-				<button type="input_button" id="butMX_VAL_0"> MX 0</button>
+				<input class="input_number txtMX_VAL_0" type="number" value="60" id="txtMX_VAL_0" />
+				<button class="input_button" type="button" id="butMX_VAL_0"> MX 0</button>
 				</td>
 			</tr>
 		</table>
@@ -47,6 +47,7 @@
 
 		<button class="input_button_large" type="input_button" id="butClearScreens">Effacer les écrans</button>
 		<button class="input_button_large" type="input_button" id="butFillScreens">Remplir les écrans</button>
+
 
 
 		<pre class="debug" id="debug"></pre>
@@ -83,6 +84,82 @@
 		// Remplir les écrans
 		$( '#butFillScreens' ).click( function() {
 			socket.emit( 'sendToAll', "-3\n" );
+		})
+
+
+
+		// /////////////
+		socket.on( 'arduinoButtonPressed', function( buttonID ) {
+			switch( buttonID )
+			{
+				case 1:
+					console.log( 'Bouton 1 pressé' );
+					$( "#txtMX_VAL_1" ).removeClass( "txtMX_VAL_1" );
+					$( "#txtMX_VAL_1" ).addClass( "txtMX_VAL_1_video_inv" );
+
+					$( "#txtMX_VAL_2" ).addClass( "txtMX_VAL_2" );
+					$( "#txtMX_VAL_2" ).removeClass( "txtMX_VAL_2_video_inv" );
+
+					$( "#txtMX_VAL_3" ).addClass( "txtMX_VAL_3" );
+					$( "#txtMX_VAL_3" ).removeClass( "txtMX_VAL_3_video_inv" );
+
+					$( "#txtMX_VAL_4" ).addClass( "txtMX_VAL_4" );
+					$( "#txtMX_VAL_4" ).removeClass( "txtMX_VAL_4_video_inv" );
+
+					break;
+
+				case 2:
+					console.log( 'Bouton 2 pressé' );
+					$( "#txtMX_VAL_1" ).addClass( "txtMX_VAL_1" );
+					$( "#txtMX_VAL_1" ).removeClass( "txtMX_VAL_1_video_inv" );
+
+					$( "#txtMX_VAL_2" ).removeClass( "txtMX_VAL_2" );
+					$( "#txtMX_VAL_2" ).addClass( "txtMX_VAL_2_video_inv" );
+
+					$( "#txtMX_VAL_3" ).addClass( "txtMX_VAL_3" );
+					$( "#txtMX_VAL_3" ).removeClass( "txtMX_VAL_3_video_inv" );
+
+					$( "#txtMX_VAL_4" ).addClass( "txtMX_VAL_4" );
+					$( "#txtMX_VAL_4" ).removeClass( "txtMX_VAL_4_video_inv" );
+
+					break;
+
+				case 3:
+					console.log( 'Bouton 3 pressé' );
+					$( "#txtMX_VAL_1" ).addClass( "txtMX_VAL_1" );
+					$( "#txtMX_VAL_1" ).removeClass( "txtMX_VAL_1_video_inv" );
+
+					$( "#txtMX_VAL_2" ).addClass( "txtMX_VAL_2" );
+					$( "#txtMX_VAL_2" ).removeClass( "txtMX_VAL_2_video_inv" );
+
+					$( "#txtMX_VAL_3" ).removeClass( "txtMX_VAL_3" );
+					$( "#txtMX_VAL_3" ).addClass( "txtMX_VAL_3_video_inv" );
+
+					$( "#txtMX_VAL_4" ).addClass( "txtMX_VAL_4" );
+					$( "#txtMX_VAL_4" ).removeClass( "txtMX_VAL_4_video_inv" );
+
+					break;
+
+				case 4:
+					console.log( 'Bouton 4 pressé' );
+					$( "#txtMX_VAL_1" ).addClass( "txtMX_VAL_1" );
+					$( "#txtMX_VAL_1" ).removeClass( "txtMX_VAL_1_video_inv" );
+
+					$( "#txtMX_VAL_2" ).addClass( "txtMX_VAL_2" );
+					$( "#txtMX_VAL_2" ).removeClass( "txtMX_VAL_2_video_inv" );
+
+					$( "#txtMX_VAL_3" ).addClass( "txtMX_VAL_3" );
+					$( "#txtMX_VAL_3" ).removeClass( "txtMX_VAL_3_video_inv" );
+
+					$( "#txtMX_VAL_4" ).removeClass( "txtMX_VAL_4" );
+					$( "#txtMX_VAL_4" ).addClass( "txtMX_VAL_4_video_inv" );
+
+					break;
+
+				default:
+					console.log( 'autre cas buttonID = ' + buttonID );
+					break;
+			};
 		})
 
 	</script>
