@@ -47,7 +47,7 @@ var RS232s = [];
 /* Arduino 0 */
 try {
     RS232s[ 0 ] = new SerialPort( RS232Ports[ 0 ], { baudrate: 115200 }, true );
-    RS232s[ 0 ].open( function( error ) { console.log( '# Ouverture de la connexion de MX0' ); });
+    RS232s[ 0 ].open( function( error ) { console.log( '# Ouverture du port ' + RS232Ports[ 0 ] ); });
     RS232s[ 0 ].write( "-1\n", function() {
        RS232s[ 0 ].drain( function() {
             RS232s[ 0 ].once( 'data', function( dataRead ) {
@@ -63,7 +63,7 @@ catch( err ) {
 /* Arduino 1 */
 try {
     RS232s[ 1 ] = new SerialPort( RS232Ports[ 1 ], { baudrate: 115200 }, true );
-    RS232s[ 1 ].open( function( error ) { console.log( '# Ouverture de la connexion de MX1' ); });
+    RS232s[ 1 ].open( function( error ) { console.log( '# Ouverture du port ' + RS232Ports[ 1 ] ); });
     RS232s[ 1 ].write( "-1\n", function() {
        RS232s[ 1 ].drain( function() {
             RS232s[ 1 ].once( 'data', function( dataRead ) {
@@ -79,7 +79,7 @@ catch( err ) {
 /* Arduino 2 */
 try {
     RS232s[ 2 ] = new SerialPort( RS232Ports[ 2 ], { baudrate: 115200 }, true );
-    RS232s[ 2 ].open( function( error ) { console.log( '# Ouverture de la connexion de MX2' ); });
+    RS232s[ 2 ].open( function( error ) { console.log( '# Ouverture du port ' + RS232Ports[ 2 ] ); });
     RS232s[ 2 ].write( "-1\n", function() {
        RS232s[ 2 ].drain( function() {
             RS232s[ 2 ].once( 'data', function( dataRead ) {
@@ -95,7 +95,7 @@ catch( err ) {
 /* Arduino 3 */
 try {
     RS232s[ 3 ] = new SerialPort( RS232Ports[ 3 ], { baudrate: 115200 }, true );
-    RS232s[ 3 ].open( function( error ) { console.log( '# Ouverture de la connexion de MX3' ); });
+    RS232s[ 3 ].open( function( error ) { console.log( '# Ouverture du port ' + RS232Ports[ 3 ] ); });
     RS232s[ 3 ].write( "-1\n", function() {
        RS232s[ 3 ].drain( function() {
             RS232s[ 3 ].once( 'data', function( dataRead ) {
@@ -111,7 +111,7 @@ catch( err ) {
 /* Arduino 4 */
 try {
     RS232s[ 4 ] = new SerialPort( RS232Ports[ 4 ], { baudrate: 115200 }, true );
-    RS232s[ 4 ].open( function( error ) { console.log( '# Ouverture de la connexion de MX4' ); });
+    RS232s[ 4 ].open( function( error ) { console.log( '# Ouverture du port ' + RS232Ports[ 4 ] ); });
     RS232s[ 4 ].write( "-1\n", function() {
        RS232s[ 4 ].drain( function() {
             RS232s[ 4 ].once( 'data', function( dataRead ) {
@@ -127,7 +127,7 @@ catch( err ) {
 /* Arduino 5 */
 try {
     RS232s[ 5 ] = new SerialPort( RS232Ports[ 5 ], { baudrate: 115200 }, true );
-    RS232s[ 5 ].open( function( error ) { console.log( '# Ouverture de la connexion de MX5' ); });
+    RS232s[ 5 ].open( function( error ) { console.log( '# Ouverture du port ' + RS232Ports[ 5 ] ); });
     RS232s[ 5 ].write( "-1\n", function() {
        RS232s[ 5 ].drain( function() {
             RS232s[ 5 ].once( 'data', function( dataRead ) {

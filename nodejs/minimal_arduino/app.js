@@ -25,9 +25,9 @@ io.sockets.on( 'connection', function( socket ) {
     console.log( msg );
     socket.emit( 'connectionStart', msg );
 
-    child_process.execFile( '/home/pi/quizz/sons/play.sh', [ 'winner_sound' ], function( err, result ) {
-        console.log( 'winner_sound' )
-    });
+    // child_process.execFile( '/home/pi/quizz/sons/play.sh', [ 'winner_sound' ], function( err, result ) {
+    //     console.log( 'winner_sound' )
+    // });
 
 
     // MX0
