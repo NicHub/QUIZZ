@@ -1,17 +1,90 @@
+@charset "utf-8";
 
-body
+body {
+	background-color: black;
+}
+html *{
+	font-family: "Trebuchet MS";
+}
+div#wrapper {
+	width:900px;
+	margin: 10px auto 0;
+	background-color: #F2F2F2;
+	background-color: #333;
+	text-align: center;
+	padding: 10px;
+}
+h1 {
+	font-size: 80pt;
+	color: white;
+	padding: 10px 0;
+	margin: 0;
+}
+form {
+	width: 600px;
+	border: 2px solid white;
+}
+input[type=number] {
+	text-align: center;
+	font-size: 80pt;
+	color: white;
+	background-color: black;
+	width: 450px;
+	margin: 0;
+	padding: 0;
+	vertical-align: middle;
+}
+button {
+	font-size: 30pt;
+	width: 150px;
+	height: 125px;
+	margin: 0;
+	padding: 0;
+	vertical-align: middle;
+	-webkit-appearance: none;
+	background-color: #EEE;
+}
+#tdMX0 input[type=number] {
+	font-size: 160pt;
+}
+#tdMX0 button {
+	height: 248px;
+}
+table {
+	width: 100%;
+}
+td {
+	padding: 10px 0;
+}
+pre#debug
 {
-	font-family: monospace;
+	display: none;
 }
 
-div#wrapper
+
+
+#txtMX_VAL_1
+{
+	color: magenta;
+}
+#txtMX_VAL_2
+{
+	color: blue;
+}
+#txtMX_VAL_3
+{
+	color: lime;
+}
+#txtMX_VAL_4
+{
+	color: yellow;
+}
+#txtMX_VAL_0
+{
+	color: red;
+}
+
+button.input_button_large
 {
 	width: 600px;
-	display: table;
-	margin: 10px auto;
-}
-
-.debug
-{
-	color: firebrick;
 }

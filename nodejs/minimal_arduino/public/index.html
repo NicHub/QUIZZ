@@ -1,51 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
 <head>
-	<title>Minimal Setup for Express.js &amp; Socket.io</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>QUIZZ !</title>
 	<link rel="stylesheet" type="text/css" href="style.css" />
 	<script src="jquery-1.11.3.min.js"></script>
 </head>
 <body>
 	<div id="wrapper">
-		<h1>Minimal Setup for Express.js &amp; Socket.io</h1>
+		<h1>QUIZZ !</h1>
+
 		<table>
-		<tr>
-			<td>
-				<input  class="input_number" type="number"  value="60"    id="number_0" />
-				<button class="input_button" type="button"  id="button_0">Start</button>
-			</td>
-		</tr>
+			<tr>
+				<td>
+				<input class="input_number" type="number" value="0" id="txtMX_VAL_1" />
+				<button type="input_button" id="butMX_VAL_1"> MX 1</button>
+				</td>
+			</tr>
+			<tr>
+				<td>
+				<input class="input_number" type="number" value="0" id="txtMX_VAL_2" />
+				<button type="input_button" id="butMX_VAL_2"> MX 2</button>
+				</td>
+			</tr>
+			<tr>
+				<td>
+				<input class="input_number" type="number" value="0" id="txtMX_VAL_3" />
+				<button type="input_button" id="butMX_VAL_3"> MX 3</button>
+				</td>
+			</tr>
+			<tr>
+				<td>
+				<input class="input_number" type="number" value="0" id="txtMX_VAL_4" />
+				<button type="input_button" id="butMX_VAL_4"> MX 4</button>
+				</td>
+			</tr>
+			<tr>
+				<td id="tdMX0">
+				<input class="input_number" type="number" value="60" id="txtMX_VAL_0" />
+				<button type="input_button" id="butMX_VAL_0"> MX 0</button>
+				</td>
+			</tr>
 		</table>
-		<button class="input_button" type="button"  id="button_1">Send -1 to CB1</button>
+
+
+		<button class="input_button_large" type="input_button" id="butClearScreens">Effacer les écrans</button>
+		<button class="input_button_large" type="input_button" id="butFillScreens">Remplir les écrans</button>
+
 
 		<pre class="debug" id="debug"></pre>
+
 	</div>
 
 	<script src="/socket.io/socket.io.js"></script>
 	<script>
-
 		var socket = io();
-
-		socket.on( 'connectionStart', function( res ) {
-			$( "pre#debug" ).append( "<p>" + res + "</p>" );
-		});
-
-		socket.on( 'serverAcknowledge', function( res ) {
-			$( "pre#debug" ).append( "<p>" + res + "</p>" );
-		});
-
-		$( '#button_0' ).click( function() {
-			var msg = $( '#number_0' ).val();
-			console.log( msg );
-			socket.emit( 'inputButtonClicked', msg );
-		});
-
-		$( '#button_1' ).click( function() {
-			var msg = "-1\n";
-			console.log( msg );
-			socket.emit( 'sendMinusOneToCB1', msg );
-		});
+		// MX 0
+		$( '#butMX_VAL_0' ).click( function() {
+			socket.emit( 'butMX_VAL_0', $( '#txtMX_VAL_0' ).val() );
+		})
+		// MX 1
+		$( '#butMX_VAL_1' ).click( function() {
+			socket.emit( 'butMX_VAL_1', $( '#txtMX_VAL_1' ).val() );
+		})
+		// MX 2
+		$( '#butMX_VAL_2' ).click( function() {
+			socket.emit( 'butMX_VAL_2', $( '#txtMX_VAL_2' ).val() );
+		})
+		// MX 3
+		$( '#butMX_VAL_3' ).click( function() {
+			socket.emit( 'butMX_VAL_3', $( '#txtMX_VAL_3' ).val() );
+		})
+		// MX 4
+		$( '#butMX_VAL_4' ).click( function() {
+			socket.emit( 'butMX_VAL_4', $( '#txtMX_VAL_4' ).val() );
+		})
+		// Effacer les écrans
+		$( '#butClearScreens' ).click( function() {
+			socket.emit( 'sendToAll', "-2\n" );
+		})
+		// Remplir les écrans
+		$( '#butFillScreens' ).click( function() {
+			socket.emit( 'sendToAll', "-3\n" );
+		})
 
 	</script>
-</body>
+	</body>
 </html>
