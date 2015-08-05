@@ -1,3 +1,19 @@
+/*
+
+
+     ██████  ██    ██ ██ ███████ ███████     ██
+    ██    ██ ██    ██ ██    ███     ███      ██
+    ██    ██ ██    ██ ██   ███     ███       ██
+    ██    ██ ██    ██ ██  ███     ███
+     ██████   ██████  ██ ███████ ███████     ██
+        ██
+
+
+    RS232.JS
+
+    Nicolas Jeanmonod, David Le Neillon, 2015
+
+ */
 
 var SerialPort = require( "serialport" ).SerialPort;
 var tools      = require("./tools.js");
@@ -60,85 +76,85 @@ catch( err ) {
     console.log( "Problème à l’ouverture de RS232Ports[ 0 ] = " + RS232Ports[ 0 ] )
 }
 
-/* Arduino 1 */
-try {
-    RS232s[ 1 ] = new SerialPort( RS232Ports[ 1 ], { baudrate: 115200 }, true );
-    RS232s[ 1 ].open( function( error ) { console.log( '# Ouverture du port ' + RS232Ports[ 1 ] ); });
-    RS232s[ 1 ].write( "-1\n", function() {
-       RS232s[ 1 ].drain( function() {
-            RS232s[ 1 ].once( 'data', function( dataRead ) {
-                annonceOuverture( 1, dataRead );
-            });
-        });
-    });
-}
-catch( err ) {
-    console.log( "Problème à l’ouverture de RS232Ports[ 1 ] = " + RS232Ports[ 1 ] )
-}
+// /* Arduino 1 */
+// try {
+//     RS232s[ 1 ] = new SerialPort( RS232Ports[ 1 ], { baudrate: 115200 }, true );
+//     RS232s[ 1 ].open( function( error ) { console.log( '# Ouverture du port ' + RS232Ports[ 1 ] ); });
+//     RS232s[ 1 ].write( "-1\n", function() {
+//        RS232s[ 1 ].drain( function() {
+//             RS232s[ 1 ].once( 'data', function( dataRead ) {
+//                 annonceOuverture( 1, dataRead );
+//             });
+//         });
+//     });
+// }
+// catch( err ) {
+//     console.log( "Problème à l’ouverture de RS232Ports[ 1 ] = " + RS232Ports[ 1 ] )
+// }
 
-/* Arduino 2 */
-try {
-    RS232s[ 2 ] = new SerialPort( RS232Ports[ 2 ], { baudrate: 115200 }, true );
-    RS232s[ 2 ].open( function( error ) { console.log( '# Ouverture du port ' + RS232Ports[ 2 ] ); });
-    RS232s[ 2 ].write( "-1\n", function() {
-       RS232s[ 2 ].drain( function() {
-            RS232s[ 2 ].once( 'data', function( dataRead ) {
-                annonceOuverture( 2, dataRead );
-            });
-        });
-    });
-}
-catch( err ) {
-    console.log( "Problème à l’ouverture de RS232Ports[ 2 ] = " + RS232Ports[ 2 ] )
-}
+// /* Arduino 2 */
+// try {
+//     RS232s[ 2 ] = new SerialPort( RS232Ports[ 2 ], { baudrate: 115200 }, true );
+//     RS232s[ 2 ].open( function( error ) { console.log( '# Ouverture du port ' + RS232Ports[ 2 ] ); });
+//     RS232s[ 2 ].write( "-1\n", function() {
+//        RS232s[ 2 ].drain( function() {
+//             RS232s[ 2 ].once( 'data', function( dataRead ) {
+//                 annonceOuverture( 2, dataRead );
+//             });
+//         });
+//     });
+// }
+// catch( err ) {
+//     console.log( "Problème à l’ouverture de RS232Ports[ 2 ] = " + RS232Ports[ 2 ] )
+// }
 
-/* Arduino 3 */
-try {
-    RS232s[ 3 ] = new SerialPort( RS232Ports[ 3 ], { baudrate: 115200 }, true );
-    RS232s[ 3 ].open( function( error ) { console.log( '# Ouverture du port ' + RS232Ports[ 3 ] ); });
-    RS232s[ 3 ].write( "-1\n", function() {
-       RS232s[ 3 ].drain( function() {
-            RS232s[ 3 ].once( 'data', function( dataRead ) {
-                annonceOuverture( 3, dataRead );
-            });
-        });
-    });
-}
-catch( err ) {
-    console.log( "Problème à l’ouverture de RS232Ports[ 3 ] = " + RS232Ports[ 3 ] )
-}
+// /* Arduino 3 */
+// try {
+//     RS232s[ 3 ] = new SerialPort( RS232Ports[ 3 ], { baudrate: 115200 }, true );
+//     RS232s[ 3 ].open( function( error ) { console.log( '# Ouverture du port ' + RS232Ports[ 3 ] ); });
+//     RS232s[ 3 ].write( "-1\n", function() {
+//        RS232s[ 3 ].drain( function() {
+//             RS232s[ 3 ].once( 'data', function( dataRead ) {
+//                 annonceOuverture( 3, dataRead );
+//             });
+//         });
+//     });
+// }
+// catch( err ) {
+//     console.log( "Problème à l’ouverture de RS232Ports[ 3 ] = " + RS232Ports[ 3 ] )
+// }
 
-/* Arduino 4 */
-try {
-    RS232s[ 4 ] = new SerialPort( RS232Ports[ 4 ], { baudrate: 115200 }, true );
-    RS232s[ 4 ].open( function( error ) { console.log( '# Ouverture du port ' + RS232Ports[ 4 ] ); });
-    RS232s[ 4 ].write( "-1\n", function() {
-       RS232s[ 4 ].drain( function() {
-            RS232s[ 4 ].once( 'data', function( dataRead ) {
-                annonceOuverture( 4, dataRead );
-            });
-        });
-    });
-}
-catch( err ) {
-    console.log( "Problème à l’ouverture de RS232Ports[ 4 ] = " + RS232Ports[ 4 ] )
-}
+// /* Arduino 4 */
+// try {
+//     RS232s[ 4 ] = new SerialPort( RS232Ports[ 4 ], { baudrate: 115200 }, true );
+//     RS232s[ 4 ].open( function( error ) { console.log( '# Ouverture du port ' + RS232Ports[ 4 ] ); });
+//     RS232s[ 4 ].write( "-1\n", function() {
+//        RS232s[ 4 ].drain( function() {
+//             RS232s[ 4 ].once( 'data', function( dataRead ) {
+//                 annonceOuverture( 4, dataRead );
+//             });
+//         });
+//     });
+// }
+// catch( err ) {
+//     console.log( "Problème à l’ouverture de RS232Ports[ 4 ] = " + RS232Ports[ 4 ] )
+// }
 
-/* Arduino 5 */
-try {
-    RS232s[ 5 ] = new SerialPort( RS232Ports[ 5 ], { baudrate: 115200 }, true );
-    RS232s[ 5 ].open( function( error ) { console.log( '# Ouverture du port ' + RS232Ports[ 5 ] ); });
-    RS232s[ 5 ].write( "-1\n", function() {
-       RS232s[ 5 ].drain( function() {
-            RS232s[ 5 ].once( 'data', function( dataRead ) {
-                annonceOuverture( 5, dataRead );
-            });
-        });
-    });
-}
-catch( err ) {
-    console.log( "Problème à l’ouverture de RS232Ports[ 5 ] = " + RS232Ports[ 5 ] )
-}
+// /* Arduino 5 */
+// try {
+//     RS232s[ 5 ] = new SerialPort( RS232Ports[ 5 ], { baudrate: 115200 }, true );
+//     RS232s[ 5 ].open( function( error ) { console.log( '# Ouverture du port ' + RS232Ports[ 5 ] ); });
+//     RS232s[ 5 ].write( "-1\n", function() {
+//        RS232s[ 5 ].drain( function() {
+//             RS232s[ 5 ].once( 'data', function( dataRead ) {
+//                 annonceOuverture( 5, dataRead );
+//             });
+//         });
+//     });
+// }
+// catch( err ) {
+//     console.log( "Problème à l’ouverture de RS232Ports[ 5 ] = " + RS232Ports[ 5 ] )
+// }
 
 RS232Devices = [];
 function annonceOuverture( MXnb, dataRead ) {
