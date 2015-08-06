@@ -38,17 +38,20 @@
 			</tr>
 			<tr>
 				<td id="tdMX0">
-				<input class="input_number txtMX_VAL_0" type="number" value="60" id="txtMX_VAL_0" />
+				<input class="input_number txtMX_VAL_0" type="number" value="10" id="txtMX_VAL_0" />
 				<button class="input_button" type="button" id="butStartResetTimer">START</button>
 				</td>
 			</tr>
 		</table>
 
 
-		<button class="input_button_large" type="button" id="butClearScreens">Effacer les écrans</button>
-		<button class="input_button_large" type="button" id="butFillScreens">Remplir les écrans</button>
 		<button class="input_button_large hide" type="button" id="reponseJuste">JUSTE</button>
 		<button class="input_button_large hide" type="button" id="reponseFausse">FAUX</button>
+		<button class="input_button_large"      type="button" id="butClearScreens">Effacer les écrans</button>
+		<button class="input_button_large"      type="button" id="butFillScreens">Remplir les écrans</button>
+		<button class="input_button_large"      type="button" id="butWinnerSound">Winner Sound</button>
+		<button class="input_button_large"      type="button" id="butLoserSound">Loser Sound</button>
+		<button class="input_button_large"      type="button" id="butMX_VAL_0">MX0</button>
 
 
 
@@ -81,30 +84,42 @@
 		/**
 		 * Gestion des boutons HTML (sauf le compte à rebours)
 		 */
+		// MX 0
+		$( '#butMX_VAL_0' ).click( function() {
+			socket.emit( 'butMX_VAL_0', $( '#txtMX_VAL_0' ).val() );
+		});
 		// MX 1
 		$( '#butMX_VAL_1' ).click( function() {
 			socket.emit( 'butMX_VAL_1', $( '#txtMX_VAL_1' ).val() );
-		})
+		});
 		// MX 2
 		$( '#butMX_VAL_2' ).click( function() {
 			socket.emit( 'butMX_VAL_2', $( '#txtMX_VAL_2' ).val() );
-		})
+		});
 		// MX 3
 		$( '#butMX_VAL_3' ).click( function() {
 			socket.emit( 'butMX_VAL_3', $( '#txtMX_VAL_3' ).val() );
-		})
+		});
 		// MX 4
 		$( '#butMX_VAL_4' ).click( function() {
 			socket.emit( 'butMX_VAL_4', $( '#txtMX_VAL_4' ).val() );
-		})
+		});
 		// Effacer les écrans
 		$( '#butClearScreens' ).click( function() {
 			socket.emit( 'sendToAll', "-2\n" );
-		})
+		});
 		// Remplir les écrans
 		$( '#butFillScreens' ).click( function() {
 			socket.emit( 'sendToAll', "-3\n" );
-		})
+		});
+		// Winner sound
+		$( '#butWinnerSound' ).click( function() {
+			socket.emit( 'playSound', "winner_sound" );
+		});
+		// Loser sound
+		$( '#butLoserSound' ).click( function() {
+			socket.emit( 'playSound', "loser_sound" );
+		});
 		// Réponse juste
 		$( '#reponseJuste' ).click( function() {
 			console.log( "Réponse juste" );

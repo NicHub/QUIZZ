@@ -47,8 +47,8 @@ var server = app.listen( nodePort, function () {
  * Initialisation du timer de compte à rebours
  */
 var options = {
-    refreshRateMS: 1000,   // How often the clock should be updated
-    almostDoneMS:  5000,    // When counting down - this event will fire with this many milliseconds remaining on the clock
+    refreshRateMS: 1000,
+    almostDoneMS:  5000,
 }
 var timer = new Stopwatch( 60000, options );
 
@@ -74,17 +74,32 @@ io.sockets.on( 'connection', function( socket ) {
     /**
      * Gestion du son
      */
-     if( process.platform == 'linux' ) {
-        child_process.execFile( '/home/pi/quizz/sons/play.sh', [ 'winner_sound' ], function( err, result ) {
-            console.log( 'winner_sound' )
-        });
-    }
+     function playSound( Sound ) {
+         if( process.platform == 'linux' ) {
+            child_process.execFile( '/home/pi/quizz/sons/play.sh', [ Sound ], function( err, result ) {
+                console.log( Sound )
+            });
+        }
+    };
+
+    socket.on( 'playSound', function( Sound ) {
+        playSound( Sound );
+    });
 
 
 
     /**
      * Gestion de l’affichage
      */
+    // MX0
+    function MX0Write( val ) {
+        RS232.devices[ 'MX0' ].write( val + "\n", function( err, results ) {
+            console.log( 'Write to MX0 results ' + results );
+        });
+    };
+    socket.on( 'butMX_VAL_0', function( cmd ) {
+        MX0Write( cmd );
+    });
     // MX1
     socket.on( 'butMX_VAL_1', function( cmd ) {
         RS232.devices[ 'MX1' ].write( cmd + "\n", function( err, results ) {
@@ -138,8 +153,6 @@ io.sockets.on( 'connection', function( socket ) {
         timer.countDownMS = countdownTime;
     });
 
-
-
     socket.on( 'startResetTimer', function( message ) {
         console.log( 'timer.ms = ' + timer.ms );
         console.log( 'timer.hasBeenStopped = ' + timer.hasBeenStopped );
@@ -159,7 +172,10 @@ io.sockets.on( 'connection', function( socket ) {
 
     timer.on( 'time', function( time ) {
         console.log( timer.ms );
-        socket.emit( 'timeRemaining', Math.round( timer.ms / 1000  ) );
+        var curTime = Math.round( timer.ms / 1000  );
+        socket.emit( 'timeRemaining', curTime );
+        MX0Write( String( curTime ) );
+        console.log( "String( curTime ) = " + String( curTime ) );
     });
 
     timer.on( 'done', function() {
