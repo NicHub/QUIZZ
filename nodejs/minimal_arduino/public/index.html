@@ -45,8 +45,10 @@
 		</table>
 
 
-		<button class="input_button_large" type="input_button" id="butClearScreens">Effacer les écrans</button>
-		<button class="input_button_large" type="input_button" id="butFillScreens">Remplir les écrans</button>
+		<button class="input_button_large" type="button" id="butClearScreens">Effacer les écrans</button>
+		<button class="input_button_large" type="button" id="butFillScreens">Remplir les écrans</button>
+		<button class="input_button_large hide" type="button" id="reponseJuste">JUSTE</button>
+		<button class="input_button_large hide" type="button" id="reponseFausse">FAUX</button>
 
 
 
@@ -62,6 +64,13 @@
 		/**
 		 * Initialisation de socket.io
 		 */
+		var timerPaused = false;
+
+
+
+		/**
+		 * Initialisation de socket.io
+		 */
 		var socket = io();
 		socket.on( 'connectionStart', function( timeRemaining ) {
 			console.log( "Le serveur a démarré" );
@@ -70,12 +79,8 @@
 
 
 		/**
-		 * Gestion des boutons HTML
+		 * Gestion des boutons HTML (sauf le compte à rebours)
 		 */
-		// MX 0
-		$( '#butMX_VAL_0' ).click( function() {
-			socket.emit( 'butMX_VAL_0', $( '#txtMX_VAL_0' ).val() );
-		})
 		// MX 1
 		$( '#butMX_VAL_1' ).click( function() {
 			socket.emit( 'butMX_VAL_1', $( '#txtMX_VAL_1' ).val() );
@@ -100,78 +105,67 @@
 		$( '#butFillScreens' ).click( function() {
 			socket.emit( 'sendToAll', "-3\n" );
 		})
+		// Réponse juste
+		$( '#reponseJuste' ).click( function() {
+			console.log( "Réponse juste" );
+			socket.emit( 'stopTimer', "" );
+			$( "#txtMX_VAL_1" ).removeClass( "txtMX_VAL_1_video_inv" ).addClass( "txtMX_VAL_1" );
+			$( "#txtMX_VAL_2" ).removeClass( "txtMX_VAL_2_video_inv" ).addClass( "txtMX_VAL_2" );
+			$( "#txtMX_VAL_3" ).removeClass( "txtMX_VAL_3_video_inv" ).addClass( "txtMX_VAL_3" );
+			$( "#txtMX_VAL_4" ).removeClass( "txtMX_VAL_4_video_inv" ).addClass( "txtMX_VAL_4" );
+			$( "#reponseJuste" ).addClass( "hide" );
+			$( "#reponseFausse" ).addClass( "hide" );
+		})
+		// Réponse fausse
+		$( '#reponseFausse' ).click( function() {
+			console.log( "Réponse fausse" );
+			socket.emit( 'resumeTimer', "" );
+			$( "#txtMX_VAL_1" ).removeClass( "txtMX_VAL_1_video_inv" ).addClass( "txtMX_VAL_1" );
+			$( "#txtMX_VAL_2" ).removeClass( "txtMX_VAL_2_video_inv" ).addClass( "txtMX_VAL_2" );
+			$( "#txtMX_VAL_3" ).removeClass( "txtMX_VAL_3_video_inv" ).addClass( "txtMX_VAL_3" );
+			$( "#txtMX_VAL_4" ).removeClass( "txtMX_VAL_4_video_inv" ).addClass( "txtMX_VAL_4" );
+			$( "#reponseJuste" ).addClass( "hide" );
+			$( "#reponseFausse" ).addClass( "hide" );
+		})
+
 
 
 		/**
 		 * Gestion de l’affichage lorsque les boutons physiques sont pressés
 		 */
 		socket.on( 'arduinoButtonPressed', function( buttonID ) {
-			switch( buttonID )
-			{
+			$( "#reponseJuste" ).removeClass( "hide" );
+			$( "#reponseFausse" ).removeClass( "hide" );
+
+			switch( buttonID ) {
 				case 1:
 					console.log( 'Bouton 1 pressé' );
-					$( "#txtMX_VAL_1" ).removeClass( "txtMX_VAL_1" );
-					$( "#txtMX_VAL_1" ).addClass( "txtMX_VAL_1_video_inv" );
-
-					$( "#txtMX_VAL_2" ).addClass( "txtMX_VAL_2" );
-					$( "#txtMX_VAL_2" ).removeClass( "txtMX_VAL_2_video_inv" );
-
-					$( "#txtMX_VAL_3" ).addClass( "txtMX_VAL_3" );
-					$( "#txtMX_VAL_3" ).removeClass( "txtMX_VAL_3_video_inv" );
-
-					$( "#txtMX_VAL_4" ).addClass( "txtMX_VAL_4" );
-					$( "#txtMX_VAL_4" ).removeClass( "txtMX_VAL_4_video_inv" );
-
+					$( "#txtMX_VAL_1" ).removeClass( "txtMX_VAL_1" ).addClass( "txtMX_VAL_1_video_inv" );
+					$( "#txtMX_VAL_2" ).addClass( "txtMX_VAL_2" ).removeClass( "txtMX_VAL_2_video_inv" );
+					$( "#txtMX_VAL_3" ).addClass( "txtMX_VAL_3" ).removeClass( "txtMX_VAL_3_video_inv" );
+					$( "#txtMX_VAL_4" ).addClass( "txtMX_VAL_4" ).removeClass( "txtMX_VAL_4_video_inv" );
 					break;
-
 				case 2:
 					console.log( 'Bouton 2 pressé' );
-					$( "#txtMX_VAL_1" ).addClass( "txtMX_VAL_1" );
-					$( "#txtMX_VAL_1" ).removeClass( "txtMX_VAL_1_video_inv" );
-
-					$( "#txtMX_VAL_2" ).removeClass( "txtMX_VAL_2" );
-					$( "#txtMX_VAL_2" ).addClass( "txtMX_VAL_2_video_inv" );
-
-					$( "#txtMX_VAL_3" ).addClass( "txtMX_VAL_3" );
-					$( "#txtMX_VAL_3" ).removeClass( "txtMX_VAL_3_video_inv" );
-
-					$( "#txtMX_VAL_4" ).addClass( "txtMX_VAL_4" );
-					$( "#txtMX_VAL_4" ).removeClass( "txtMX_VAL_4_video_inv" );
-
+					$( "#txtMX_VAL_1" ).addClass( "txtMX_VAL_1" ).removeClass( "txtMX_VAL_1_video_inv" );
+					$( "#txtMX_VAL_2" ).removeClass( "txtMX_VAL_2" ).addClass( "txtMX_VAL_2_video_inv" );
+					$( "#txtMX_VAL_3" ).addClass( "txtMX_VAL_3" ).removeClass( "txtMX_VAL_3_video_inv" );
+					$( "#txtMX_VAL_4" ).addClass( "txtMX_VAL_4" ).removeClass( "txtMX_VAL_4_video_inv" );
 					break;
-
 				case 3:
 					console.log( 'Bouton 3 pressé' );
-					$( "#txtMX_VAL_1" ).addClass( "txtMX_VAL_1" );
-					$( "#txtMX_VAL_1" ).removeClass( "txtMX_VAL_1_video_inv" );
-
-					$( "#txtMX_VAL_2" ).addClass( "txtMX_VAL_2" );
-					$( "#txtMX_VAL_2" ).removeClass( "txtMX_VAL_2_video_inv" );
-
-					$( "#txtMX_VAL_3" ).removeClass( "txtMX_VAL_3" );
-					$( "#txtMX_VAL_3" ).addClass( "txtMX_VAL_3_video_inv" );
-
-					$( "#txtMX_VAL_4" ).addClass( "txtMX_VAL_4" );
-					$( "#txtMX_VAL_4" ).removeClass( "txtMX_VAL_4_video_inv" );
-
+					$( "#txtMX_VAL_1" ).addClass( "txtMX_VAL_1" ).removeClass( "txtMX_VAL_1_video_inv" );
+					$( "#txtMX_VAL_2" ).addClass( "txtMX_VAL_2" ).removeClass( "txtMX_VAL_2_video_inv" );
+					$( "#txtMX_VAL_3" ).removeClass( "txtMX_VAL_3" ).addClass( "txtMX_VAL_3_video_inv" );
+					$( "#txtMX_VAL_4" ).addClass( "txtMX_VAL_4" ).removeClass( "txtMX_VAL_4_video_inv" );
 					break;
-
 				case 4:
 					console.log( 'Bouton 4 pressé' );
-					$( "#txtMX_VAL_1" ).addClass( "txtMX_VAL_1" );
-					$( "#txtMX_VAL_1" ).removeClass( "txtMX_VAL_1_video_inv" );
-
-					$( "#txtMX_VAL_2" ).addClass( "txtMX_VAL_2" );
-					$( "#txtMX_VAL_2" ).removeClass( "txtMX_VAL_2_video_inv" );
-
-					$( "#txtMX_VAL_3" ).addClass( "txtMX_VAL_3" );
-					$( "#txtMX_VAL_3" ).removeClass( "txtMX_VAL_3_video_inv" );
-
-					$( "#txtMX_VAL_4" ).removeClass( "txtMX_VAL_4" );
-					$( "#txtMX_VAL_4" ).addClass( "txtMX_VAL_4_video_inv" );
-
+					$( "#txtMX_VAL_1" ).addClass( "txtMX_VAL_1" ).removeClass( "txtMX_VAL_1_video_inv" );
+					$( "#txtMX_VAL_2" ).addClass( "txtMX_VAL_2" ).removeClass( "txtMX_VAL_2_video_inv" );
+					$( "#txtMX_VAL_3" ).addClass( "txtMX_VAL_3" ).removeClass( "txtMX_VAL_3_video_inv" );
+					$( "#txtMX_VAL_4" ).removeClass( "txtMX_VAL_4" ).addClass( "txtMX_VAL_4_video_inv" );
 					break;
-
 				default:
 					console.log( 'autre cas buttonID = ' + buttonID );
 					break;
@@ -192,7 +186,13 @@
 		$( '#butStartResetTimer' ).click( function () {
 			console.log( "startResetTimer" );
 			socket.emit( 'startResetTimer', $( '#txtMX_VAL_0' ).val() );
-			$( "#txtMX_VAL_0" ).removeClass( "txtMX_VAL_0_video_inv" );
+			$( "#txtMX_VAL_0" ).removeClass( "txtMX_VAL_0_video_inv" ).addClass( "txtMX_VAL_0" );
+			$( "#txtMX_VAL_1" ).removeClass( "txtMX_VAL_1_video_inv" ).addClass( "txtMX_VAL_1" );
+			$( "#txtMX_VAL_2" ).removeClass( "txtMX_VAL_2_video_inv" ).addClass( "txtMX_VAL_2" );
+			$( "#txtMX_VAL_3" ).removeClass( "txtMX_VAL_3_video_inv" ).addClass( "txtMX_VAL_3" );
+			$( "#txtMX_VAL_4" ).removeClass( "txtMX_VAL_4_video_inv" ).addClass( "txtMX_VAL_4" );
+			$( "#reponseJuste" ).addClass( "hide" );
+			$( "#reponseFausse" ).addClass( "hide" );
 		});
 
 		socket.on( 'timeRemaining', function( timeRemaining ) {
@@ -205,7 +205,11 @@
 
 		socket.on( 'timerStart', function( countdownTime ) {
 			$( '#butStartResetTimer' ).html( 'STOP' );
-			$( "#txtMX_VAL_0" ).removeClass( "txtMX_VAL_0_video_inv" );
+			$( "#txtMX_VAL_0" ).removeClass( "txtMX_VAL_0_video_inv" ).addClass( "txtMX_VAL_0" );
+			$( "#txtMX_VAL_1" ).removeClass( "txtMX_VAL_1_video_inv" ).addClass( "txtMX_VAL_1" );
+			$( "#txtMX_VAL_2" ).removeClass( "txtMX_VAL_2_video_inv" ).addClass( "txtMX_VAL_2" );
+			$( "#txtMX_VAL_3" ).removeClass( "txtMX_VAL_3_video_inv" ).addClass( "txtMX_VAL_3" );
+			$( "#txtMX_VAL_4" ).removeClass( "txtMX_VAL_4_video_inv" ).addClass( "txtMX_VAL_4" );
 		});
 
 		socket.on( 'timerDone', function( countdownTime ) {
@@ -213,6 +217,11 @@
 			$( '#butStartResetTimer' ).html( 'START' );
 			$( "#txtMX_VAL_0" ).removeClass( "txtMX_VAL_0_video_inv" );
 		});
+
+		socket.on( 'debug', function( message ) {
+			console.log( 'debug : ' + message );
+		});
+
 
 	</script>
 	</body>

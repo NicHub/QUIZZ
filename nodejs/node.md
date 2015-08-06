@@ -6,7 +6,6 @@
 ===========
 
 
-
 <http://elinux.org/Node.js_on_RPi>
 <https://github.com/joyent/node/wiki/installing-node.js-via-package-manager>
 
@@ -22,7 +21,6 @@
 	/home/pi/node-$NODEVERSION-linux-arm-pi/bin/node     /home/pi/quizz/nodejs/public_html/index.js
 
 
-
 # Compilation
 
 NODEVERSION=0.11.7
@@ -34,17 +32,13 @@ make; sudo make install
 TIMEFORMAT='Temps de compilation : %3R s'; time( make; sudo make install )
 
 
-
 # Exemple température
 
 <http://alexandre.alapetite.fr/doc-alex/raspberrypi-nodejs-arduino/>
 
 
-
 # heimcontrol
 <https://ni-c.github.io/heimcontrol.js/get-started.html#hc-inst>
-
-
 
 
 # Install 0.12.0
@@ -59,7 +53,6 @@ TIMEFORMAT='Temps de compilation : %3R s'; time( make; sudo make install )
 	node -v;
 	v0.12.0
 	sudo npm install -g node-gyp;
-
 
 
 # Arduino Experimenter's Guide for NodeJS
@@ -87,9 +80,12 @@ TIMEFORMAT='Temps de compilation : %3R s'; time( make; sudo make install )
 <http://weworkweplay.com/play/raspberry-pi-nodejs/>
 
 
-
-
 # Run Forever
 
 <https://github.com/mcreed/raspberry-preserve>
+
+
+# Install npm packages globally without sudo on OS X and Linux
+
+Utiliser le script `npm-g-nosudo.sh` à <https://github.com/sindresorhus/guides/blob/master/npm-global-without-sudo.md>
 

@@ -17,12 +17,17 @@
 
 
 
+"use strict";
+
+
+
 var express       = require( 'express' );
 var os            = require( 'os' );
 var socketIO      = require( 'socket.io' );
 var RS232         = require( './src/RS232.js' );
 var child_process = require( 'child_process' );
 var Stopwatch     = require( 'timer-stopwatch' ); // https://github.com/MickCrozier/timer-stopwatch
+var util          = require( 'util' );
 
 
 
@@ -46,7 +51,6 @@ var options = {
     almostDoneMS:  5000,    // When counting down - this event will fire with this many milliseconds remaining on the clock
 }
 var timer = new Stopwatch( 60000, options );
-// runTimer,hasBeenStopped,stoptime,refreshTimer,done,almostDoneFired,doneFired,countDownMS,ms,refreshRateMS,almostDoneMS,_events
 
 
 
@@ -70,21 +74,17 @@ io.sockets.on( 'connection', function( socket ) {
     /**
      * Gestion du son
      */
-    // child_process.execFile( '/home/pi/quizz/sons/play.sh', [ 'winner_sound' ], function( err, result ) {
-    //     console.log( 'winner_sound' )
-    // });
+     if( process.platform == 'linux' ) {
+        child_process.execFile( '/home/pi/quizz/sons/play.sh', [ 'winner_sound' ], function( err, result ) {
+            console.log( 'winner_sound' )
+        });
+    }
 
 
 
     /**
      * Gestion de l’affichage
      */
-    // MX0
-    // socket.on( 'butMX_VAL_0', function( cmd ) {
-    //     RS232.devices[ 'MX0' ].write( cmd + "\n", function( err, results ) {
-    //         console.log( 'Write to MX0 results ' + results );
-    //     });
-    // });
     // MX1
     socket.on( 'butMX_VAL_1', function( cmd ) {
         RS232.devices[ 'MX1' ].write( cmd + "\n", function( err, results ) {
@@ -138,6 +138,8 @@ io.sockets.on( 'connection', function( socket ) {
         timer.countDownMS = countdownTime;
     });
 
+
+
     socket.on( 'startResetTimer', function( message ) {
         console.log( 'timer.ms = ' + timer.ms );
         console.log( 'timer.hasBeenStopped = ' + timer.hasBeenStopped );
@@ -173,9 +175,40 @@ io.sockets.on( 'connection', function( socket ) {
 
 
 
+    /**
+     * Gestion des boutons physiques
+     */
+    RS232.devices[ 'CB0' ].on( 'data', function( data ) {
+        switch( data[ 0 ] ) {
+            case 56: var buttonID = 1; break;
+            case 52: var buttonID = 2; break;
+            case 50: var buttonID = 3; break;
+            case 49: var buttonID = 4; break;
+        };
+        if( timer.runTimer ) {
+            timer.stop();
+            console.log( 'arduinoButtonPressed: ' + buttonID );
+            io.sockets.emit( 'arduinoButtonPressed', buttonID );
+        }
+    });
 
+    socket.on( 'resumeTimer', function( message ) {
+        var msg = "On reprend le décompte " + message;
+        console.log( msg );
+        if( ! timer.runTimer ) {
+            timer.start();
+        }
+    });
 
-
+    socket.on( 'stopTimer', function( message ) {
+        var msg = "Réponse juste, on arrête le timer " + message;
+        console.log( msg );
+        timer.stop();
+        console.log( 'timer stopped - timer.ms =' + timer.ms );
+        timer.reset();
+        console.log( 'timer reset - timer.ms =' + timer.ms );
+        socket.emit( 'timerDone', Math.round( timer.countDownMS / 1000  ) );
+    });
 
 
     /**
@@ -192,19 +225,6 @@ io.sockets.on( 'connection', function( socket ) {
     });
 
 
-    /**
-     * Gestion des boutons physiques
-     */
-    RS232.devices[ 'CB0' ].on( 'data', function( data ) {
-        switch( data[ 0 ] ) {
-            case 49: var msg = 1; break;
-            case 50: var msg = 2; break;
-            case 52: var msg = 3; break;
-            case 56: var msg = 4; break;
-        };
-        console.log( 'arduinoButtonPressed: ' + msg );
-        socket.emit( 'arduinoButtonPressed', msg );
-    });
 
 });
 
