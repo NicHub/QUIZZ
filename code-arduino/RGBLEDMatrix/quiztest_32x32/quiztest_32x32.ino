@@ -174,6 +174,7 @@ void setup()
 
 void loop()
 {
+    // Traitement des commandes envoyées par le serveur via RS232.
     if( serverTalked )
     {
         int whatToDo = serverCommand.toInt();
@@ -185,7 +186,7 @@ void loop()
             afficheNombre( nombreActuel, rPiCouleur, false );
         }
 
-        // Envoie l’ID de la matrice par le port série.
+        // Envoie l’ID de l’Arduino via RS232.
         else if( whatToDo == -1 )
         {
             Serial.print( deviceIDStr );
