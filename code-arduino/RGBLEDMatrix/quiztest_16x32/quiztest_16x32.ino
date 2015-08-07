@@ -59,6 +59,7 @@ uint16_t nombreActuel;
 String serverCommand = "";
 boolean serverTalked = false;
 boolean globalForceRefresh = false;
+boolean videoInverse = false;
 
 
 
@@ -89,6 +90,10 @@ void afficheNombre( int nombre, uint16_t couleur, bool forceRefresh=false )
 
     if( forceRefresh || globalForceRefresh )
     {
+        if( videoInverse )
+            fillScreen();
+        else
+            clearScreen();
         globalForceRefresh = false;
         for( i=0; i<4; i++ )
         {
@@ -166,8 +171,9 @@ void setup()
     Serial.begin( 115200 );
     Serial.print( deviceIDStr );
     matrix.begin();
-    changeCouleur( 160 );
-    afficheNombre( MX, rPiCouleur, true );
+    changeCouleur( 66 );
+    nombreActuel = MX;
+    afficheNombre( nombreActuel, rPiCouleur, true );
 }
 
 
@@ -183,7 +189,14 @@ void loop()
         if( whatToDo >= 0 && whatToDo < 10000 )
         {
             nombreActuel = whatToDo;
-            afficheNombre( nombreActuel, rPiCouleur, false );
+            if( videoInverse )
+            {
+                afficheNombre( nombreActuel, couleurN, true );
+            }
+            else
+            {
+                afficheNombre( nombreActuel, rPiCouleur, false );
+            }
         }
 
         // Envoie l’ID de l’Arduino via RS232.
@@ -202,6 +215,23 @@ void loop()
         else if( whatToDo == -3 )
         {
             fillScreen();
+        }
+
+        // Vidéo inverse.
+        else if( whatToDo == -4 )
+        {
+            globalForceRefresh = true;
+            videoInverse = true;
+            afficheNombre( nombreActuel, couleurN, true );
+        }
+
+        // Vidéo normale.
+        else if( whatToDo == -5 )
+        {
+            clearScreen();
+            globalForceRefresh = true;
+            videoInverse = false;
+            afficheNombre( nombreActuel, rPiCouleur, false );
         }
 
         // Modification de l’intensité lumineuse.

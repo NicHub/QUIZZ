@@ -6,13 +6,14 @@ body {
 html *{
 	font-family: "Trebuchet MS";
 }
-div#wrapper {
-	width:900px;
+div#wrapper, pre.debug{
+	width:800px;
 	margin: 10px auto 0;
 	background-color: #F2F2F2;
 	background-color: #333;
 	text-align: center;
 	padding: 10px;
+	display: table;
 }
 h1 {
 	font-size: 60pt;
@@ -20,70 +21,57 @@ h1 {
 	padding: 10px 0;
 	margin: 0;
 }
-form {
-	width: 600px;
-	border: 2px solid white;
-}
 .input_number {
 	text-align: center;
 	font-size: 60pt;
 	color: white;
 	background-color: black;
 	width: 450px;
-	margin: 0;
-	padding: 0;
+	margin: 5px 0;
+	padding: 2px 0;
 	vertical-align: middle;
 }
-.input_button {
-	font-size: 20pt;
-	width: 150px;
-	height: 96px;
-	margin: 0;
+button.input_button {
+	font-size: 12pt;
+	width: 170px;
+	height: 40px;
+	margin: 0 auto;
 	padding: 0;
 	vertical-align: middle;
 	-webkit-appearance: none;
 	background-color: #EEE;
+	display: table-cell;
 }
-#tdMX0 input[type=number] {
+
+#txtMX_VAL_0 {
 	font-size: 120pt;
 }
 #tdMX0 button {
 	height: 188px;
 }
-table {
-	width: 100%;
-}
-td {
-	padding: 5px 0;
-}
-pre#debug
-{
-	display: none;
+pre#debug {
+	color: lime;
+	background-color: black;
 }
 
 
-.txtMX_VAL_0
-{
+.txtMX_VAL_0 {
 	color: red;
 }
-.txtMX_VAL_0_video_inv
-{
+.txtMX_VAL_0_video_inv {
 	color: black;
 	background-color: red;
 }
 
-.txtMX_VAL_1
-{
+.txtMX_VAL_1 {
 	color: magenta;
 }
-.txtMX_VAL_1_video_inv
-{
+.txtMX_VAL_1_video_inv {
 	color: black;
 	background-color: magenta;
 }
 
-.txtMX_VAL_2
-{
+.txtMX_VAL_2 {
 	color: blue;
 }
 .txtMX_VAL_2_video_inv
@@ -113,22 +101,22 @@ pre#debug
 }
 
 
-button.input_button_large
-{
-	width: 600px;
-	height: 100px;
-	font-size: 30pt;
-}
-
-.ccStyle
-{
-	width: 600px;
-	margin: 20px auto;
-	color: white;
-}
-
 .hide
 {
-	display: none;
+	display: none !important;
 }
 
+div.input_button_div {
+	display: table;
+	float: right;
+	margin: 0 0 0 0px;
+	width: 250px;
+	/*border: 2px solid white;*/
+}
+div.input_number_div {
+	display: table;
+	float: left;
+	margin: 0 auto;
+	width: 540px;
+	/*border: 2px solid white;*/
+}

@@ -11,53 +11,27 @@
 	<div id="wrapper">
 		<h1>QUIZZ !</h1>
 
-		<table>
-			<tr>
-				<td>
-				<input class="input_number txtMX_VAL_1" type="number" value="0" id="txtMX_VAL_1" />
-				<button class="input_button" type="button" id="butMX_VAL_1"> MX 1</button>
-				</td>
-			</tr>
-			<tr>
-				<td>
-				<input class="input_number txtMX_VAL_2" type="number" value="0" id="txtMX_VAL_2" />
-				<button class="input_button" type="button" id="butMX_VAL_2"> MX 2</button>
-				</td>
-			</tr>
-			<tr>
-				<td>
-				<input class="input_number txtMX_VAL_3" type="number" value="0" id="txtMX_VAL_3" />
-				<button class="input_button" type="button" id="butMX_VAL_3"> MX 3</button>
-				</td>
-			</tr>
-			<tr>
-				<td>
-				<input class="input_number txtMX_VAL_4" type="number" value="0" id="txtMX_VAL_4" />
-				<button class="input_button" type="button" id="butMX_VAL_4"> MX 4</button>
-				</td>
-			</tr>
-			<tr>
-				<td id="tdMX0">
-				<input class="input_number txtMX_VAL_0" type="number" value="10" id="txtMX_VAL_0" />
-				<button class="input_button" type="button" id="butStartResetTimer">START</button>
-				</td>
-			</tr>
-		</table>
+		<div class="input_number_div">
+			<input class="input_number txtMX_VAL_1" type="number" value="0"  id="txtMX_VAL_1" />
+			<input class="input_number txtMX_VAL_2" type="number" value="0"  id="txtMX_VAL_2" />
+			<input class="input_number txtMX_VAL_3" type="number" value="0"  id="txtMX_VAL_3" />
+			<input class="input_number txtMX_VAL_4" type="number" value="0"  id="txtMX_VAL_4" />
+			<input class="input_number txtMX_VAL_0" type="number" value="60" id="txtMX_VAL_0" />
+		</div>
 
-
-		<button class="input_button_large hide" type="button" id="reponseJuste">JUSTE</button>
-		<button class="input_button_large hide" type="button" id="reponseFausse">FAUX</button>
-		<button class="input_button_large"      type="button" id="butClearScreens">Effacer les écrans</button>
-		<button class="input_button_large"      type="button" id="butFillScreens">Remplir les écrans</button>
-		<button class="input_button_large"      type="button" id="butWinnerSound">Winner Sound</button>
-		<button class="input_button_large"      type="button" id="butLoserSound">Loser Sound</button>
-		<button class="input_button_large"      type="button" id="butMX_VAL_0">MX0</button>
-
-
-
-		<pre class="debug" id="debug"></pre>
-
+		<div class="input_button_div">
+			<button class="input_button"      type="button" id="butStartResetTimer">START</button>
+			<button class="input_button hide" type="button" id="reponseJuste">JUSTE</button>
+			<button class="input_button hide" type="button" id="reponseFausse">FAUX</button>
+			<button class="input_button"      type="button" id="butVideoInv">Vidéo inverse</button>
+			<button class="input_button"      type="button" id="butVideoNorm">Vidéo normale</button>
+			<button class="input_button"      type="button" id="butClearScreens">Effacer les écrans</button>
+			<button class="input_button"      type="button" id="butFillScreens">Remplir les écrans</button>
+			<button class="input_button"      type="button" id="butWinnerSound">Winner Sound</button>
+			<button class="input_button"      type="button" id="butLoserSound">Loser Sound</button>
+		</div>
 	</div>
+	<pre class="debug" id="debug"></pre>
 
 	<script src="/socket.io/socket.io.js"></script>
 	<script>
@@ -84,25 +58,31 @@
 		/**
 		 * Gestion des boutons HTML (sauf le compte à rebours)
 		 */
-		// MX 0
-		$( '#butMX_VAL_0' ).click( function() {
-			socket.emit( 'butMX_VAL_0', $( '#txtMX_VAL_0' ).val() );
-		});
+		// MX 0 ⇒ géré avec le timer
+		// ...
 		// MX 1
-		$( '#butMX_VAL_1' ).click( function() {
+		$( '#txtMX_VAL_1' ).change( function() {
 			socket.emit( 'butMX_VAL_1', $( '#txtMX_VAL_1' ).val() );
 		});
 		// MX 2
-		$( '#butMX_VAL_2' ).click( function() {
+		$( '#txtMX_VAL_2' ).change( function() {
 			socket.emit( 'butMX_VAL_2', $( '#txtMX_VAL_2' ).val() );
 		});
 		// MX 3
-		$( '#butMX_VAL_3' ).click( function() {
+		$( '#txtMX_VAL_3' ).change( function() {
 			socket.emit( 'butMX_VAL_3', $( '#txtMX_VAL_3' ).val() );
 		});
 		// MX 4
-		$( '#butMX_VAL_4' ).click( function() {
+		$( '#txtMX_VAL_4' ).change( function() {
 			socket.emit( 'butMX_VAL_4', $( '#txtMX_VAL_4' ).val() );
+		});
+		// Vidéo inverse
+		$( '#butVideoInv' ).click( function() {
+			socket.emit( 'sendToAll', "-4\n" );
+		});
+		// Vidéo normale
+		$( '#butVideoNorm' ).click( function() {
+			socket.emit( 'sendToAll', "-5\n" );
 		});
 		// Effacer les écrans
 		$( '#butClearScreens' ).click( function() {
@@ -215,6 +195,7 @@
 		});
 
 		socket.on( 'timerAlmostdone', function( timeRemaining ) {
+			console.log( "timerAlmostdone" );
 			$( "#txtMX_VAL_0" ).addClass( "txtMX_VAL_0_video_inv" );
 		});
 
