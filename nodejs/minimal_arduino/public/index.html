@@ -58,8 +58,10 @@
 		/**
 		 * Gestion des boutons HTML (sauf le compte à rebours)
 		 */
-		// MX 0 ⇒ géré avec le timer
-		// ...
+		// MX 0
+		$( '#txtMX_VAL_0' ).change( function() {
+			socket.emit( 'butMX_VAL_0', $( '#txtMX_VAL_0' ).val() );
+		});
 		// MX 1
 		$( '#txtMX_VAL_1' ).change( function() {
 			socket.emit( 'butMX_VAL_1', $( '#txtMX_VAL_1' ).val() );

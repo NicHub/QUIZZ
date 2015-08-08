@@ -50,7 +50,6 @@ var options = {
     refreshRateMS: 1000,
     almostDoneMS:  5000,
 }
-var timer = new Stopwatch( 60000, options );
 
 
 
@@ -59,6 +58,10 @@ var timer = new Stopwatch( 60000, options );
  */
 var io = socketIO.listen( server );
 io.sockets.on( 'connection', function( socket ) {
+
+
+
+    var timer = new Stopwatch( 60000, options );
 
 
 
@@ -94,7 +97,7 @@ io.sockets.on( 'connection', function( socket ) {
     // MX0
     function MX0Write( val ) {
         RS232.devices[ 'MX0' ].write( val + "\n", function( err, results ) {
-            console.log( 'Write to MX0 results ' + results );
+            console.log( 'Write ' + val + ' to MX0 | results ' + results );
         });
     };
     socket.on( 'butMX_VAL_0', function( cmd ) {
@@ -103,43 +106,43 @@ io.sockets.on( 'connection', function( socket ) {
     // MX1
     socket.on( 'butMX_VAL_1', function( cmd ) {
         RS232.devices[ 'MX1' ].write( cmd + "\n", function( err, results ) {
-            console.log( 'Write to MX1 results ' + results );
+            console.log( 'Write ' + cmd + ' to MX1 | results ' + results );
         });
     });
     // MX2
     socket.on( 'butMX_VAL_2', function( cmd ) {
         RS232.devices[ 'MX2' ].write( cmd + "\n", function( err, results ) {
-            console.log( 'Write to MX2 results ' + results );
+            console.log( 'Write ' + cmd + ' to MX2 | results ' + results );
         });
     });
     // MX3
     socket.on( 'butMX_VAL_3', function( cmd ) {
         RS232.devices[ 'MX3' ].write( cmd + "\n", function( err, results ) {
-            console.log( 'Write to MX3 results ' + results );
+            console.log( 'Write ' + cmd + ' to MX3 | results ' + results );
         });
     });
     // MX4
     socket.on( 'butMX_VAL_4', function( cmd ) {
         RS232.devices[ 'MX4' ].write( cmd + "\n", function( err, results ) {
-            console.log( 'Write to MX4 results ' + results );
+            console.log( 'Write ' + cmd + ' to MX4 | results ' + results );
         });
     });
     // Envoyer à toutes les matrices
     socket.on( 'sendToAll', function( cmd ) {
         RS232.devices[ 'MX0' ].write( cmd, function( err, results ) {
-            console.log( 'Write to MX0 results ' + results );
+            console.log( 'Write ' + cmd + ' to MX0 | results ' + results );
         });
         RS232.devices[ 'MX1' ].write( cmd, function( err, results ) {
-            console.log( 'Write to MX1 results ' + results );
+            console.log( 'Write ' + cmd + ' to MX1 | results ' + results );
         });
         RS232.devices[ 'MX2' ].write( cmd, function( err, results ) {
-            console.log( 'Write to MX2 results ' + results );
+            console.log( 'Write ' + cmd + ' to MX2 | results ' + results );
         });
         RS232.devices[ 'MX3' ].write( cmd, function( err, results ) {
-            console.log( 'Write to MX3 results ' + results );
+            console.log( 'Write ' + cmd + ' to MX3 | results ' + results );
         });
         RS232.devices[ 'MX4' ].write( cmd, function( err, results ) {
-            console.log( 'Write to MX4 results ' + results );
+            console.log( 'Write ' + cmd + ' to MX4 | results ' + results );
         });
     });
 
@@ -160,28 +163,30 @@ io.sockets.on( 'connection', function( socket ) {
         console.log( 'timer.runTimer = ' + timer.runTimer );
         if( timer.runTimer ) {
             timer.stop();
-            console.log( 'timer stopped - timer.ms =' + timer.ms );
+            console.log( 'timer stopped | timer.ms =' + timer.ms );
             timer.reset();
-            console.log( 'timer reset - timer.ms =' + timer.ms );
+            console.log( 'timer reset | timer.ms =' + timer.ms );
             socket.emit( 'timerDone', Math.round( timer.countDownMS / 1000  ) );
         } else {
             timer.start();
-            MX0Write( String( "-5\n" ) );
-            console.log( 'timer started - timer.ms =' + timer.ms );
+            MX0Write( String( "-5" ) );
+            console.log( 'timer started | timer.ms =' + timer.ms );
             socket.emit( 'timerStart', Math.round( timer.countDownMS / 1000  ) );
         }
     });
 
     timer.on( 'time', function( time ) {
-        console.log( timer.ms );
-        var curTime = Math.round( timer.ms / 1000  );
+        var timerMS = timer.ms;
+        var curTime = String( Math.round( timerMS / 1000  ) );
         socket.emit( 'timeRemaining', curTime );
-        MX0Write( String( curTime ) );
-        console.log( "String( curTime ) = " + String( curTime ) );
+        MX0Write( curTime );
+        console.log( "timerMS = " + timerMS );
+        console.log( "curTime = " + curTime );
     });
 
     timer.on( 'done', function() {
         timer.reset();
+        MX0Write( String( "-5" ) );
         console.log( 'Timer is complete' );
         socket.emit( 'timerDone', Math.round( timer.countDownMS / 1000  ) );
         playSound( 'loser_sound' );
@@ -189,7 +194,7 @@ io.sockets.on( 'connection', function( socket ) {
 
     timer.on( 'almostdone', function() {
         console.log( 'Timer is almost complete' );
-        MX0Write( String( "-4\n" ) );
+        MX0Write( String( "-4" ) );
         socket.emit( 'timerAlmostdone', Math.round( timer.ms / 1000  ) );
     });
 
@@ -206,6 +211,7 @@ io.sockets.on( 'connection', function( socket ) {
             case 49: var buttonID = 4; var RS232port = 'MX4'; break;
         };
         if( timer.runTimer ) {
+            playSound( 'shotgun_sound' );
             timer.stop();
             console.log( 'arduinoButtonPressed: ' + buttonID );
             io.sockets.emit( 'arduinoButtonPressed', buttonID );
@@ -228,9 +234,9 @@ io.sockets.on( 'connection', function( socket ) {
         var msg = "Réponse juste, on arrête le timer " + message;
         console.log( msg );
         timer.stop();
-        console.log( 'timer stopped - timer.ms =' + timer.ms );
+        console.log( 'timer stopped | timer.ms =' + timer.ms );
         timer.reset();
-        console.log( 'timer reset - timer.ms =' + timer.ms );
+        console.log( 'timer reset | timer.ms =' + timer.ms );
         socket.emit( 'timerDone', Math.round( timer.countDownMS / 1000  ) );
         videoNormalePourTous();
     });
@@ -251,16 +257,16 @@ io.sockets.on( 'connection', function( socket ) {
 
     function videoNormalePourTous() {
         RS232.devices[ 'MX1' ].write( "-5\n", function( err, results ) {
-            console.log( 'Write to MX1 results ' + results );
+            console.log( 'Write -5 to MX1 results ' + results );
         });
         RS232.devices[ 'MX2' ].write( "-5\n", function( err, results ) {
-            console.log( 'Write to MX2 results ' + results );
+            console.log( 'Write -5 to MX2 results ' + results );
         });
         RS232.devices[ 'MX3' ].write( "-5\n", function( err, results ) {
-            console.log( 'Write to MX3 results ' + results );
+            console.log( 'Write -5 to MX3 results ' + results );
         });
         RS232.devices[ 'MX4' ].write( "-5\n", function( err, results ) {
-            console.log( 'Write to MX4 results ' + results );
+            console.log( 'Write -5 to MX4 results ' + results );
         });
     };
 

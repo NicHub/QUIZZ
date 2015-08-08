@@ -169,11 +169,14 @@ if( RS232Ports.length > 5 ) {
 }
 
 RS232Devices = [];
+
 function annonceOuverture( MXnb, dataRead ) {
     MXname = String( dataRead ).slice( 0, -1 );
-    console.log( MXname + " est ouvert et est dans RS232s[ " + MXnb + " ]" );
-    RS232Devices[ MXname ] = RS232s[ MXnb ]; console.log( MXname + " set" );
+    console.log( MXname + " est ouvert et se trouve dans RS232s[ " + MXnb + " ]" + " connectée à " + RS232s[ MXnb ].path );
+    RS232Devices[ MXname ] = RS232s[ MXnb ];
+    console.log( "RS232Devices.length = " + RS232Devices.length );
 }
 
+console.log( "###### RS232Devices.length = " + RS232Devices.length );
 module.exports.devices = RS232Devices;
 
