@@ -103,6 +103,7 @@
 		// Réponse juste
 		$( '#reponseJuste' ).click( function() {
 			console.log( "Réponse juste" );
+			socket.emit( 'playSound', "winner_sound" );
 			socket.emit( 'stopTimer', "" );
 			$( "#txtMX_VAL_1" ).removeClass( "txtMX_VAL_1_video_inv" ).addClass( "txtMX_VAL_1" );
 			$( "#txtMX_VAL_2" ).removeClass( "txtMX_VAL_2_video_inv" ).addClass( "txtMX_VAL_2" );
@@ -114,6 +115,7 @@
 		// Réponse fausse
 		$( '#reponseFausse' ).click( function() {
 			console.log( "Réponse fausse" );
+			socket.emit( 'playSound', "loser_sound" );
 			socket.emit( 'resumeTimer', "" );
 			$( "#txtMX_VAL_1" ).removeClass( "txtMX_VAL_1_video_inv" ).addClass( "txtMX_VAL_1" );
 			$( "#txtMX_VAL_2" ).removeClass( "txtMX_VAL_2_video_inv" ).addClass( "txtMX_VAL_2" );

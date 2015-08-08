@@ -184,6 +184,7 @@ io.sockets.on( 'connection', function( socket ) {
         timer.reset();
         console.log( 'Timer is complete' );
         socket.emit( 'timerDone', Math.round( timer.countDownMS / 1000  ) );
+        playSound( 'loser_sound' );
     });
 
     timer.on( 'almostdone', function() {
