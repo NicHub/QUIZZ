@@ -57,218 +57,220 @@ var options = {
  * socket.io
  */
 var io = socketIO.listen( server );
-io.sockets.on( 'connection', function( socket ) {
+RS232.on( 'ready', function() {
+    console.log( '### RS232 READY ###' );
+    io.sockets.on( 'connection', function( socket ) {
 
 
 
-    var timer = new Stopwatch( 60000, options );
+        var timer = new Stopwatch( 60000, options );
 
 
 
-    /**
-     * Initialisation de socket.io
-     */
-    var msg = "Un client s’est connecté.";
-    console.log( msg );
-    socket.emit( 'connectionStart', msg );
+        /**
+         * Initialisation de socket.io
+         */
+        var msg = "Un client s’est connecté.";
+        console.log( msg );
+        socket.emit( 'connectionStart', msg );
 
 
 
-    /**
-     * Gestion du son
-     */
-     function playSound( Sound ) {
-         if( process.platform == 'linux' ) {
-            child_process.execFile( '/home/pi/quizz/sons/play.sh', [ Sound ], function( err, result ) {
-                console.log( Sound )
+        /**
+         * Gestion du son
+         */
+         function playSound( Sound ) {
+             if( process.platform == 'linux' ) {
+                child_process.execFile( '/home/pi/quizz/sons/play.sh', [ Sound ], function( err, result ) {
+                    console.log( Sound )
+                });
+            }
+        };
+
+        socket.on( 'playSound', function( Sound ) {
+            playSound( Sound );
+        });
+
+
+
+        /**
+         * Gestion de l’affichage
+         */
+        // MX0
+        function MX0Write( val ) {
+            RS232.devices[ 'MX0' ].write( val + "\n", function( err, results ) {
+                console.log( 'Write ' + val + ' to MX0 | results ' + results );
             });
-        }
-    };
-
-    socket.on( 'playSound', function( Sound ) {
-        playSound( Sound );
-    });
-
-
-
-    /**
-     * Gestion de l’affichage
-     */
-    // MX0
-    function MX0Write( val ) {
-        RS232.devices[ 'MX0' ].write( val + "\n", function( err, results ) {
-            console.log( 'Write ' + val + ' to MX0 | results ' + results );
+        };
+        socket.on( 'butMX_VAL_0', function( cmd ) {
+            MX0Write( cmd );
         });
-    };
-    socket.on( 'butMX_VAL_0', function( cmd ) {
-        MX0Write( cmd );
-    });
-    // MX1
-    socket.on( 'butMX_VAL_1', function( cmd ) {
-        RS232.devices[ 'MX1' ].write( cmd + "\n", function( err, results ) {
-            console.log( 'Write ' + cmd + ' to MX1 | results ' + results );
+        // MX1
+        socket.on( 'butMX_VAL_1', function( cmd ) {
+            RS232.devices[ 'MX1' ].write( cmd + "\n", function( err, results ) {
+                console.log( 'Write ' + cmd + ' to MX1 | results ' + results );
+            });
         });
-    });
-    // MX2
-    socket.on( 'butMX_VAL_2', function( cmd ) {
-        RS232.devices[ 'MX2' ].write( cmd + "\n", function( err, results ) {
-            console.log( 'Write ' + cmd + ' to MX2 | results ' + results );
+        // MX2
+        socket.on( 'butMX_VAL_2', function( cmd ) {
+            RS232.devices[ 'MX2' ].write( cmd + "\n", function( err, results ) {
+                console.log( 'Write ' + cmd + ' to MX2 | results ' + results );
+            });
         });
-    });
-    // MX3
-    socket.on( 'butMX_VAL_3', function( cmd ) {
-        RS232.devices[ 'MX3' ].write( cmd + "\n", function( err, results ) {
-            console.log( 'Write ' + cmd + ' to MX3 | results ' + results );
+        // MX3
+        socket.on( 'butMX_VAL_3', function( cmd ) {
+            RS232.devices[ 'MX3' ].write( cmd + "\n", function( err, results ) {
+                console.log( 'Write ' + cmd + ' to MX3 | results ' + results );
+            });
         });
-    });
-    // MX4
-    socket.on( 'butMX_VAL_4', function( cmd ) {
-        RS232.devices[ 'MX4' ].write( cmd + "\n", function( err, results ) {
-            console.log( 'Write ' + cmd + ' to MX4 | results ' + results );
+        // MX4
+        socket.on( 'butMX_VAL_4', function( cmd ) {
+            RS232.devices[ 'MX4' ].write( cmd + "\n", function( err, results ) {
+                console.log( 'Write ' + cmd + ' to MX4 | results ' + results );
+            });
         });
-    });
-    // Envoyer à toutes les matrices
-    socket.on( 'sendToAll', function( cmd ) {
-        RS232.devices[ 'MX0' ].write( cmd, function( err, results ) {
-            console.log( 'Write ' + cmd + ' to MX0 | results ' + results );
+        // Envoyer à toutes les matrices
+        socket.on( 'sendToAll', function( cmd ) {
+            RS232.devices[ 'MX0' ].write( cmd, function( err, results ) {
+                console.log( 'Write ' + cmd + ' to MX0 | results ' + results );
+            });
+            RS232.devices[ 'MX1' ].write( cmd, function( err, results ) {
+                console.log( 'Write ' + cmd + ' to MX1 | results ' + results );
+            });
+            RS232.devices[ 'MX2' ].write( cmd, function( err, results ) {
+                console.log( 'Write ' + cmd + ' to MX2 | results ' + results );
+            });
+            RS232.devices[ 'MX3' ].write( cmd, function( err, results ) {
+                console.log( 'Write ' + cmd + ' to MX3 | results ' + results );
+            });
+            RS232.devices[ 'MX4' ].write( cmd, function( err, results ) {
+                console.log( 'Write ' + cmd + ' to MX4 | results ' + results );
+            });
         });
-        RS232.devices[ 'MX1' ].write( cmd, function( err, results ) {
-            console.log( 'Write ' + cmd + ' to MX1 | results ' + results );
-        });
-        RS232.devices[ 'MX2' ].write( cmd, function( err, results ) {
-            console.log( 'Write ' + cmd + ' to MX2 | results ' + results );
-        });
-        RS232.devices[ 'MX3' ].write( cmd, function( err, results ) {
-            console.log( 'Write ' + cmd + ' to MX3 | results ' + results );
-        });
-        RS232.devices[ 'MX4' ].write( cmd, function( err, results ) {
-            console.log( 'Write ' + cmd + ' to MX4 | results ' + results );
-        });
-    });
 
 
 
-    /**
-     * Gestion du timer de compte à rebours
-     */
-    socket.on( 'setCountdownTime', function( countdownTime ) {
-        console.log( 'countdownTime = ' + countdownTime );
-        timer.countDownMS = countdownTime;
-        MX0Write( String( countdownTime ) );
-    });
+        /**
+         * Gestion du timer de compte à rebours
+         */
+        socket.on( 'setCountdownTime', function( countdownTime ) {
+            console.log( 'countdownTime = ' + countdownTime );
+            timer.countDownMS = countdownTime;
+            MX0Write( String( countdownTime ) );
+        });
 
-    socket.on( 'startResetTimer', function( message ) {
-        console.log( 'timer.ms = ' + timer.ms );
-        console.log( 'timer.hasBeenStopped = ' + timer.hasBeenStopped );
-        console.log( 'timer.runTimer = ' + timer.runTimer );
-        if( timer.runTimer ) {
+        socket.on( 'startResetTimer', function( message ) {
+            console.log( 'timer.ms = ' + timer.ms );
+            console.log( 'timer.hasBeenStopped = ' + timer.hasBeenStopped );
+            console.log( 'timer.runTimer = ' + timer.runTimer );
+            if( timer.runTimer ) {
+                timer.stop();
+                console.log( 'timer stopped | timer.ms =' + timer.ms );
+                timer.reset();
+                console.log( 'timer reset | timer.ms =' + timer.ms );
+                socket.emit( 'timerDone', Math.round( timer.countDownMS / 1000  ) );
+            } else {
+                timer.start();
+                MX0Write( String( "-5" ) );
+                console.log( 'timer started | timer.ms =' + timer.ms );
+                socket.emit( 'timerStart', Math.round( timer.countDownMS / 1000  ) );
+            }
+        });
+
+        timer.on( 'time', function( time ) {
+            var timerMS = timer.ms;
+            var curTime = String( Math.round( timerMS / 1000  ) );
+            socket.emit( 'timeRemaining', curTime );
+            MX0Write( curTime );
+            console.log( "timerMS = " + timerMS );
+            console.log( "curTime = " + curTime );
+        });
+
+        timer.on( 'done', function() {
+            timer.reset();
+            MX0Write( String( "-5" ) );
+            console.log( 'Timer is complete' );
+            socket.emit( 'timerDone', Math.round( timer.countDownMS / 1000  ) );
+            playSound( 'loser_sound' );
+        });
+
+        timer.on( 'almostdone', function() {
+            console.log( 'Timer is almost complete' );
+            MX0Write( String( "-4" ) );
+            socket.emit( 'timerAlmostdone', Math.round( timer.ms / 1000  ) );
+        });
+
+
+
+        /**
+         * Gestion des boutons physiques
+         */
+        RS232.devices[ 'CB0' ].on( 'data', function( data ) {
+            switch( data[ 0 ] ) {
+                case 56: var buttonID = 1; var RS232port = 'MX1'; break;
+                case 52: var buttonID = 2; var RS232port = 'MX2'; break;
+                case 50: var buttonID = 3; var RS232port = 'MX3'; break;
+                case 49: var buttonID = 4; var RS232port = 'MX4'; break;
+            };
+            if( timer.runTimer ) {
+                playSound( 'shotgun_sound' );
+                timer.stop();
+                console.log( 'arduinoButtonPressed: ' + buttonID );
+                io.sockets.emit( 'arduinoButtonPressed', buttonID );
+                RS232.devices[ RS232port ].write( "-4\n", function( err, results ) {
+                    console.log( 'Write to -- results ' + results );
+                });
+            }
+        });
+
+        socket.on( 'resumeTimer', function( message ) {
+            var msg = "On reprend le décompte " + message;
+            console.log( msg );
+            if( ! timer.runTimer ) {
+                timer.start();
+            }
+            videoNormalePourTous();
+        });
+
+        socket.on( 'stopTimer', function( message ) {
+            var msg = "Réponse juste, on arrête le timer " + message;
+            console.log( msg );
             timer.stop();
             console.log( 'timer stopped | timer.ms =' + timer.ms );
             timer.reset();
             console.log( 'timer reset | timer.ms =' + timer.ms );
             socket.emit( 'timerDone', Math.round( timer.countDownMS / 1000  ) );
-        } else {
-            timer.start();
-            MX0Write( String( "-5" ) );
-            console.log( 'timer started | timer.ms =' + timer.ms );
-            socket.emit( 'timerStart', Math.round( timer.countDownMS / 1000  ) );
-        }
-    });
-
-    timer.on( 'time', function( time ) {
-        var timerMS = timer.ms;
-        var curTime = String( Math.round( timerMS / 1000  ) );
-        socket.emit( 'timeRemaining', curTime );
-        MX0Write( curTime );
-        console.log( "timerMS = " + timerMS );
-        console.log( "curTime = " + curTime );
-    });
-
-    timer.on( 'done', function() {
-        timer.reset();
-        MX0Write( String( "-5" ) );
-        console.log( 'Timer is complete' );
-        socket.emit( 'timerDone', Math.round( timer.countDownMS / 1000  ) );
-        playSound( 'loser_sound' );
-    });
-
-    timer.on( 'almostdone', function() {
-        console.log( 'Timer is almost complete' );
-        MX0Write( String( "-4" ) );
-        socket.emit( 'timerAlmostdone', Math.round( timer.ms / 1000  ) );
-    });
+            videoNormalePourTous();
+        });
 
 
+        /**
+         *
+         */
+        socket.on( 'inputButtonClicked', function( message ) {
+            var msg = "Le serveur a reçu " + message;
+            console.log( msg );
+            socket.emit( 'serverAcknowledge', msg );
+        });
 
-    /**
-     * Gestion des boutons physiques
-     */
-    RS232.devices[ 'CB0' ].on( 'data', function( data ) {
-        switch( data[ 0 ] ) {
-            case 56: var buttonID = 1; var RS232port = 'MX1'; break;
-            case 52: var buttonID = 2; var RS232port = 'MX2'; break;
-            case 50: var buttonID = 3; var RS232port = 'MX3'; break;
-            case 49: var buttonID = 4; var RS232port = 'MX4'; break;
-        };
-        if( timer.runTimer ) {
-            playSound( 'shotgun_sound' );
-            timer.stop();
-            console.log( 'arduinoButtonPressed: ' + buttonID );
-            io.sockets.emit( 'arduinoButtonPressed', buttonID );
-            RS232.devices[ RS232port ].write( "-4\n", function( err, results ) {
-                console.log( 'Write to -- results ' + results );
+        socket.on( 'disconnect', function( socket ) {
+            console.log( 'Client déconnecté!' );
+        });
+
+        function videoNormalePourTous() {
+            RS232.devices[ 'MX1' ].write( "-5\n", function( err, results ) {
+                console.log( 'Write -5 to MX1 results ' + results );
             });
-        }
+            RS232.devices[ 'MX2' ].write( "-5\n", function( err, results ) {
+                console.log( 'Write -5 to MX2 results ' + results );
+            });
+            RS232.devices[ 'MX3' ].write( "-5\n", function( err, results ) {
+                console.log( 'Write -5 to MX3 results ' + results );
+            });
+            RS232.devices[ 'MX4' ].write( "-5\n", function( err, results ) {
+                console.log( 'Write -5 to MX4 results ' + results );
+            });
+        };
+
     });
-
-    socket.on( 'resumeTimer', function( message ) {
-        var msg = "On reprend le décompte " + message;
-        console.log( msg );
-        if( ! timer.runTimer ) {
-            timer.start();
-        }
-        videoNormalePourTous();
-    });
-
-    socket.on( 'stopTimer', function( message ) {
-        var msg = "Réponse juste, on arrête le timer " + message;
-        console.log( msg );
-        timer.stop();
-        console.log( 'timer stopped | timer.ms =' + timer.ms );
-        timer.reset();
-        console.log( 'timer reset | timer.ms =' + timer.ms );
-        socket.emit( 'timerDone', Math.round( timer.countDownMS / 1000  ) );
-        videoNormalePourTous();
-    });
-
-
-    /**
-     *
-     */
-    socket.on( 'inputButtonClicked', function( message ) {
-        var msg = "Le serveur a reçu " + message;
-        console.log( msg );
-        socket.emit( 'serverAcknowledge', msg );
-    });
-
-    socket.on( 'disconnect', function( socket ) {
-        console.log( 'Client déconnecté!' );
-    });
-
-    function videoNormalePourTous() {
-        RS232.devices[ 'MX1' ].write( "-5\n", function( err, results ) {
-            console.log( 'Write -5 to MX1 results ' + results );
-        });
-        RS232.devices[ 'MX2' ].write( "-5\n", function( err, results ) {
-            console.log( 'Write -5 to MX2 results ' + results );
-        });
-        RS232.devices[ 'MX3' ].write( "-5\n", function( err, results ) {
-            console.log( 'Write -5 to MX3 results ' + results );
-        });
-        RS232.devices[ 'MX4' ].write( "-5\n", function( err, results ) {
-            console.log( 'Write -5 to MX4 results ' + results );
-        });
-    };
-
 });
-
