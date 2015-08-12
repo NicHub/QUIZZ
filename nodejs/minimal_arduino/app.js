@@ -178,8 +178,21 @@ RS232.on( 'ready', function() {
         });
 
         timer.on( 'time', function( time ) {
-            var timerMS = timer.ms;
-            var curTime = String( Math.round( timerMS / 1000  ) );
+
+            console.log( "timer.ms = " + timer.ms );
+            var timerMS = Math.round( timer.ms / 1000 );
+
+            // Essai de triche en attribuant à timer.ms sa valeur arrondie pour
+            // supprimer les erreurs du timer. Si on ne le fait pas, les
+            // erreurs s’accumulent et le timer affiche deux fois les mêmes
+            // valeurs à cause des erreurs d’arrondi. L’exactitude est
+            // évidement déplorable, mais il s’agit d’un quizz et pas d’une
+            // horloge atomique.
+            // Mais ce truc ne fonctionne pas...
+            // timer.ms = timerMS * 1000;
+
+            var curTime = String( timerMS );
+            console.log( "timer.ms = " + timer.ms );
             socket.emit( 'timeRemaining', curTime );
             MX0Write( curTime );
             console.log( "timerMS = " + timerMS );
@@ -213,8 +226,9 @@ RS232.on( 'ready', function() {
                 case 49: var buttonID = 4; var RS232port = 'MX4'; break;
             };
             if( timer.runTimer ) {
-                playSound( 'shotgun_sound' );
                 timer.stop();
+                RS232.devices[ 'CB0' ].write( "1\n" );
+                playSound( 'shotgun_sound' );
                 console.log( 'arduinoButtonPressed: ' + buttonID );
                 io.sockets.emit( 'arduinoButtonPressed', buttonID );
                 RS232.devices[ RS232port ].write( "-4\n", function( err, results ) {
