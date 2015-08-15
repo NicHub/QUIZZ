@@ -20,3 +20,5 @@ nodejs/player/
 *.pyc
 
 *.tmp
+
+test*

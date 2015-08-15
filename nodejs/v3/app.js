@@ -53,6 +53,9 @@ var options = {
 
 
 
+
+
+
 /**
  * socket.io
  */
@@ -68,6 +71,13 @@ RS232.on( 'ready', function() {
 
 
         /**
+         * Musique de démarrage
+         */
+        playSound( 'winner_sound' );
+
+
+
+        /**
          * Initialisation de socket.io
          */
         var msg = "Un client s’est connecté.";
@@ -79,9 +89,26 @@ RS232.on( 'ready', function() {
         /**
          * Gestion du son
          */
-         function playSound( Sound ) {
-             if( process.platform == 'linux' ) {
+         /*
+        function playSound( Sound ) {
+            if( process.platform == 'linux' ) {
                 child_process.execFile( '/home/pi/quizz/sons/play.sh', [ Sound ], function( err, result ) {
+                    console.log( Sound )
+                });
+            }
+        };
+        */
+        function playSound( Sound ) {
+            switch( Sound )
+            {
+                case 'loser_sound':   Sound = '/home/pi/quizz/sons/wah_wah_sound.aif';                break;
+                // case 'shotgun_sound': Sound = '/home/pi/quizz/sons/Shotgun_Sound_Effect.aif';         break;
+                case 'shotgun_sound': Sound = '/home/pi/quizz/sons/DivingSynthEffects04.aif';         break;
+                case 'winner_sound':  Sound = '/home/pi/quizz/sons/That_s_All_Folks_WDJRfvbCdh8.aif'; break;
+            }
+            if( process.platform == 'linux' ) {
+                // child_process.execFile( '/home/pi/quizz/sons/play.sh', [ Sound ], function( err, result ) {
+                child_process.execFile( 'paplay', [ Sound ], function( err, result ) {
                     console.log( Sound )
                 });
             }
