@@ -194,6 +194,7 @@ RS232.on( 'ready', function() {
         };
 
 
+
         /**
          * Gestion du timer de compte à rebours
          */
