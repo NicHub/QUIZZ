@@ -80,19 +80,19 @@
 		});
 		// Vidéo inverse
 		$( '#butVideoInv' ).click( function() {
-			socket.emit( 'sendToAll', "-4\n" );
+			socket.emit( 'sendToAll', "-4" );
 		});
 		// Vidéo normale
 		$( '#butVideoNorm' ).click( function() {
-			socket.emit( 'sendToAll', "-5\n" );
+			socket.emit( 'sendToAll', "-5" );
 		});
 		// Effacer les écrans
 		$( '#butClearScreens' ).click( function() {
-			socket.emit( 'sendToAll', "-2\n" );
+			socket.emit( 'sendToAll', "-2" );
 		});
 		// Remplir les écrans
 		$( '#butFillScreens' ).click( function() {
-			socket.emit( 'sendToAll', "-3\n" );
+			socket.emit( 'sendToAll', "-3" );
 		});
 		// Winner sound
 		$( '#butWinnerSound' ).click( function() {

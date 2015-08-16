@@ -87,27 +87,33 @@ RS232.on( 'ready', function() {
 
 
         /**
+         * Initialisation des matrices
+         */
+        MX0Write( '-5' );
+        MX1Write( '-5' );
+        MX2Write( '-5' );
+        MX3Write( '-5' );
+        MX4Write( '-5' );
+
+        MX0Write( '60' );
+        MX1Write(  '0' );
+        MX2Write(  '0' );
+        MX3Write(  '0' );
+        MX4Write(  '0' );
+
+
+
+        /**
          * Gestion du son
          */
-         /*
-        function playSound( Sound ) {
-            if( process.platform == 'linux' ) {
-                child_process.execFile( '/home/pi/quizz/sons/play.sh', [ Sound ], function( err, result ) {
-                    console.log( Sound )
-                });
-            }
-        };
-        */
         function playSound( Sound ) {
             switch( Sound )
             {
                 case 'loser_sound':   Sound = '/home/pi/quizz/sons/wah_wah_sound.aif';                break;
-                // case 'shotgun_sound': Sound = '/home/pi/quizz/sons/Shotgun_Sound_Effect.aif';         break;
                 case 'shotgun_sound': Sound = '/home/pi/quizz/sons/DivingSynthEffects04.aif';         break;
                 case 'winner_sound':  Sound = '/home/pi/quizz/sons/That_s_All_Folks_WDJRfvbCdh8.aif'; break;
             }
             if( process.platform == 'linux' ) {
-                // child_process.execFile( '/home/pi/quizz/sons/play.sh', [ Sound ], function( err, result ) {
                 child_process.execFile( 'paplay', [ Sound ], function( err, result ) {
                     console.log( Sound )
                 });
@@ -124,57 +130,68 @@ RS232.on( 'ready', function() {
          * Gestion de l’affichage
          */
         // MX0
-        function MX0Write( val ) {
-            RS232.devices[ 'MX0' ].write( val + "\n", function( err, results ) {
-                console.log( 'Write ' + val + ' to MX0 | results ' + results );
-            });
-        };
         socket.on( 'butMX_VAL_0', function( cmd ) {
             MX0Write( cmd );
         });
         // MX1
         socket.on( 'butMX_VAL_1', function( cmd ) {
-            RS232.devices[ 'MX1' ].write( cmd + "\n", function( err, results ) {
-                console.log( 'Write ' + cmd + ' to MX1 | results ' + results );
-            });
+            MX1Write( cmd );
         });
         // MX2
         socket.on( 'butMX_VAL_2', function( cmd ) {
-            RS232.devices[ 'MX2' ].write( cmd + "\n", function( err, results ) {
-                console.log( 'Write ' + cmd + ' to MX2 | results ' + results );
-            });
+            MX2Write( cmd );
         });
         // MX3
         socket.on( 'butMX_VAL_3', function( cmd ) {
-            RS232.devices[ 'MX3' ].write( cmd + "\n", function( err, results ) {
-                console.log( 'Write ' + cmd + ' to MX3 | results ' + results );
-            });
+            MX3Write( cmd );
         });
         // MX4
         socket.on( 'butMX_VAL_4', function( cmd ) {
-            RS232.devices[ 'MX4' ].write( cmd + "\n", function( err, results ) {
-                console.log( 'Write ' + cmd + ' to MX4 | results ' + results );
-            });
+            MX4Write( cmd );
         });
         // Envoyer à toutes les matrices
         socket.on( 'sendToAll', function( cmd ) {
+            MX0Write( cmd );
+            MX1Write( cmd );
+            MX2Write( cmd );
+            MX3Write( cmd );
+            MX4Write( cmd );
+        });
+
+        function MX0Write( cmd ) {
+            cmd = String( cmd ) + "\n";
             RS232.devices[ 'MX0' ].write( cmd, function( err, results ) {
                 console.log( 'Write ' + cmd + ' to MX0 | results ' + results );
             });
+        };
+
+        function MX1Write( cmd ) {
+            cmd = String( cmd ) + "\n";
             RS232.devices[ 'MX1' ].write( cmd, function( err, results ) {
                 console.log( 'Write ' + cmd + ' to MX1 | results ' + results );
             });
+        };
+
+        function MX2Write( cmd ) {
+            cmd = String( cmd ) + "\n";
             RS232.devices[ 'MX2' ].write( cmd, function( err, results ) {
                 console.log( 'Write ' + cmd + ' to MX2 | results ' + results );
             });
+        };
+
+        function MX3Write( cmd ) {
+            cmd = String( cmd ) + "\n";
             RS232.devices[ 'MX3' ].write( cmd, function( err, results ) {
                 console.log( 'Write ' + cmd + ' to MX3 | results ' + results );
             });
+        };
+
+        function MX4Write( cmd ) {
+            cmd = String( cmd ) + "\n";
             RS232.devices[ 'MX4' ].write( cmd, function( err, results ) {
                 console.log( 'Write ' + cmd + ' to MX4 | results ' + results );
             });
-        });
-
+        };
 
 
         /**
