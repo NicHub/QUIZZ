@@ -26,19 +26,22 @@
 
 case "$1" in
 winner_sound)           echo -e "\nWinner sound !!!\n"
-                        mpg321 /home/pi/quizz/sons/That_s_All_Folks_WDJRfvbCdh8.mp3 -g 100
+                        paplay /home/pi/quizz/sons/That_s_All_Folks_WDJRfvbCdh8.aif --volume 15000 &
                         ;;
 
 loser_sound)            echo -e "\nLoser sound\n"
-                        mpg321 /home/pi/quizz/sons/wah_wah_sound.mp3 -g 100
+                        paplay /home/pi/quizz/sons/wah_wah_sound.aif --volume 15000 &
                         ;;
 shotgun_sound)          echo -e "\nShotgun sound\n"
-                        mpg321 /home/pi/quizz/sons/Shotgun_Sound_Effect.mp3 -g 100
+                        paplay /home/pi/quizz/sons/Shotgun_Sound_Effect.aif --volume 15000 &
                         ;;
 *)                      echo -e "\n !!! Usage: ./play.sh winner_sound|loser_sound !!!\n"
-                        mpg321 /home/pi/quizz/sons/That_s_All_Folks_WDJRfvbCdh8.mp3 -g 100
+                        paplay /home/pi/quizz/sons/That_s_All_Folks_WDJRfvbCdh8.aif --volume 15000 &
                         exit 1
                         ;;
 esac
+
+
 exit 0
+
 
