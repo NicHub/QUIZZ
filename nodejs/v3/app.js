@@ -86,6 +86,42 @@ RS232.on( 'ready', function() {
 
 
 
+
+var MX0Write = function ( cmd ) {
+    cmd = String( cmd ) + "\n";
+    RS232.devices.MX0.write( cmd, function( err, results ) {
+        console.log( 'Write ' + cmd + ' to MX0 | results ' + results );
+    });
+};
+
+function MX1Write( cmd ) {
+    cmd = String( cmd ) + "\n";
+    RS232.devices[ 'MX1' ].write( cmd, function( err, results ) {
+        console.log( 'Write ' + cmd + ' to MX1 | results ' + results );
+    });
+};
+
+function MX2Write( cmd ) {
+    cmd = String( cmd ) + "\n";
+    RS232.devices[ 'MX2' ].write( cmd, function( err, results ) {
+        console.log( 'Write ' + cmd + ' to MX2 | results ' + results );
+    });
+};
+
+function MX3Write( cmd ) {
+    cmd = String( cmd ) + "\n";
+    RS232.devices[ 'MX3' ].write( cmd, function( err, results ) {
+        console.log( 'Write ' + cmd + ' to MX3 | results ' + results );
+    });
+};
+
+function MX4Write( cmd ) {
+    cmd = String( cmd ) + "\n";
+    RS232.devices[ 'MX4' ].write( cmd, function( err, results ) {
+        console.log( 'Write ' + cmd + ' to MX4 | results ' + results );
+    });
+};
+
         /**
          * Initialisation des matrices
          */
@@ -157,41 +193,6 @@ RS232.on( 'ready', function() {
             MX3Write( cmd );
             MX4Write( cmd );
         });
-
-        function MX0Write( cmd ) {
-            cmd = String( cmd ) + "\n";
-            RS232.devices[ 'MX0' ].write( cmd, function( err, results ) {
-                console.log( 'Write ' + cmd + ' to MX0 | results ' + results );
-            });
-        };
-
-        function MX1Write( cmd ) {
-            cmd = String( cmd ) + "\n";
-            RS232.devices[ 'MX1' ].write( cmd, function( err, results ) {
-                console.log( 'Write ' + cmd + ' to MX1 | results ' + results );
-            });
-        };
-
-        function MX2Write( cmd ) {
-            cmd = String( cmd ) + "\n";
-            RS232.devices[ 'MX2' ].write( cmd, function( err, results ) {
-                console.log( 'Write ' + cmd + ' to MX2 | results ' + results );
-            });
-        };
-
-        function MX3Write( cmd ) {
-            cmd = String( cmd ) + "\n";
-            RS232.devices[ 'MX3' ].write( cmd, function( err, results ) {
-                console.log( 'Write ' + cmd + ' to MX3 | results ' + results );
-            });
-        };
-
-        function MX4Write( cmd ) {
-            cmd = String( cmd ) + "\n";
-            RS232.devices[ 'MX4' ].write( cmd, function( err, results ) {
-                console.log( 'Write ' + cmd + ' to MX4 | results ' + results );
-            });
-        };
 
 
 
@@ -317,7 +318,7 @@ RS232.on( 'ready', function() {
         });
 
         function videoNormalePourTous() {
-            RS232.devices[ 'MX1' ].write( "-5\n", function( err, results ) {
+            RS232.devices.MX1.write( "-5\n", function( err, results ) {
                 console.log( 'Write -5 to MX1 results ' + results );
             });
             RS232.devices[ 'MX2' ].write( "-5\n", function( err, results ) {

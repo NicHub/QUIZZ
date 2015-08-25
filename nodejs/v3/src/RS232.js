@@ -53,19 +53,19 @@ function openRS232( callback ) {
                                     var MXname = String( dataRead ).slice( 0, -1 );
                                     RS232Devices[ MXname ] = RS232Device;
                                     console.log( MXname + " is connected to port " + RS232Devices[ MXname ].path );
-                                    if( --nbPorts == 0 ) { callback( 'ready' ); }
+                                    if( --nbPorts === 0 ) { callback( 'ready' ); }
                                 });
                             });
                         });
                     });
                 }
                 catch( err ) {
-                    console.log( "Problem opening port  " + port.comName )
+                    console.log( "Problem opening port  " + port.comName );
                 }
             })( port );
         });
     });
-};
+}
 
 var EventEmitter = require( 'events' ).EventEmitter;
 
