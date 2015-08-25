@@ -321,13 +321,13 @@ function MX4Write( cmd ) {
             RS232.devices.MX1.write( "-5\n", function( err, results ) {
                 console.log( 'Write -5 to MX1 results ' + results );
             });
-            RS232.devices[ 'MX2' ].write( "-5\n", function( err, results ) {
+            RS232.devices.MX2.write( "-5\n", function( err, results ) {
                 console.log( 'Write -5 to MX2 results ' + results );
             });
-            RS232.devices[ 'MX3' ].write( "-5\n", function( err, results ) {
+            RS232.devices.MX3.write( "-5\n", function( err, results ) {
                 console.log( 'Write -5 to MX3 results ' + results );
             });
-            RS232.devices[ 'MX4' ].write( "-5\n", function( err, results ) {
+            RS232.devices.MX4.write( "-5\n", function( err, results ) {
                 console.log( 'Write -5 to MX4 results ' + results );
             });
         };
