@@ -2,6 +2,8 @@
 **CONFIGURATION AWS GIT**
 =========================
 
+<http://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html>
+
 # PIP + AWS CLI
 
 	aws --version
@@ -47,3 +49,10 @@ git clone ssh://git-codecommit.us-east-1.amazonaws.com/v1/repos/QUIZZ quizz-aws
 
 
 
+# Keychain
+
+Le mot de passe est modifié automatiquement toutes les 15 min par AWS. Il faut donc supprimer celui enregistré dans le Keychain “git-codecommit.us-east-1.amazonaws.com”
+
+Le mot de passe peut être supprimé avec la commande :
+
+	security delete-internet-password -l "git-codecommit.us-east-1.amazonaws.com" ~/Library/Keychains/login.keychain
