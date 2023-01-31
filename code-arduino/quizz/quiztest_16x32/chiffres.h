@@ -1,1 +1,0 @@
-../quiztest_32x32/chiffres.h

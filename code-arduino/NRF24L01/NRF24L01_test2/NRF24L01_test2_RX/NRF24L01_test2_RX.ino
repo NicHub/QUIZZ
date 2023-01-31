@@ -59,7 +59,7 @@ void loop()   /****** LOOP: RUNS CONSTANTLY ******/
     while (!done)
     {
       // Fetch the data payload
-      done = radio.read( joystick, sizeof(joystick) );
+      radio.read( joystick, sizeof(joystick) );
       Serial.print("X = ");
       Serial.print(joystick[0]);
       Serial.print(" Y = ");
